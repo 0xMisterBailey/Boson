@@ -1,0 +1,3830 @@
+{
+ "id": "df6ee630-4029-437a-be2b-3ee9206d0b35",
+ "revision": 0,
+ "last_node_id": 30,
+ "last_link_id": 32,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "BosonLoadStudio",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "repo",
+     "locked": null,
+     "name": "repo",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "repo"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "ref",
+     "locked": null,
+     "name": "ref",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "ref"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "STUDIO",
+     "locked": null,
+     "name": "STUDIO",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      1
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLoadStudio"
+   },
+   "widgets_values": [
+    "~/.cache/boson/studios/ninefathom-posters",
+    "main"
+   ],
+   "widgets_values_named": {
+    "repo": "~/.cache/boson/studios/ninefathom-posters",
+    "ref": "main"
+   }
+  },
+  {
+   "id": 2,
+   "type": "BosonDraftBrief",
+   "pos": [
+    400,
+    0
+   ],
+   "size": [
+    270,
+    186
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 1
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "pieces",
+     "locked": null,
+     "name": "pieces",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "pieces"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "draw",
+     "locked": null,
+     "name": "draw",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "draw"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "lead",
+     "locked": null,
+     "name": "lead",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "lead"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      2
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "prompts",
+     "locked": null,
+     "name": "prompts",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 6,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "brief",
+     "locked": null,
+     "name": "brief",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "writer",
+     "locked": null,
+     "name": "writer",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "draft",
+     "locked": null,
+     "name": "draft",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "BOSON_DRAFT",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonDraftBrief"
+   },
+   "widgets_values": [
+    8,
+    0,
+    ""
+   ],
+   "widgets_values_named": {
+    "pieces": 8,
+    "draw": 0,
+    "lead": ""
+   }
+  },
+  {
+   "id": 3,
+   "type": "BosonNanoBanana",
+   "pos": [
+    800,
+    0
+   ],
+   "size": [
+    270,
+    162
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 2
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_1",
+     "locked": null,
+     "name": "image_1",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_2",
+     "locked": null,
+     "name": "image_2",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_3",
+     "locked": null,
+     "name": "image_3",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_4",
+     "locked": null,
+     "name": "image_4",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "mode",
+     "locked": null,
+     "name": "mode",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "COMBO",
+     "widget": {
+      "name": "mode"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "draws",
+     "locked": null,
+     "name": "draws",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "draws"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "images",
+     "locked": null,
+     "name": "images",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 6,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      3,
+      5
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      4
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonNanoBanana"
+   },
+   "widgets_values": [
+    "live",
+    1
+   ],
+   "widgets_values_named": {
+    "mode": "live",
+    "draws": 1
+   }
+  },
+  {
+   "id": 4,
+   "type": "ImageFromBatch",
+   "pos": [
+    1300,
+    0
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 15,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image",
+     "locked": null,
+     "name": "image",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 3
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "batch_index",
+     "locked": null,
+     "name": "batch_index",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "batch_index"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "length",
+     "locked": null,
+     "name": "length",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "length"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "IMAGE",
+     "locked": null,
+     "name": "IMAGE",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      11
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ImageFromBatch"
+   },
+   "widgets_values": [
+    0,
+    1
+   ],
+   "widgets_values_named": {
+    "batch_index": 0,
+    "length": 1
+   }
+  },
+  {
+   "id": 5,
+   "type": "BosonVerdict",
+   "pos": [
+    1300,
+    260
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 4
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "images",
+     "locked": null,
+     "name": "images",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 5
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "verdict",
+     "locked": null,
+     "name": "verdict",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "verdict"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "STUDIO",
+     "locked": null,
+     "name": "STUDIO",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonVerdict"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "verdict": ""
+   }
+  },
+  {
+   "id": 6,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    760
+   ],
+   "size": [
+    280,
+    102
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image",
+     "locked": null,
+     "name": "image",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "choose file to upload",
+     "locked": null,
+     "name": "upload",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "IMAGE",
+     "locked": null,
+     "name": "IMAGE",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      8
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "MASK",
+     "locked": null,
+     "name": "MASK",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "MASK",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "tenfoot-view.png",
+    "image"
+   ],
+   "widgets_values_named": {
+    "image": "tenfoot-view.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 7,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    1220
+   ],
+   "size": [
+    280,
+    102
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image",
+     "locked": null,
+     "name": "image",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "choose file to upload",
+     "locked": null,
+     "name": "upload",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "IMAGE",
+     "locked": null,
+     "name": "IMAGE",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      9
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "MASK",
+     "locked": null,
+     "name": "MASK",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "MASK",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "tenfoot-outfit.png",
+    "image"
+   ],
+   "widgets_values_named": {
+    "image": "tenfoot-outfit.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 8,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    1680
+   ],
+   "size": [
+    280,
+    102
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image",
+     "locked": null,
+     "name": "image",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "choose file to upload",
+     "locked": null,
+     "name": "upload",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "IMAGE",
+     "locked": null,
+     "name": "IMAGE",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      10
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "MASK",
+     "locked": null,
+     "name": "MASK",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "MASK",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "tenfoot-car.png",
+    "image"
+   ],
+   "widgets_values_named": {
+    "image": "tenfoot-car.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 9,
+   "type": "BosonLoadStudio",
+   "pos": [
+    400,
+    760
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "repo",
+     "locked": null,
+     "name": "repo",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "repo"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "ref",
+     "locked": null,
+     "name": "ref",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "ref"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "STUDIO",
+     "locked": null,
+     "name": "STUDIO",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      6
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLoadStudio"
+   },
+   "widgets_values": [
+    "~/Boson/tests/fixtures/poc/tenfoot-photographs.bundle",
+    "8f5006c1"
+   ],
+   "widgets_values_named": {
+    "repo": "~/Boson/tests/fixtures/poc/tenfoot-photographs.bundle",
+    "ref": "8f5006c1"
+   }
+  },
+  {
+   "id": 10,
+   "type": "BosonDraftBrief",
+   "pos": [
+    800,
+    760
+   ],
+   "size": [
+    270,
+    186
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 6
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "pieces",
+     "locked": null,
+     "name": "pieces",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "pieces"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "draw",
+     "locked": null,
+     "name": "draw",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "draw"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "lead",
+     "locked": null,
+     "name": "lead",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "lead"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      7
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "prompts",
+     "locked": null,
+     "name": "prompts",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 6,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "brief",
+     "locked": null,
+     "name": "brief",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "writer",
+     "locked": null,
+     "name": "writer",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "draft",
+     "locked": null,
+     "name": "draft",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "BOSON_DRAFT",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonDraftBrief"
+   },
+   "widgets_values": [
+    8,
+    0,
+    ""
+   ],
+   "widgets_values_named": {
+    "pieces": 8,
+    "draw": 0,
+    "lead": ""
+   }
+  },
+  {
+   "id": 11,
+   "type": "BosonNanoBanana",
+   "pos": [
+    1300,
+    760
+   ],
+   "size": [
+    270,
+    162
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 7
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_1",
+     "locked": null,
+     "name": "image_1",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 8
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_2",
+     "locked": null,
+     "name": "image_2",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 9
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_3",
+     "locked": null,
+     "name": "image_3",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 10
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_4",
+     "locked": null,
+     "name": "image_4",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 11
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "mode",
+     "locked": null,
+     "name": "mode",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "COMBO",
+     "widget": {
+      "name": "mode"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "draws",
+     "locked": null,
+     "name": "draws",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "draws"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "images",
+     "locked": null,
+     "name": "images",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 6,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      12,
+      14
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      13
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonNanoBanana"
+   },
+   "widgets_values": [
+    "live",
+    1
+   ],
+   "widgets_values_named": {
+    "mode": "live",
+    "draws": 1
+   }
+  },
+  {
+   "id": 12,
+   "type": "ImageFromBatch",
+   "pos": [
+    1800,
+    760
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 18,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image",
+     "locked": null,
+     "name": "image",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 12
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "batch_index",
+     "locked": null,
+     "name": "batch_index",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "batch_index"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "length",
+     "locked": null,
+     "name": "length",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "length"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "IMAGE",
+     "locked": null,
+     "name": "IMAGE",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      15,
+      16,
+      17
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ImageFromBatch"
+   },
+   "widgets_values": [
+    7,
+    1
+   ],
+   "widgets_values_named": {
+    "batch_index": 7,
+    "length": 1
+   }
+  },
+  {
+   "id": 13,
+   "type": "BosonVerdict",
+   "pos": [
+    1800,
+    1020
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 19,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 13
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "images",
+     "locked": null,
+     "name": "images",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 14
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "verdict",
+     "locked": null,
+     "name": "verdict",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "verdict"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "STUDIO",
+     "locked": null,
+     "name": "STUDIO",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonVerdict"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "verdict": ""
+   }
+  },
+  {
+   "id": 14,
+   "type": "ImageCropV2",
+   "pos": [
+    2260,
+    0
+   ],
+   "size": [
+    300,
+    450
+   ],
+   "flags": {},
+   "order": 20,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image",
+     "locked": null,
+     "name": "image",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 15
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "crop_region",
+     "locked": null,
+     "name": "crop_region",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "BOUNDING_BOX",
+     "widget": {
+      "name": "crop_region"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "IMAGE",
+     "locked": null,
+     "name": "IMAGE",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      20
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ImageCropV2"
+   },
+   "widgets_values": [
+    {
+     "x": 1926,
+     "y": 1828,
+     "width": 1761,
+     "height": 991
+    },
+    1926,
+    1828,
+    1761,
+    991
+   ],
+   "widgets_values_named": {
+    "crop_region": {
+     "x": 1926,
+     "y": 1828,
+     "width": 1761,
+     "height": 991
+    },
+    "x": 1926,
+    "y": 1828,
+    "width": 1761,
+    "height": 991
+   }
+  },
+  {
+   "id": 15,
+   "type": "ImageCropV2",
+   "pos": [
+    2260,
+    760
+   ],
+   "size": [
+    300,
+    450
+   ],
+   "flags": {},
+   "order": 21,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image",
+     "locked": null,
+     "name": "image",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 16
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "crop_region",
+     "locked": null,
+     "name": "crop_region",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "BOUNDING_BOX",
+     "widget": {
+      "name": "crop_region"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "IMAGE",
+     "locked": null,
+     "name": "IMAGE",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      27
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ImageCropV2"
+   },
+   "widgets_values": [
+    {
+     "x": 3853,
+     "y": 1819,
+     "width": 1651,
+     "height": 929
+    },
+    3853,
+    1819,
+    1651,
+    929
+   ],
+   "widgets_values_named": {
+    "crop_region": {
+     "x": 3853,
+     "y": 1819,
+     "width": 1651,
+     "height": 929
+    },
+    "x": 3853,
+    "y": 1819,
+    "width": 1651,
+    "height": 929
+   }
+  },
+  {
+   "id": 16,
+   "type": "ImageCropV2",
+   "pos": [
+    2260,
+    1520
+   ],
+   "size": [
+    300,
+    450
+   ],
+   "flags": {},
+   "order": 22,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image",
+     "locked": null,
+     "name": "image",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 17
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "crop_region",
+     "locked": null,
+     "name": "crop_region",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "BOUNDING_BOX",
+     "widget": {
+      "name": "crop_region"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "IMAGE",
+     "locked": null,
+     "name": "IMAGE",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      30
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ImageCropV2"
+   },
+   "widgets_values": [
+    {
+     "x": 2202,
+     "y": 1450,
+     "width": 1156,
+     "height": 650
+    },
+    2202,
+    1450,
+    1156,
+    650
+   ],
+   "widgets_values_named": {
+    "crop_region": {
+     "x": 2202,
+     "y": 1450,
+     "width": 1156,
+     "height": 650
+    },
+    "x": 2202,
+    "y": 1450,
+    "width": 1156,
+    "height": 650
+   }
+  },
+  {
+   "id": 17,
+   "type": "BosonLoadStudio",
+   "pos": [
+    2720,
+    0
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "repo",
+     "locked": null,
+     "name": "repo",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "repo"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "ref",
+     "locked": null,
+     "name": "ref",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "ref"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "STUDIO",
+     "locked": null,
+     "name": "STUDIO",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      18
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLoadStudio"
+   },
+   "widgets_values": [
+    "~/.cache/boson/studios/halvard-lookbook",
+    "main"
+   ],
+   "widgets_values_named": {
+    "repo": "~/.cache/boson/studios/halvard-lookbook",
+    "ref": "main"
+   }
+  },
+  {
+   "id": 18,
+   "type": "BosonDraftBrief",
+   "pos": [
+    3120,
+    0
+   ],
+   "size": [
+    270,
+    186
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 18
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "pieces",
+     "locked": null,
+     "name": "pieces",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "pieces"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "draw",
+     "locked": null,
+     "name": "draw",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "draw"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "lead",
+     "locked": null,
+     "name": "lead",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "lead"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      19
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "prompts",
+     "locked": null,
+     "name": "prompts",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 6,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "brief",
+     "locked": null,
+     "name": "brief",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "writer",
+     "locked": null,
+     "name": "writer",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "draft",
+     "locked": null,
+     "name": "draft",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "BOSON_DRAFT",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonDraftBrief"
+   },
+   "widgets_values": [
+    8,
+    0,
+    ""
+   ],
+   "widgets_values_named": {
+    "pieces": 8,
+    "draw": 0,
+    "lead": ""
+   }
+  },
+  {
+   "id": 19,
+   "type": "BosonNanoBanana",
+   "pos": [
+    3520,
+    0
+   ],
+   "size": [
+    270,
+    162
+   ],
+   "flags": {},
+   "order": 23,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 19
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_1",
+     "locked": null,
+     "name": "image_1",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 20
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_2",
+     "locked": null,
+     "name": "image_2",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_3",
+     "locked": null,
+     "name": "image_3",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_4",
+     "locked": null,
+     "name": "image_4",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "mode",
+     "locked": null,
+     "name": "mode",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "COMBO",
+     "widget": {
+      "name": "mode"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "draws",
+     "locked": null,
+     "name": "draws",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "draws"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "images",
+     "locked": null,
+     "name": "images",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 6,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      22
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      21
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonNanoBanana"
+   },
+   "widgets_values": [
+    "live",
+    1
+   ],
+   "widgets_values_named": {
+    "mode": "live",
+    "draws": 1
+   }
+  },
+  {
+   "id": 20,
+   "type": "BosonVerdict",
+   "pos": [
+    4020,
+    0
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 26,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 21
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "images",
+     "locked": null,
+     "name": "images",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 22
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "verdict",
+     "locked": null,
+     "name": "verdict",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "verdict"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "STUDIO",
+     "locked": null,
+     "name": "STUDIO",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      23
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonVerdict"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "verdict": ""
+   }
+  },
+  {
+   "id": 21,
+   "type": "BosonDigest",
+   "pos": [
+    4020,
+    330
+   ],
+   "size": [
+    140,
+    46
+   ],
+   "flags": {},
+   "order": 28,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 23
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      24
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "proposed",
+     "locked": null,
+     "name": "proposed",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonDigest"
+   }
+  },
+  {
+   "id": 22,
+   "type": "BosonApproveRules",
+   "pos": [
+    4020,
+    520
+   ],
+   "size": [
+    270,
+    58
+   ],
+   "flags": {},
+   "order": 29,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 24
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "picks",
+     "locked": null,
+     "name": "picks",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "picks"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "STUDIO",
+     "locked": null,
+     "name": "STUDIO",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonApproveRules"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "picks": ""
+   }
+  },
+  {
+   "id": 23,
+   "type": "BosonLoadStudio",
+   "pos": [
+    2720,
+    760
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "repo",
+     "locked": null,
+     "name": "repo",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "repo"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "ref",
+     "locked": null,
+     "name": "ref",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "ref"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "STUDIO",
+     "locked": null,
+     "name": "STUDIO",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      25
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLoadStudio"
+   },
+   "widgets_values": [
+    "~/.cache/boson/studios/estran-cars",
+    "main"
+   ],
+   "widgets_values_named": {
+    "repo": "~/.cache/boson/studios/estran-cars",
+    "ref": "main"
+   }
+  },
+  {
+   "id": 24,
+   "type": "BosonDraftBrief",
+   "pos": [
+    3120,
+    760
+   ],
+   "size": [
+    270,
+    186
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 25
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "pieces",
+     "locked": null,
+     "name": "pieces",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "pieces"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "draw",
+     "locked": null,
+     "name": "draw",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "draw"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "lead",
+     "locked": null,
+     "name": "lead",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "lead"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      26
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "prompts",
+     "locked": null,
+     "name": "prompts",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 6,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "brief",
+     "locked": null,
+     "name": "brief",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "writer",
+     "locked": null,
+     "name": "writer",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "draft",
+     "locked": null,
+     "name": "draft",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "BOSON_DRAFT",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonDraftBrief"
+   },
+   "widgets_values": [
+    8,
+    0,
+    ""
+   ],
+   "widgets_values_named": {
+    "pieces": 8,
+    "draw": 0,
+    "lead": ""
+   }
+  },
+  {
+   "id": 25,
+   "type": "BosonNanoBanana",
+   "pos": [
+    3520,
+    760
+   ],
+   "size": [
+    270,
+    162
+   ],
+   "flags": {},
+   "order": 24,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 26
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_1",
+     "locked": null,
+     "name": "image_1",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 27
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_2",
+     "locked": null,
+     "name": "image_2",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_3",
+     "locked": null,
+     "name": "image_3",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "image_4",
+     "locked": null,
+     "name": "image_4",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "IMAGE",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "mode",
+     "locked": null,
+     "name": "mode",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "COMBO",
+     "widget": {
+      "name": "mode"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "draws",
+     "locked": null,
+     "name": "draws",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "draws"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "images",
+     "locked": null,
+     "name": "images",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 6,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      29
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      28
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonNanoBanana"
+   },
+   "widgets_values": [
+    "live",
+    1
+   ],
+   "widgets_values_named": {
+    "mode": "live",
+    "draws": 1
+   }
+  },
+  {
+   "id": 26,
+   "type": "BosonVerdict",
+   "pos": [
+    4020,
+    760
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 27,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 28
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "images",
+     "locked": null,
+     "name": "images",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 29
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "verdict",
+     "locked": null,
+     "name": "verdict",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "verdict"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "STUDIO",
+     "locked": null,
+     "name": "STUDIO",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonVerdict"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "verdict": ""
+   }
+  },
+  {
+   "id": 27,
+   "type": "PreviewImage",
+   "pos": [
+    2720,
+    1520
+   ],
+   "size": [
+    140,
+    26
+   ],
+   "flags": {},
+   "order": 25,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "images",
+     "locked": null,
+     "name": "images",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 30
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "images",
+     "locked": null,
+     "name": "images",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   }
+  },
+  {
+   "id": 28,
+   "type": "BosonLoadStudio",
+   "pos": [
+    2720,
+    1880
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "repo",
+     "locked": null,
+     "name": "repo",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "repo"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "ref",
+     "locked": null,
+     "name": "ref",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "ref"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "STUDIO",
+     "locked": null,
+     "name": "STUDIO",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      31
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLoadStudio"
+   },
+   "widgets_values": [
+    "~/Boson/tests/fixtures/poc/tenfoot-photographs.bundle",
+    "8f5006c1"
+   ],
+   "widgets_values_named": {
+    "repo": "~/Boson/tests/fixtures/poc/tenfoot-photographs.bundle",
+    "ref": "8f5006c1"
+   }
+  },
+  {
+   "id": 29,
+   "type": "BosonGrid",
+   "pos": [
+    3120,
+    1880
+   ],
+   "size": [
+    270,
+    402
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "studio",
+     "locked": null,
+     "name": "studio",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STUDIO",
+     "pos": null,
+     "link": 31
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "row_1",
+     "locked": null,
+     "name": "row_1",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "GRIDROW",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "row_2",
+     "locked": null,
+     "name": "row_2",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "GRIDROW",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "row_3",
+     "locked": null,
+     "name": "row_3",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "GRIDROW",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "row_4",
+     "locked": null,
+     "name": "row_4",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "GRIDROW",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "row_5",
+     "locked": null,
+     "name": "row_5",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "GRIDROW",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "row_6",
+     "locked": null,
+     "name": "row_6",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "GRIDROW",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "row_7",
+     "locked": null,
+     "name": "row_7",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "GRIDROW",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "row_8",
+     "locked": null,
+     "name": "row_8",
+     "nameLocked": null,
+     "removable": null,
+     "shape": 7,
+     "type": "GRIDROW",
+     "pos": null,
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "refs",
+     "locked": null,
+     "name": "refs",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "refs"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "cells",
+     "locked": null,
+     "name": "cells",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "INT",
+     "widget": {
+      "name": "cells"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "variant",
+     "locked": null,
+     "name": "variant",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "widget": {
+      "name": "variant"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "mode",
+     "locked": null,
+     "name": "mode",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "COMBO",
+     "widget": {
+      "name": "mode"
+     },
+     "link": null
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "arm",
+     "locked": null,
+     "name": "arm",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "COMBO",
+     "widget": {
+      "name": "arm"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "grid",
+     "locked": null,
+     "name": "grid",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": [
+      32
+     ]
+    },
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "readout",
+     "locked": null,
+     "name": "readout",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "STRING",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonGrid"
+   },
+   "widgets_values": [
+    "r00,r01",
+    8,
+    "",
+    "stored",
+    "orig"
+   ],
+   "widgets_values_named": {
+    "refs": "r00,r01",
+    "cells": 8,
+    "variant": "",
+    "mode": "stored",
+    "arm": "orig"
+   }
+  },
+  {
+   "id": 30,
+   "type": "PreviewImage",
+   "pos": [
+    3520,
+    1880
+   ],
+   "size": [
+    1400,
+    260
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "showAdvanced": null,
+   "inputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "images",
+     "locked": null,
+     "name": "images",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "link": 32
+    }
+   ],
+   "outputs": [
+    {
+     "color_off": null,
+     "color_on": null,
+     "dir": null,
+     "label": null,
+     "localized_name": "images",
+     "locked": null,
+     "name": "images",
+     "nameLocked": null,
+     "removable": null,
+     "shape": null,
+     "type": "IMAGE",
+     "pos": null,
+     "slot_index": null,
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   }
+  }
+ ],
+ "links": [
+  [
+   1,
+   1,
+   0,
+   2,
+   0,
+   "STUDIO"
+  ],
+  [
+   2,
+   2,
+   0,
+   3,
+   0,
+   "STUDIO"
+  ],
+  [
+   3,
+   3,
+   0,
+   4,
+   0,
+   "IMAGE"
+  ],
+  [
+   4,
+   3,
+   1,
+   5,
+   0,
+   "STUDIO"
+  ],
+  [
+   5,
+   3,
+   0,
+   5,
+   1,
+   "IMAGE"
+  ],
+  [
+   6,
+   9,
+   0,
+   10,
+   0,
+   "STUDIO"
+  ],
+  [
+   7,
+   10,
+   0,
+   11,
+   0,
+   "STUDIO"
+  ],
+  [
+   8,
+   6,
+   0,
+   11,
+   1,
+   "IMAGE"
+  ],
+  [
+   9,
+   7,
+   0,
+   11,
+   2,
+   "IMAGE"
+  ],
+  [
+   10,
+   8,
+   0,
+   11,
+   3,
+   "IMAGE"
+  ],
+  [
+   11,
+   4,
+   0,
+   11,
+   4,
+   "IMAGE"
+  ],
+  [
+   12,
+   11,
+   0,
+   12,
+   0,
+   "IMAGE"
+  ],
+  [
+   13,
+   11,
+   1,
+   13,
+   0,
+   "STUDIO"
+  ],
+  [
+   14,
+   11,
+   0,
+   13,
+   1,
+   "IMAGE"
+  ],
+  [
+   15,
+   12,
+   0,
+   14,
+   0,
+   "IMAGE"
+  ],
+  [
+   16,
+   12,
+   0,
+   15,
+   0,
+   "IMAGE"
+  ],
+  [
+   17,
+   12,
+   0,
+   16,
+   0,
+   "IMAGE"
+  ],
+  [
+   18,
+   17,
+   0,
+   18,
+   0,
+   "STUDIO"
+  ],
+  [
+   19,
+   18,
+   0,
+   19,
+   0,
+   "STUDIO"
+  ],
+  [
+   20,
+   14,
+   0,
+   19,
+   1,
+   "IMAGE"
+  ],
+  [
+   21,
+   19,
+   1,
+   20,
+   0,
+   "STUDIO"
+  ],
+  [
+   22,
+   19,
+   0,
+   20,
+   1,
+   "IMAGE"
+  ],
+  [
+   23,
+   20,
+   0,
+   21,
+   0,
+   "STUDIO"
+  ],
+  [
+   24,
+   21,
+   0,
+   22,
+   0,
+   "STUDIO"
+  ],
+  [
+   25,
+   23,
+   0,
+   24,
+   0,
+   "STUDIO"
+  ],
+  [
+   26,
+   24,
+   0,
+   25,
+   0,
+   "STUDIO"
+  ],
+  [
+   27,
+   15,
+   0,
+   25,
+   1,
+   "IMAGE"
+  ],
+  [
+   28,
+   25,
+   1,
+   26,
+   0,
+   "STUDIO"
+  ],
+  [
+   29,
+   25,
+   0,
+   26,
+   1,
+   "IMAGE"
+  ],
+  [
+   30,
+   16,
+   0,
+   27,
+   0,
+   "IMAGE"
+  ],
+  [
+   31,
+   28,
+   0,
+   29,
+   0,
+   "STUDIO"
+  ],
+  [
+   32,
+   29,
+   0,
+   30,
+   0,
+   "IMAGE"
+  ]
+ ],
+ "floatingLinks": null,
+ "groups": [],
+ "definitions": null,
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.36585366610092673,
+   "offset": [
+    164.000003390842,
+    329.9999423556858
+   ]
+  },
+  "reroutes": null
+ },
+ "version": 0.4
+}

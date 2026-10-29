@@ -1,0 +1,434 @@
+{
+ "1": {
+  "class_type": "BosonLoadScene",
+  "inputs": {
+   "repo": "~/Boson/tests/fixtures/poc/street-scene.bundle",
+   "ref": "main"
+  }
+ },
+ "2": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "slot": "walker",
+   "piece": "",
+   "desc": "",
+   "short": "",
+   "scene": [
+    "1",
+    0
+   ]
+  }
+ },
+ "3": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "slot": "car",
+   "piece": "",
+   "desc": "",
+   "short": "",
+   "scene": [
+    "2",
+    0
+   ]
+  }
+ },
+ "4": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "slot": "posters",
+   "piece": "",
+   "desc": "",
+   "short": "",
+   "scene": [
+    "3",
+    0
+   ]
+  }
+ },
+ "5": {
+  "class_type": "BosonCompileScene",
+  "inputs": {
+   "mode": "swap",
+   "take": "",
+   "scene": [
+    "4",
+    0
+   ]
+  }
+ },
+ "6": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "~/Boson/tests/fixtures/poc/tenfoot-photographs.bundle",
+   "ref": "8f5006c1"
+  }
+ },
+ "7": {
+  "class_type": "BosonNanoBanana",
+  "inputs": {
+   "mode": "stored",
+   "draws": 1,
+   "backend": "api",
+   "studio": [
+    "6",
+    0
+   ],
+   "shot": [
+    "5",
+    0
+   ]
+  }
+ },
+ "8": {
+  "class_type": "BosonLocate",
+  "inputs": {
+   "mode": "stored",
+   "model": "gemini-3.8-flash",
+   "image": [
+    "30",
+    0
+   ],
+   "scene": [
+    "4",
+    0
+   ]
+  }
+ },
+ "9": {
+  "class_type": "BosonCommitTake",
+  "inputs": {
+   "scene": [
+    "4",
+    0
+   ],
+   "image": [
+    "30",
+    0
+   ],
+   "boxes": [
+    "8",
+    0
+   ],
+   "shot": [
+    "5",
+    0
+   ]
+  }
+ },
+ "21": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "5",
+    1
+   ]
+  }
+ },
+ "10": {
+  "class_type": "BosonLoadTake",
+  "inputs": {
+   "take": "",
+   "scene": [
+    "1",
+    0
+   ]
+  }
+ },
+ "11": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "slot": "car",
+   "item": 0,
+   "pad": 0.15,
+   "image": [
+    "10",
+    0
+   ],
+   "boxes": [
+    "10",
+    1
+   ]
+  }
+ },
+ "12": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "slot": "walker",
+   "item": 0,
+   "pad": 0.15,
+   "image": [
+    "10",
+    0
+   ],
+   "boxes": [
+    "10",
+    1
+   ]
+  }
+ },
+ "13": {
+  "class_type": "BosonPasteFlat",
+  "inputs": {
+   "slot": "posters",
+   "glass": 0.15,
+   "image": [
+    "10",
+    0
+   ],
+   "boxes": [
+    "10",
+    1
+   ],
+   "scene": [
+    "1",
+    0
+   ]
+  }
+ },
+ "14": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "13",
+    0
+   ]
+  }
+ },
+ "15": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "~/Boson/tests/fixtures/poc/estran-cars.bundle",
+   "ref": "main"
+  }
+ },
+ "16": {
+  "class_type": "BosonNanoBanana",
+  "inputs": {
+   "mode": "stored",
+   "draws": 1,
+   "backend": "api",
+   "studio": [
+    "15",
+    0
+   ],
+   "image_1": [
+    "11",
+    0
+   ]
+  }
+ },
+ "17": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "~/Boson/tests/fixtures/poc/halvard-lookbook.bundle",
+   "ref": "main"
+  }
+ },
+ "18": {
+  "class_type": "BosonNanoBanana",
+  "inputs": {
+   "mode": "stored",
+   "draws": 1,
+   "backend": "api",
+   "studio": [
+    "17",
+    0
+   ],
+   "image_1": [
+    "12",
+    0
+   ]
+  }
+ },
+ "19": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "16",
+    0
+   ]
+  }
+ },
+ "20": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "18",
+    0
+   ]
+  }
+ },
+ "22": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "~/Boson/tests/fixtures/poc/estran-cars.bundle",
+   "ref": "main"
+  }
+ },
+ "23": {
+  "class_type": "BosonKeepPiece",
+  "inputs": {
+   "path": "",
+   "note": "",
+   "studio": [
+    "22",
+    0
+   ],
+   "op": "keep"
+  }
+ },
+ "24": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "15",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "api",
+   "image_1": [
+    "11",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (ESTRAN, commission new = the car crop)",
+   "pos": [
+    1500,
+    700
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "25": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "17",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "api",
+   "image_1": [
+    "12",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (HALVARD, commission new = the walker crop)",
+   "pos": [
+    1500,
+    960
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "26": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "24",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New cars",
+   "pos": [
+    1880,
+    700
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "27": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "25",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New outfits",
+   "pos": [
+    1880,
+    960
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "28": {
+  "class_type": "LoadBackgroundRemovalModel",
+  "inputs": {
+   "bg_removal_name": "birefnet.safetensors"
+  },
+  "_meta": {
+   "pos": [
+    1120,
+    460
+   ]
+  }
+ },
+ "29": {
+  "class_type": "RemoveBackground",
+  "inputs": {
+   "bg_removal_model": [
+    "28",
+    0
+   ],
+   "image": [
+    "7",
+    0
+   ]
+  },
+  "_meta": {
+   "pos": [
+    1480,
+    460
+   ]
+  }
+ },
+ "30": {
+  "class_type": "BosonUncrop",
+  "inputs": {
+   "image": [
+    "7",
+    0
+   ],
+   "shot": [
+    "5",
+    0
+   ],
+   "mask": [
+    "29",
+    0
+   ]
+  },
+  "_meta": {
+   "pos": [
+    1480,
+    260
+   ]
+  }
+ }
+}

@@ -1,0 +1,118 @@
+/* Boson theme: the one file of tokens and frame layout (room.js and set.js style themselves with these variables).
+   Taste source: the operator's words (IDEAS rounds 32-38): dark screens, bright pictures, autumn, deep greens with a
+   subtle lime. While the Boson layer is up it covers the live ComfyUI graph (its strip, toasts and zoom control never
+   show beside the panel); Graph brings the canvas forward. Lime is the one accent; --cost (the operator's orange) marks
+   only what would spend. */
+:root {
+  /* surfaces: deep green, translucent so the graph reads through */
+  --b-bg: #0b1410;                          /* page behind the canvas (seen only while it loads) */
+  --b-surface: rgba(12, 24, 18, 0.78);      /* rail, view panel */
+  --b-surface-2: rgba(22, 40, 31, 0.92);    /* cards, inputs, hover */
+  --b-surface-3: rgba(34, 58, 45, 0.96);    /* picked row, pressed */
+  --b-line: rgba(196, 230, 200, 0.12);      /* hairlines */
+  --b-blur: 5px;                            /* backdrop blur behind translucent surfaces */
+  /* text */
+  --b-text: #e6efe8;
+  --b-text-2: #a7b9ac;                      /* secondary */
+  --b-text-3: #6f8676;                      /* quiet: captions, provenance */
+  /* the one accent, and the spend marker */
+  --b-accent: #c4e66a;                      /* lime: picked, focus, primary action */
+  --b-accent-ink: #0f1a07;                  /* text on the accent */
+  --b-cost: #e89a4a;                        /* orange: cost labels on disabled spend actions only */
+  --b-danger: #e6705a;                      /* errors in the status line */
+  --b-warn: #e3c35a;                        /* amber: nothing was made, or it needs a step first */
+  /* type scale (1.25) */
+  --b-font: "Inter", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --b-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --b-fs-xs: 0.72rem; --b-fs-sm: 0.82rem; --b-fs-md: 0.95rem; --b-fs-lg: 1.2rem; --b-fs-xl: 1.6rem; --b-fs-2xl: 2.1rem;
+  /* space, radius, frame geometry */
+  --b-s1: 4px; --b-s2: 8px; --b-s3: 12px; --b-s4: 16px; --b-s5: 24px; --b-s6: 36px;
+  --b-radius: 10px; --b-radius-sm: 6px;
+  --b-rail-w: 15rem;
+  --b-gap: 14px;                            /* margin around the layer's panels */
+  --b-view-max: 100vw;                      /* the view takes the whole width right of the rail */
+  --b-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+}
+
+html, body { margin: 0; height: 100%; background: var(--b-bg); color: var(--b-text); font: var(--b-fs-md)/1.45 var(--b-font); }
+* { box-sizing: border-box; }
+
+/* the real ComfyUI canvas fills the screen, always loaded, always live */
+#boson-canvas { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; z-index: 0; }
+
+/* the Boson layer covers it (ComfyUI's toasts, zoom control and graph stay out of sight; Graph brings them forward) */
+#boson-layer { position: fixed; inset: 0; z-index: 1; display: grid; background: radial-gradient(120% 90% at 30% 0%, #12241a, var(--b-bg) 70%);
+  grid-template-columns: var(--b-rail-w) 1fr; grid-template-rows: auto 1fr auto; gap: var(--b-gap); padding: var(--b-gap); }
+#boson-layer > * { pointer-events: auto; }
+body.boson-canvas-forward #boson-layer { display: none; }
+
+.b-panel { background: var(--b-surface); border: 1px solid var(--b-line); border-radius: var(--b-radius);
+  backdrop-filter: blur(var(--b-blur)); -webkit-backdrop-filter: blur(var(--b-blur)); box-shadow: var(--b-shadow); }
+
+/* top bar: the mark, what is open, the canvas toggle (the toggle lives outside the layer so it stays reachable) */
+#boson-top { grid-column: 1 / -1; display: flex; align-items: center; gap: var(--b-s4); padding: var(--b-s2) var(--b-s4);
+  max-width: calc(var(--b-rail-w) + var(--b-gap) + var(--b-view-max)); }
+#boson-mark { font-weight: 700; letter-spacing: 0.04em; font-size: var(--b-fs-lg); }
+#boson-where { color: var(--b-text-2); font-size: var(--b-fs-sm); }
+#boson-toggle { position: fixed; z-index: 2; top: calc(var(--b-gap) + 7px); width: 8.5rem;
+  left: calc(var(--b-gap) * 2 + var(--b-rail-w) + min(var(--b-view-max), 100vw - var(--b-rail-w) - var(--b-gap) * 3) - 8.5rem - 8px); }
+body.boson-canvas-forward #boson-toggle { top: auto; bottom: calc(var(--b-gap) + 4px); left: 50%; transform: translateX(-50%);
+  background: var(--b-accent); color: var(--b-accent-ink); border-color: var(--b-accent); font-weight: 600; }
+
+/* left rail */
+#boson-rail { overflow-y: auto; padding: var(--b-s3) var(--b-s2); grid-row: 2 / 4; }
+#boson-rail h2 { margin: var(--b-s4) var(--b-s2) var(--b-s1); font-size: var(--b-fs-xs); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--b-text-3); }
+#boson-rail h2:first-child { margin-top: var(--b-s1); }
+#boson-rail ul { list-style: none; margin: 0; padding: 0; }
+#boson-rail details > summary { cursor: pointer; list-style: none; padding: var(--b-s1) var(--b-s2); color: var(--b-text-3);
+  font-size: var(--b-fs-xs); }
+#boson-rail details > summary::before { content: "+ "; }
+#boson-rail details[open] > summary::before { content: "- "; }
+.b-row { display: flex; width: 100%; align-items: baseline; justify-content: space-between; gap: var(--b-s2);
+  padding: 6px var(--b-s2); border: 0; border-left: 2px solid transparent; border-radius: var(--b-radius-sm);
+  background: none; color: var(--b-text); font: inherit; text-align: left; cursor: pointer; }
+.b-row:hover { background: var(--b-surface-2); }
+.b-row[aria-current="true"] { background: var(--b-surface-3); border-left-color: var(--b-accent); color: #fff; }
+.b-row small { color: var(--b-text-3); font-size: var(--b-fs-xs); }
+.b-empty { color: var(--b-text-3); font-size: var(--b-fs-sm); padding: var(--b-s1) var(--b-s2); }
+.b-shelf { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 0 var(--b-s2); }
+.b-shelf img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; display: block; }
+
+/* the view: room.js / set.js render into #boson-view */
+#boson-view { overflow: auto; padding: var(--b-s5); min-height: 0; width: 100%; max-width: var(--b-view-max); }
+#boson-view.b-idle { background: none; border-color: transparent; box-shadow: none; backdrop-filter: none;
+  -webkit-backdrop-filter: none; pointer-events: none; display: flex; align-items: flex-end; }
+.b-hint { color: var(--b-text-2); background: var(--b-surface); padding: var(--b-s2) var(--b-s3); border-radius: var(--b-radius-sm); }
+
+/* status line */
+#boson-status { grid-column: 2; max-width: var(--b-view-max); margin: 0; padding: var(--b-s2) var(--b-s4); font: var(--b-fs-sm)/1.3 var(--b-font); font-variant-numeric: tabular-nums;
+  color: var(--b-text-2); white-space: pre-wrap; min-height: 2.2em; }
+#boson-status:empty { visibility: hidden; }
+#boson-status[data-tone="error"] { color: var(--b-danger); }
+#boson-status[data-tone="ok"] { color: var(--b-accent); }
+#boson-status[data-tone="warn"] { color: var(--b-warn); }
+#boson-status .b-btn { margin-left: var(--b-s2); font: inherit; }
+
+/* shared pieces for room and set */
+.b-h1 { font-size: var(--b-fs-2xl); font-weight: 650; margin: 0 0 var(--b-s1); letter-spacing: -0.01em; }
+.b-h2 { font-size: var(--b-fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--b-text-3);
+  margin: var(--b-s5) 0 var(--b-s2); }
+.b-lede { color: var(--b-text-2); font-size: var(--b-fs-lg); max-width: 52rem; margin: 0 0 var(--b-s3); }
+.b-meta { color: var(--b-text-3); font-size: var(--b-fs-sm); }
+.b-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: var(--b-s3); }
+.b-card { background: var(--b-surface-2); border-radius: var(--b-radius); overflow: hidden; display: flex; flex-direction: column; }
+.b-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: #000; }  /* pictures stay bright: no tint */
+.b-card .b-cap { padding: var(--b-s2) var(--b-s3); display: flex; justify-content: space-between; align-items: center; gap: var(--b-s2);
+  font-size: var(--b-fs-sm); }
+.b-private { color: var(--b-cost); font-size: var(--b-fs-xs); }   /* "found reference, private, not redistributed" */
+.b-btn { font: inherit; font-size: var(--b-fs-sm); padding: 6px var(--b-s3); border-radius: var(--b-radius-sm); cursor: pointer;
+  border: 1px solid var(--b-line); background: var(--b-surface-3); color: var(--b-text); }
+.b-btn:hover:not(:disabled) { border-color: var(--b-accent); }
+.b-btn.b-primary { background: var(--b-accent); color: var(--b-accent-ink); border-color: var(--b-accent); font-weight: 600; }
+.b-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.b-cost { color: var(--b-cost); font-size: var(--b-fs-xs); margin-left: var(--b-s2); }
+.b-why { color: var(--b-text-3); font-size: var(--b-fs-xs); }                     /* why a button is off, in words */
+.b-input { font: inherit; font-size: var(--b-fs-sm); background: rgba(0, 0, 0, 0.35); color: var(--b-text); border: 1px solid var(--b-line);
+  border-radius: var(--b-radius-sm); padding: 6px var(--b-s2); }
+.b-input:focus, .b-btn:focus-visible, .b-row:focus-visible { outline: 2px solid var(--b-accent); outline-offset: 1px; }

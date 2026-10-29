@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Higgsfield, ported: the judgment handed back</title>
+<style>
+@page { size: Letter; margin: 0.48in 0.62in 0.5in 0.62in;
+  @bottom-right { content: "Boson · " counter(page) " / 2"; font: 7.5pt "Inter"; color: #888; } }
+body { font: 9.4pt/1.42 "Inter", sans-serif; color: #1b1b1f; margin: 0; }
+h1 { font: 700 20pt/1.1 "Inter Display", "Inter", sans-serif; margin: 0 0 3pt; letter-spacing: -0.3pt; }
+.sub { font-size: 10pt; color: #555; margin: 0 0 10pt; }
+.lede { font-size: 10.3pt; line-height: 1.45; margin: 0 0 9pt; border-left: 3pt solid #e0a020; padding-left: 9pt; }
+h2 { font: 700 10.5pt "Inter", sans-serif; margin: 10pt 0 3pt; text-transform: uppercase; letter-spacing: 0.6pt; color: #333; }
+p { margin: 0 0 6pt; }
+figure { margin: 6pt 0 8pt; }
+figure img { width: 100%; display: block; }
+figcaption { font-size: 7.8pt; color: #555; margin-top: 3pt; line-height: 1.35; }
+.labels { display: flex; font-size: 7.4pt; color: #333; margin-top: 2pt; }
+.labels span { flex: 1; text-align: center; }
+table { border-collapse: collapse; width: 100%; font-size: 8.4pt; margin: 3pt 0 7pt; }
+td, th { text-align: left; padding: 2.2pt 5pt 2.2pt 0; border-bottom: 0.5pt solid #ddd; vertical-align: top; }
+th { font-weight: 600; color: #555; }
+.aims p { margin-bottom: 4pt; }
+b.k { color: #000; }
+.verdict { font-style: italic; }
+.note { font-size: 7.6pt; color: #666; border-top: 0.5pt solid #ccc; padding-top: 4pt; margin-top: 8pt; line-height: 1.35; }
+.pair { display: flex; gap: 6pt; align-items: center; }
+.pair img { width: 48%; }
+.arrow { font-size: 12pt; color: #999; }
+</style>
+</head>
+<body>
+
+<h1>Higgsfield, ported: the judgment handed back</h1>
+<p class="sub">Boson, an open-source studio floor for ComfyUI · Comfy Open Source Higgsfield challenge, Oct. 2026</p>
+
+<p class="lede">Every picture a model makes rests on judgments nobody asked it to make: which car, which road, which hour
+of light. Those judgments live in the weights, and closed platforms sell them back as presets. Boson ports such a
+platform to ComfyUI and hands each judgment back to the owner. What is new is the whole idea:
+<b>studios instead of presets</b>, each a folder of plain files in git that holds a taste; <b>a curation loop</b>,
+where red and green dots and one sentence become a rule the next round must read, so taste builds up with a history;
+<b>a scene editor</b>, where every piece is a slot any studio can fill and a swap redraws and relights only what
+changed; <b>ordinary ComfyUI graphs</b> that pause for judgment, replay for free and put any model behind
+one switch; and <b>models used for their strengths</b>, local and cloud, the owner's feedback choosing.</p>
+
+<h2>1 · Every judgment lives in the weights</h2>
+<p>Ask a language model for its favourite country and it will probably say Japan. A 2026 study found that when models
+must pick a place themselves, their answers collapse onto a few countries, with Japan first for six of eight frontier
+models, and that the collapse happens in fine-tuning, not in pretraining (Fernandez de Landa et al., "Why are all LLMs
+Obsessed with Japanese Culture?", arXiv:2604.21751). The preference is trained into the weights. Telling a model to
+avoid the obvious answer does not make it scatter. In our own pre-registered experiment (2026; write-up to follow), a model that had named its habit almost
+perfectly stepped off it in 59 of 60 judgments, then landed on a new shared answer instead: the Netherlands, in 12 of
+20 sessions. Typefaces and page layouts behaved the same way: the pattern holds wherever a model makes a call of taste.</p>
+<p>Pictures are no exception. Boson's first round with a new owner shows it (Figure 1). Given only
+<i>"Architecture photography."</i>, the image model drew glossy waterfront landmarks at golden hour, close to the
+picture the writer model had named, beforehand, as the default. Told to avoid that default, the writer chose a
+worn concrete housing block with laundry on the balconies, and both draws came out nearly identical. The dodge is
+a default too. Cars repeated it.</p>
+
+<figure>
+<img src="fig/ignition-ladder.jpg" alt="Five architecture photographs: a glass and concrete landmark; a worn housing block; two tram shelters; a tram street">
+<div class="labels"><span>default (weights)</span><span>anti-default (weights, told to dodge)</span><span>seed 3547 (noise)</span><span>seed 4588 (noise)</span><span>seed 1978 (noise)</span></div>
+<figcaption><b>Figure 1. The ignition round.</b> One brief, five sources of judgment, shown to the owner blind and
+shuffled, two pictures each. The seeds draw starting references from a pool of found photographs by number; a
+script picks them, never a model. The owner greened one picture each of the default and two seeds,
+and wrote: <i>"tram shots are the only really based on reality... ignition seeds need some sort of real basis to
+[avoid] hallucination of purely AI slop."</i> Cost: $0.73 (ten 1K images, one writer call).</figcaption>
+</figure>
+
+<h2>2 · The port</h2>
+<p>Each Boson part is a ComfyUI node or a small tool beside one; every action in the sidebar sets widgets on real
+nodes, one toggle away from the canvas.</p>
+<table>
+<tr><th>Higgsfield (closed)</th><th>Boson (open)</th><th>What changes</th></tr>
+<tr><td>Soul Moodboards: a style preset from up to 80 pictures</td><td>Forge Studio</td><td>The result is a git repo of plain files you can read, edit, branch and share, not a hidden code</td></tr>
+<tr><td>Soul ID, Character Swap</td><td>Cast</td><td>One identity across shots (held in 8 of 8 test scenes)</td></tr>
+<tr><td>Marketing Studio: 1,051 templates, 500+ apps</td><td>Studios</td><td>Made from the owner's references and verdicts, not picked off a shelf</td></tr>
+<tr><td>Edit, Layers, Outfit Swap</td><td>Scenes: Locate, Slot Crop, Swap</td><td>Change one thing, keep the rest: any studio fills any slot, the frame relit; every swap is a commit you can undo (Fig. 3)</td></tr>
+<tr><td>Cinema Studio</td><td>Commit Clip, Load Clip</td><td>A take becomes a 6 s clip through a Comfy partner video node, stored with it (LTX 2.5 Pro $1.46, Omni Flash $1.31)</td></tr>
+</table>
+<figure>
+<img src="fig/scene-swaps.jpg" alt="Four takes of one Austin street: the base, a new outfit, a red corrugated corner building, a yellow Ford GT">
+<figcaption><b>Figure 3. One street, four studios.</b> The scene, then an outfit, the taqueria and a car, each from another studio, each swap a commit.</figcaption>
+</figure>
+<p>No studio names a model, so each task can go to the model best at it. A <code>backend</code> widget sets the
+renderer to Nano Banana 2.1 (closed; Gemini key or Comfy partner API) or FLUX 3 Klein in a local ComfyUI (open
+weights); writer and Locate on Claude and Gemini or a local Qwen3.8. Next: a fan-out test of each model on each
+task, the owner's dots picking.</p>
+
+<h2>3 · Where each judgment goes instead</h2>
+<p>Boson has no taste of its own. It sends each call of taste to one of three outside judges and
+records which decided:</p>
+<p><b class="k">The owner.</b> Green and red dots on a round, plus one sentence of verdict. <b class="k">The ledger.</b>
+The studio's git history: STUDIO.md, the pinned pictures, every verdict word for word. The next make must read
+it, and overriding a past verdict is a logged commit, never a silent reset. <b class="k">Noise.</b> When the owner
+has nothing yet, a seed number picks the starting references, on record.</p>
+<p>Agents gather candidates and write briefs; they never issue a verdict. The ignition round in Figure 1 is how a
+studio starts from zero: before the owner has a single reference or dot, one blind round shows where the weights
+would land and what declared noise offers instead. The owner's dots pick the starting references, and the round
+is committed into the new studio as <code>IGNITION.json</code>. A green dot on the default is a fair answer: the owner's call, now on record.</p>
+
+<h2>4 · Three aims</h2>
+<div class="aims">
+<p><b class="k">A generational tool.</b> A preset stays the same. A studio builds a history: every
+round, verdict and pin is a commit that can be branched, forked from an earlier round, or handed to someone else.
+The history outlives any one model.</p>
+<p><b class="k">The owner's sovereignty.</b> Taste kept as plain files in the owner's own repository, the way coding
+agents already keep their memory in CLAUDE.md and AGENTS.md. Local models plug in behind one widget. A fresh clone
+replays a studio's rounds in about 11 seconds with no keys and no network calls.</p>
+<p><b class="k">Ownership through curation.</b> What the studio makes is steered by what the owner picked and said:
+their references, dots and sentences. That record is the authorship trail.</p>
+</div>
+
+<h2>5 · Proof, and the limits</h2>
+<p>Verdicts visibly bound the next round in the posters, architecture and cars studios. Cars: after the first round the owner wrote
+<span class="verdict">"These cars look to "foreign" and need to feel more like american classics"</span>, and every
+car in round two was a 1970s American classic, six of six dotted green (Figure 2). Posters went from
+<span class="verdict">"limited to primary colors"</span> to maroon, salmon and teal. Architecture went from
+<span class="verdict">"bland, like as if in a soviet nation"</span> to designed contemporary blocks, then to deep
+facades, six of six green. Cars cost $3.29 for two rounds, architecture $4.22 for three.</p>
+<figure>
+<div class="pair"><img src="fig/cars-r1.jpg" alt="Round one: small European and Asian cars"><span class="arrow">→</span><img src="fig/cars-r2.jpg" alt="Round two: American classic cars"></div>
+<figcaption><b>Figure 2. A verdict binds.</b> Cars studio, round 1 (left) and round 2 (right), after one sentence
+from the owner.</figcaption>
+</figure>
+<p>The limits, plainly. Layouts repeat inside a studio. A loop that obeys every verdict can narrow toward the owner's
+own average; the way out is a branch (a fresh seed, a fork from an earlier round), not a gate. A round of pure
+praise gives the next round nothing to act on. The shipped studios and scene used closed models (Nano Banana, Claude, Gemini); a round by Qwen3.8 and FLUX 3
+Klein on one RTX 4090 (its studio set up by Opus) stayed on the machine but took ~17 min to the cloud's 2.5; clips need the cloud. None of this replaces the owner. That is the design. <b>Made, not preset.</b></p>
+
+<p class="note">59 of 60 and the Netherlands: our pre-registered experiment, September 2026, three models (one frontier,
+two open-weights); write-up to follow. Higgsfield names and counts: its public site, October 2026. Figures are Boson's own
+renders; no reference photograph is reproduced.</p>
+
+</body>
+</html>

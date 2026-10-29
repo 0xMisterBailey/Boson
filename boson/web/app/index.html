@@ -1,0 +1,28 @@
+<!doctype html>
+<!-- Boson app: a layer over the live ComfyUI graph (contract at the top of shell.js; tokens in theme.css). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Boson</title>
+<link rel="stylesheet" href="/extensions/boson/app/theme.css">
+</head>
+<body id="boson-app">
+<iframe id="boson-canvas" src="/" title="ComfyUI canvas"></iframe>
+<button id="boson-toggle" class="b-btn" type="button" aria-pressed="false" title="Bring the ComfyUI graph forward and back (key: `)">Graph</button>
+<div id="boson-layer">
+  <header id="boson-top" class="b-panel"><span id="boson-mark">Boson</span><span id="boson-where"></span></header>
+  <nav id="boson-rail" class="b-panel" aria-label="Studios, scenes and the shelf">
+    <h2>Studios</h2>
+    <ul id="boson-studios"></ul>
+    <details id="boson-older"><summary>older studios</summary><ul id="boson-studios-older"></ul></details>
+    <h2>Scenes</h2>
+    <ul id="boson-scenes"></ul>
+    <h2>Shelf</h2>
+    <div id="boson-shelf"></div>
+  </nav>
+  <main id="boson-view" class="b-panel b-idle"><p class="b-hint">Pick a studio or a scene. Graph, top right, shows the live ComfyUI graph behind it.</p></main>
+  <pre id="boson-status" class="b-panel" aria-live="polite"></pre>
+</div>
+<script type="module" src="/extensions/boson/app/shell.js"></script>
+</body>
+</html>

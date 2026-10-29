@@ -1,0 +1,3 @@
+{"renderer": "nanobanana", "refs": [], "commission_refs": [],
+ "aspect": "1:1", "size": "2K", "width": 1024, "height": 1024, "lead": "",
+ "instrument": "The instrument: Nano Banana (Gemini image), one image per prompt, reference images in the order the task names. Write each prompt as a full making direction in the field's own plain words: what the piece is, how it is made (material, finish, each colour named), the light, the ground or setting, the camera or drawing view, and every word that must appear quoted exactly (keep lettering short). It renders what the prompt names; the studio's refs reach it only through your words (their `vlm` descriptions)."}

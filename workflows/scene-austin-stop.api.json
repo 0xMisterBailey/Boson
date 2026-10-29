@@ -1,0 +1,888 @@
+{
+ "1": {
+  "class_type": "BosonLoadScene",
+  "inputs": {
+   "repo": "austin-stop",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Scene (austin-stop)",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "2": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "scene": [
+    "1",
+    0
+   ],
+   "slot": "outfit",
+   "piece": "",
+   "desc": "",
+   "short": ""
+  },
+  "_meta": {
+   "title": "Cast (outfit)",
+   "pos": [
+    380,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "3": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "scene": [
+    "2",
+    0
+   ],
+   "slot": "car",
+   "piece": "",
+   "desc": "",
+   "short": ""
+  },
+  "_meta": {
+   "title": "Cast (car)",
+   "pos": [
+    380,
+    180
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "4": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "scene": [
+    "3",
+    0
+   ],
+   "slot": "poster",
+   "piece": "",
+   "desc": "",
+   "short": ""
+  },
+  "_meta": {
+   "title": "Cast (poster)",
+   "pos": [
+    380,
+    360
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "5": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "scene": [
+    "4",
+    0
+   ],
+   "slot": "building",
+   "piece": "",
+   "desc": "",
+   "short": ""
+  },
+  "_meta": {
+   "title": "Cast (building)",
+   "pos": [
+    380,
+    540
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "6": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "scene": [
+    "5",
+    0
+   ],
+   "slot": "corner-building",
+   "piece": "",
+   "desc": "",
+   "short": ""
+  },
+  "_meta": {
+   "title": "Cast (corner-building)",
+   "pos": [
+    380,
+    720
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "7": {
+  "class_type": "BosonCompileScene",
+  "inputs": {
+   "scene": [
+    "6",
+    0
+   ],
+   "mode": "swap",
+   "take": ""
+  },
+  "_meta": {
+   "title": "Compile Scene",
+   "pos": [
+    760,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "8": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "7",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "What Compile sends",
+   "pos": [
+    760,
+    300
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "9": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "streets",
+   "ref": "1afd1528"
+  },
+  "_meta": {
+   "title": "Load Studio (base: streets)",
+   "pos": [
+    760,
+    500
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "10": {
+  "class_type": "BosonNanoBanana",
+  "inputs": {
+   "studio": [
+    "9",
+    0
+   ],
+   "mode": "stored",
+   "draws": 1,
+   "backend": "comfy-api",
+   "shot": [
+    "7",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Nano Banana (the take)",
+   "pos": [
+    1140,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "11": {
+  "class_type": "LoadBackgroundRemovalModel",
+  "inputs": {
+   "bg_removal_name": "birefnet.safetensors"
+  },
+  "_meta": {
+   "title": "Load Background Removal",
+   "pos": [
+    1140,
+    300
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "12": {
+  "class_type": "RemoveBackground",
+  "inputs": {
+   "bg_removal_model": [
+    "11",
+    0
+   ],
+   "image": [
+    "10",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Remove Background (the edit)",
+   "pos": [
+    1140,
+    500
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "13": {
+  "class_type": "BosonUncrop",
+  "inputs": {
+   "image": [
+    "10",
+    0
+   ],
+   "shot": [
+    "7",
+    0
+   ],
+   "mask": [
+    "12",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Uncrop (worn swaps)",
+   "pos": [
+    1520,
+    300
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "14": {
+  "class_type": "BosonLocate",
+  "inputs": {
+   "image": [
+    "13",
+    0
+   ],
+   "scene": [
+    "6",
+    0
+   ],
+   "mode": "stored",
+   "model": "gemini-3.8-flash"
+  },
+  "_meta": {
+   "title": "Locate",
+   "pos": [
+    1520,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "15": {
+  "class_type": "BosonCommitTake",
+  "inputs": {
+   "scene": [
+    "6",
+    0
+   ],
+   "image": [
+    "13",
+    0
+   ],
+   "boxes": [
+    "14",
+    0
+   ],
+   "shot": [
+    "7",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Commit Take",
+   "pos": [
+    1900,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "16": {
+  "class_type": "BosonLoadTake",
+  "inputs": {
+   "scene": [
+    "1",
+    0
+   ],
+   "take": ""
+  },
+  "_meta": {
+   "title": "Load Take",
+   "pos": [
+    0,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "17": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "image": [
+    "16",
+    0
+   ],
+   "boxes": [
+    "16",
+    1
+   ],
+   "slot": "outfit",
+   "item": 0,
+   "pad": 0.15,
+   "scene": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Slot Crop (outfit)",
+   "pos": [
+    380,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "18": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "fashion-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (fashion-real)",
+   "pos": [
+    760,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "19": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "18",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "comfy-api",
+   "image_1": [
+    "17",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (fashion-real, commission new)",
+   "pos": [
+    1140,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "20": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "19",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New outfit",
+   "pos": [
+    1520,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "21": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "image": [
+    "16",
+    0
+   ],
+   "boxes": [
+    "16",
+    1
+   ],
+   "slot": "car",
+   "item": 0,
+   "pad": 0.15,
+   "scene": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Slot Crop (car)",
+   "pos": [
+    380,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "22": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "cars-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (cars-real)",
+   "pos": [
+    760,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "23": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "22",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "comfy-api",
+   "image_1": [
+    "21",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (cars-real, commission new)",
+   "pos": [
+    1140,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "24": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "23",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New car",
+   "pos": [
+    1520,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "25": {
+  "class_type": "BosonPasteFlat",
+  "inputs": {
+   "image": [
+    "16",
+    0
+   ],
+   "boxes": [
+    "16",
+    1
+   ],
+   "scene": [
+    "1",
+    0
+   ],
+   "slot": "poster",
+   "glass": 0.15
+  },
+  "_meta": {
+   "title": "Paste Flat (poster)",
+   "pos": [
+    380,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "26": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "25",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Take with poster",
+   "pos": [
+    760,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "27": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "image": [
+    "16",
+    0
+   ],
+   "boxes": [
+    "16",
+    1
+   ],
+   "slot": "building",
+   "item": 0,
+   "pad": 0.15,
+   "scene": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Slot Crop (building)",
+   "pos": [
+    380,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "28": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "architecture-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (architecture-real)",
+   "pos": [
+    760,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "29": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "28",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "comfy-api",
+   "image_1": [
+    "27",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (architecture-real, commission new)",
+   "pos": [
+    1140,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "30": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "29",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New building",
+   "pos": [
+    1520,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "31": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "image": [
+    "16",
+    0
+   ],
+   "boxes": [
+    "16",
+    1
+   ],
+   "slot": "corner-building",
+   "item": 0,
+   "pad": 0.15,
+   "scene": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Slot Crop (corner-building)",
+   "pos": [
+    380,
+    1940
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "32": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "architecture-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (architecture-real)",
+   "pos": [
+    760,
+    1940
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "33": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "32",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "comfy-api",
+   "image_1": [
+    "31",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (architecture-real, commission new)",
+   "pos": [
+    1140,
+    1940
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "34": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "33",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New corner-building",
+   "pos": [
+    1520,
+    1940
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "35": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "streets",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (keep)",
+   "pos": [
+    0,
+    2200
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "36": {
+  "class_type": "BosonKeepPiece",
+  "inputs": {
+   "studio": [
+    "35",
+    0
+   ],
+   "path": "",
+   "note": "",
+   "op": "keep"
+  },
+  "_meta": {
+   "title": "Keep Piece",
+   "pos": [
+    380,
+    2200
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "37": {
+  "class_type": "BosonAddSlot",
+  "inputs": {
+   "scene": [
+    "1",
+    0
+   ],
+   "anchor": "",
+   "slot": "",
+   "noun": "",
+   "studio": "",
+   "where": "",
+   "box": ""
+  },
+  "_meta": {
+   "title": "Add Slot (make a slot from the frame)",
+   "pos": [
+    760,
+    2200
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ }
+}

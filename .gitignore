@@ -1,0 +1,31 @@
+.playwright-mcp/
+experiments/fixtures/flux3/*.jpg
+notes/reel-taxonomy-of-visuals/frames/
+recon/corpus/
+__pycache__/
+examples/ex-libris-plates/r*/
+notes/blind-shuffle-1022/plates/
+notes/blind-shuffle-1022/deck.labels.jsonl
+notes/proof/
+experiments/zoom-cut/r*/*.png
+experiments/zoom-cut/r*/*.mp4
+examples/halvard-fashion-plates/r*/*.png
+experiments/zoom-cut/parent/
+experiments/zoom-cut/parent-in/*.png
+experiments/zoom-cut/parent-in/*.jpg
+experiments/zoom-cut/capture/
+experiments/zoom-cut/car-in/car.png
+experiments/zoom-cut/*-in/refs-sheet.jpg
+experiments/zoom-cut/fashion2-in/coat.png
+experiments/zoom-cut/arch-in/commission/
+examples/*-plates/r*/*.png
+video/concept/assets.json
+experiments/moss-bake/*.png
+tests/fixtures/poc/*-plates/r*/*.png
+# forged studios are git repos of their own; they ship as examples/<name>.bundle
+examples/*/
+!examples/*-plates/
+examples/*-plates/rmake-*/*.png
+
+# operator-curated real refs: private, never committed (round 39)
+refs-private/

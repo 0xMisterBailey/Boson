@@ -1,0 +1,12 @@
+{
+ "studios": {
+  "architecture-real": 26,
+  "cars-real": 18,
+  "cars-s4471-real": 0,
+  "fashion-real": 18,
+  "posters-real": 18,
+  "streets": 5,
+  "exotic-cars-real": 8
+ },
+ "scene": "austin-stop"
+}

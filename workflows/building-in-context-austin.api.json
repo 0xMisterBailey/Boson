@@ -1,0 +1,140 @@
+{
+ "1": {
+  "class_type": "BosonLoadScene",
+  "inputs": {
+   "repo": "austin-stop",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Scene (austin-stop)",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "12": {
+  "class_type": "BosonLoadTake",
+  "inputs": {
+   "scene": [
+    "1",
+    0
+   ],
+   "take": "04"
+  },
+  "_meta": {
+   "title": "Load Take",
+   "pos": [
+    0,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "23": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "image": [
+    "12",
+    0
+   ],
+   "boxes": [
+    "12",
+    1
+   ],
+   "slot": "building",
+   "item": 0,
+   "pad": 0.15,
+   "scene": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Slot Crop (building)",
+   "pos": [
+    380,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "24": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "architecture-real",
+   "ref": "4f68280c"
+  },
+  "_meta": {
+   "title": "Load Studio (architecture-real)",
+   "pos": [
+    760,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "25": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "24",
+    0
+   ],
+   "frame": "the two-storey brick corner building with the mural, on its Austin street",
+   "idea": "Image 1 is a crop of our Austin street scene (take 04): the two-storey brick corner building with the big painted mural, across the street, left of centre, live oaks behind it, late-afternoon sun. Keep this exact building in this exact place: its footprint, two storeys, height, angle to the street, the camera and the light; it must still sit in that street. Develop its architecture in this studio's idiom: brick, windows, shopfront, signage, cornice, the mural's wall. Real, buildable, an Austin corner building, not a new object. Owner, verbatim: \"the blue tile building is terrible. the architecture studio needs to be driven for a better look on that - the original brick building generation is much better\"",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "comfy-api",
+   "image_1": [
+    "23",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (architecture-real, commission new)",
+   "pos": [
+    1140,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "26": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "25",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New building",
+   "pos": [
+    1520,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ }
+}

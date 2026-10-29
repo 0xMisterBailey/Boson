@@ -1,0 +1,311 @@
+{
+ "1": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "~/Boson/tests/fixtures/poc/ex-libris.bundle",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "2": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "1",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "api"
+  },
+  "_meta": {
+   "title": "Make (make 4 / more like)",
+   "pos": [
+    380,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "3": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "2",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Made",
+   "pos": [
+    760,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "4": {
+  "class_type": "BosonKeepPiece",
+  "inputs": {
+   "studio": [
+    "1",
+    0
+   ],
+   "path": "",
+   "note": "",
+   "op": "keep"
+  },
+  "_meta": {
+   "title": "Keep Piece (keep / unkeep)",
+   "pos": [
+    0,
+    260
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "5": {
+  "class_type": "BosonEditHouse",
+  "inputs": {
+   "studio": [
+    "1",
+    0
+   ],
+   "field": "words",
+   "op": "add",
+   "value": ""
+  },
+  "_meta": {
+   "title": "Edit House (house, pin, add picture, new branch)",
+   "pos": [
+    0,
+    540
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "6": {
+  "class_type": "BosonDraftBrief",
+  "inputs": {
+   "studio": [
+    "1",
+    0
+   ],
+   "pieces": 4,
+   "draw": 0,
+   "lead": ""
+  },
+  "_meta": {
+   "title": "Draft Brief (run on its own)",
+   "pos": [
+    380,
+    720
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "7": {
+  "class_type": "BosonNanoBanana",
+  "inputs": {
+   "studio": [
+    "6",
+    0
+   ],
+   "mode": "stored",
+   "draws": 1,
+   "backend": "api"
+  },
+  "_meta": {
+   "title": "Nano Banana (the round)",
+   "pos": [
+    760,
+    720
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "8": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "7",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "The round",
+   "pos": [
+    1140,
+    720
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "9": {
+  "class_type": "BosonVerdict",
+  "inputs": {
+   "studio": [
+    "7",
+    1
+   ],
+   "images": [
+    "7",
+    0
+   ],
+   "verdict": ""
+  },
+  "_meta": {
+   "title": "Verdict",
+   "pos": [
+    1140,
+    960
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "10": {
+  "class_type": "BosonDigest",
+  "inputs": {
+   "studio": [
+    "9",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Digest",
+   "pos": [
+    1520,
+    960
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "11": {
+  "class_type": "BosonApproveRules",
+  "inputs": {
+   "studio": [
+    "1",
+    0
+   ],
+   "picks": ""
+  },
+  "_meta": {
+   "title": "Approve Rules",
+   "pos": [
+    0,
+    960
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "12": {
+  "class_type": "BosonForgeStudio",
+  "inputs": {
+   "path": "~/.cache/boson/studios/new-studio",
+   "owner": "",
+   "field": "",
+   "sentence": "",
+   "refs": "",
+   "instrument": "",
+   "commission": ""
+  },
+  "_meta": {
+   "title": "Forge Studio",
+   "pos": [
+    0,
+    1260
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "13": {
+  "class_type": "BosonNewScene",
+  "inputs": {
+   "name": "",
+   "spec": "",
+   "from_piece": "",
+   "path": ""
+  },
+  "_meta": {
+   "title": "New Scene",
+   "pos": [
+    380,
+    1260
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "14": {
+  "class_type": "BosonDots",
+  "inputs": {
+   "studio": [
+    "1",
+    0
+   ],
+   "round": 1,
+   "greens": "",
+   "reds": "",
+   "verdict": ""
+  },
+  "_meta": {
+   "title": "Dots (the owner's verdict on a loop round)",
+   "pos": [
+    760,
+    260
+   ],
+   "size": [
+    340,
+    300
+   ]
+  }
+ }
+}

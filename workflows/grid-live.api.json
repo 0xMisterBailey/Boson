@@ -1,0 +1,810 @@
+{
+ "m": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "flux3-image-klein-bf16.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "c": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen3vl_4b_bf16.safetensors",
+   "type": "flux3",
+   "device": "default"
+  }
+ },
+ "v": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "flux2-vae.safetensors"
+  }
+ },
+ "neg": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "clip": [
+    "c",
+    0
+   ],
+   "text": ""
+  }
+ },
+ "ms": {
+  "class_type": "ModelSamplingFlux",
+  "inputs": {
+   "model": [
+    "m",
+    0
+   ],
+   "max_shift": 2.77259,
+   "base_shift": 2.77259,
+   "width": 832,
+   "height": 1216
+  }
+ },
+ "lat": {
+  "class_type": "EmptyFlux2LatentImage",
+  "inputs": {
+   "width": 832,
+   "height": 1216,
+   "batch_size": 1
+  }
+ },
+ "seed0": {
+  "class_type": "PrimitiveInt",
+  "inputs": {
+   "value": 4201
+  }
+ },
+ "seed1": {
+  "class_type": "PrimitiveInt",
+  "inputs": {
+   "value": 4202
+  }
+ },
+ "s0": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "~/Boson/tests/fixtures/poc/ex-libris.bundle",
+   "ref": "r00"
+  }
+ },
+ "refs0": {
+  "class_type": "BosonStudioRefs",
+  "inputs": {
+   "studio": [
+    "s0",
+    0
+   ]
+  }
+ },
+ "db0d0": {
+  "class_type": "BosonDraftBrief",
+  "inputs": {
+   "studio": [
+    "s0",
+    0
+   ],
+   "pieces": 1,
+   "draw": 0,
+   "lead": "In the engraving style and composition of the reference prints: "
+  }
+ },
+ "pos0d0": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "clip": [
+    "c",
+    0
+   ],
+   "text": [
+    "db0d0",
+    1
+   ]
+  }
+ },
+ "rml0d0": {
+  "class_type": "ReferenceMultiLatent",
+  "inputs": {
+   "positive": [
+    "pos0d0",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "vae": [
+    "v",
+    0
+   ],
+   "resolution": "resize",
+   "resolution.megapixels": 1.0,
+   "images.image1": [
+    "refs0",
+    0
+   ],
+   "images.image2": [
+    "refs0",
+    1
+   ],
+   "images.image3": [
+    "refs0",
+    2
+   ]
+  }
+ },
+ "ks0d0a": {
+  "class_type": "KSampler",
+  "inputs": {
+   "model": [
+    "ms",
+    0
+   ],
+   "positive": [
+    "rml0d0",
+    0
+   ],
+   "negative": [
+    "rml0d0",
+    1
+   ],
+   "latent_image": [
+    "lat",
+    0
+   ],
+   "seed": [
+    "seed0",
+    0
+   ],
+   "steps": 16,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "vd0d0a": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "ks0d0a",
+    0
+   ],
+   "vae": [
+    "v",
+    0
+   ]
+  }
+ },
+ "ks0d0b": {
+  "class_type": "KSampler",
+  "inputs": {
+   "model": [
+    "ms",
+    0
+   ],
+   "positive": [
+    "rml0d0",
+    0
+   ],
+   "negative": [
+    "rml0d0",
+    1
+   ],
+   "latent_image": [
+    "lat",
+    0
+   ],
+   "seed": [
+    "seed1",
+    0
+   ],
+   "steps": 16,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "vd0d0b": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "ks0d0b",
+    0
+   ],
+   "vae": [
+    "v",
+    0
+   ]
+  }
+ },
+ "row0d0": {
+  "class_type": "BosonGridRow",
+  "inputs": {
+   "draft": [
+    "db0d0",
+    4
+   ],
+   "renderer": "on FLUX 3 Klein mi2i, refs 02 08 01",
+   "images_a": [
+    "vd0d0a",
+    0
+   ],
+   "seed_a": [
+    "seed0",
+    0
+   ],
+   "images_b": [
+    "vd0d0b",
+    0
+   ],
+   "seed_b": [
+    "seed1",
+    0
+   ]
+  }
+ },
+ "db0d1": {
+  "class_type": "BosonDraftBrief",
+  "inputs": {
+   "studio": [
+    "s0",
+    0
+   ],
+   "pieces": 1,
+   "draw": 1,
+   "lead": "In the engraving style and composition of the reference prints: "
+  }
+ },
+ "pos0d1": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "clip": [
+    "c",
+    0
+   ],
+   "text": [
+    "db0d1",
+    1
+   ]
+  }
+ },
+ "rml0d1": {
+  "class_type": "ReferenceMultiLatent",
+  "inputs": {
+   "positive": [
+    "pos0d1",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "vae": [
+    "v",
+    0
+   ],
+   "resolution": "resize",
+   "resolution.megapixels": 1.0,
+   "images.image1": [
+    "refs0",
+    0
+   ],
+   "images.image2": [
+    "refs0",
+    1
+   ],
+   "images.image3": [
+    "refs0",
+    2
+   ]
+  }
+ },
+ "ks0d1a": {
+  "class_type": "KSampler",
+  "inputs": {
+   "model": [
+    "ms",
+    0
+   ],
+   "positive": [
+    "rml0d1",
+    0
+   ],
+   "negative": [
+    "rml0d1",
+    1
+   ],
+   "latent_image": [
+    "lat",
+    0
+   ],
+   "seed": [
+    "seed0",
+    0
+   ],
+   "steps": 16,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "vd0d1a": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "ks0d1a",
+    0
+   ],
+   "vae": [
+    "v",
+    0
+   ]
+  }
+ },
+ "ks0d1b": {
+  "class_type": "KSampler",
+  "inputs": {
+   "model": [
+    "ms",
+    0
+   ],
+   "positive": [
+    "rml0d1",
+    0
+   ],
+   "negative": [
+    "rml0d1",
+    1
+   ],
+   "latent_image": [
+    "lat",
+    0
+   ],
+   "seed": [
+    "seed1",
+    0
+   ],
+   "steps": 16,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "vd0d1b": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "ks0d1b",
+    0
+   ],
+   "vae": [
+    "v",
+    0
+   ]
+  }
+ },
+ "row0d1": {
+  "class_type": "BosonGridRow",
+  "inputs": {
+   "draft": [
+    "db0d1",
+    4
+   ],
+   "renderer": "on FLUX 3 Klein mi2i, refs 02 08 01",
+   "images_a": [
+    "vd0d1a",
+    0
+   ],
+   "seed_a": [
+    "seed0",
+    0
+   ],
+   "images_b": [
+    "vd0d1b",
+    0
+   ],
+   "seed_b": [
+    "seed1",
+    0
+   ]
+  }
+ },
+ "s1": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "~/Boson/tests/fixtures/poc/ex-libris.bundle",
+   "ref": "r03"
+  }
+ },
+ "refs1": {
+  "class_type": "BosonStudioRefs",
+  "inputs": {
+   "studio": [
+    "s1",
+    0
+   ]
+  }
+ },
+ "db1d0": {
+  "class_type": "BosonDraftBrief",
+  "inputs": {
+   "studio": [
+    "s1",
+    0
+   ],
+   "pieces": 1,
+   "draw": 0,
+   "lead": "In the engraving style and composition of the reference prints: "
+  }
+ },
+ "pos1d0": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "clip": [
+    "c",
+    0
+   ],
+   "text": [
+    "db1d0",
+    1
+   ]
+  }
+ },
+ "rml1d0": {
+  "class_type": "ReferenceMultiLatent",
+  "inputs": {
+   "positive": [
+    "pos1d0",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "vae": [
+    "v",
+    0
+   ],
+   "resolution": "resize",
+   "resolution.megapixels": 1.0,
+   "images.image1": [
+    "refs1",
+    0
+   ],
+   "images.image2": [
+    "refs1",
+    1
+   ],
+   "images.image3": [
+    "refs1",
+    2
+   ]
+  }
+ },
+ "ks1d0a": {
+  "class_type": "KSampler",
+  "inputs": {
+   "model": [
+    "ms",
+    0
+   ],
+   "positive": [
+    "rml1d0",
+    0
+   ],
+   "negative": [
+    "rml1d0",
+    1
+   ],
+   "latent_image": [
+    "lat",
+    0
+   ],
+   "seed": [
+    "seed0",
+    0
+   ],
+   "steps": 16,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "vd1d0a": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "ks1d0a",
+    0
+   ],
+   "vae": [
+    "v",
+    0
+   ]
+  }
+ },
+ "ks1d0b": {
+  "class_type": "KSampler",
+  "inputs": {
+   "model": [
+    "ms",
+    0
+   ],
+   "positive": [
+    "rml1d0",
+    0
+   ],
+   "negative": [
+    "rml1d0",
+    1
+   ],
+   "latent_image": [
+    "lat",
+    0
+   ],
+   "seed": [
+    "seed1",
+    0
+   ],
+   "steps": 16,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "vd1d0b": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "ks1d0b",
+    0
+   ],
+   "vae": [
+    "v",
+    0
+   ]
+  }
+ },
+ "row1d0": {
+  "class_type": "BosonGridRow",
+  "inputs": {
+   "draft": [
+    "db1d0",
+    4
+   ],
+   "renderer": "on FLUX 3 Klein mi2i, refs 02 08 01",
+   "images_a": [
+    "vd1d0a",
+    0
+   ],
+   "seed_a": [
+    "seed0",
+    0
+   ],
+   "images_b": [
+    "vd1d0b",
+    0
+   ],
+   "seed_b": [
+    "seed1",
+    0
+   ]
+  }
+ },
+ "db1d1": {
+  "class_type": "BosonDraftBrief",
+  "inputs": {
+   "studio": [
+    "s1",
+    0
+   ],
+   "pieces": 1,
+   "draw": 1,
+   "lead": "In the engraving style and composition of the reference prints: "
+  }
+ },
+ "pos1d1": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "clip": [
+    "c",
+    0
+   ],
+   "text": [
+    "db1d1",
+    1
+   ]
+  }
+ },
+ "rml1d1": {
+  "class_type": "ReferenceMultiLatent",
+  "inputs": {
+   "positive": [
+    "pos1d1",
+    0
+   ],
+   "negative": [
+    "neg",
+    0
+   ],
+   "vae": [
+    "v",
+    0
+   ],
+   "resolution": "resize",
+   "resolution.megapixels": 1.0,
+   "images.image1": [
+    "refs1",
+    0
+   ],
+   "images.image2": [
+    "refs1",
+    1
+   ],
+   "images.image3": [
+    "refs1",
+    2
+   ]
+  }
+ },
+ "ks1d1a": {
+  "class_type": "KSampler",
+  "inputs": {
+   "model": [
+    "ms",
+    0
+   ],
+   "positive": [
+    "rml1d1",
+    0
+   ],
+   "negative": [
+    "rml1d1",
+    1
+   ],
+   "latent_image": [
+    "lat",
+    0
+   ],
+   "seed": [
+    "seed0",
+    0
+   ],
+   "steps": 16,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "vd1d1a": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "ks1d1a",
+    0
+   ],
+   "vae": [
+    "v",
+    0
+   ]
+  }
+ },
+ "ks1d1b": {
+  "class_type": "KSampler",
+  "inputs": {
+   "model": [
+    "ms",
+    0
+   ],
+   "positive": [
+    "rml1d1",
+    0
+   ],
+   "negative": [
+    "rml1d1",
+    1
+   ],
+   "latent_image": [
+    "lat",
+    0
+   ],
+   "seed": [
+    "seed1",
+    0
+   ],
+   "steps": 16,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "vd1d1b": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "ks1d1b",
+    0
+   ],
+   "vae": [
+    "v",
+    0
+   ]
+  }
+ },
+ "row1d1": {
+  "class_type": "BosonGridRow",
+  "inputs": {
+   "draft": [
+    "db1d1",
+    4
+   ],
+   "renderer": "on FLUX 3 Klein mi2i, refs 02 08 01",
+   "images_a": [
+    "vd1d1a",
+    0
+   ],
+   "seed_a": [
+    "seed0",
+    0
+   ],
+   "images_b": [
+    "vd1d1b",
+    0
+   ],
+   "seed_b": [
+    "seed1",
+    0
+   ]
+  }
+ },
+ "grid": {
+  "class_type": "BosonGrid",
+  "inputs": {
+   "studio": [
+    "s0",
+    0
+   ],
+   "refs": "r00,r03",
+   "cells": 4,
+   "variant": "-v1",
+   "mode": "live",
+   "arm": "orig",
+   "row_1": [
+    "row0d0",
+    0
+   ],
+   "row_2": [
+    "row0d1",
+    0
+   ],
+   "row_3": [
+    "row1d0",
+    0
+   ],
+   "row_4": [
+    "row1d1",
+    0
+   ]
+  }
+ },
+ "save": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "grid",
+    0
+   ],
+   "filename_prefix": "boson/grid-live"
+  }
+ }
+}

@@ -1,0 +1,163 @@
+{
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "flux3-image-klein-bf16.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "2": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen3vl_4b_bf16.safetensors",
+   "type": "flux3",
+   "device": "default"
+  }
+ },
+ "3": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "flux2-vae.safetensors"
+  }
+ },
+ "4": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "clip": [
+    "2",
+    0
+   ],
+   "text": "In the engraving style and composition of the reference prints: <prompt from Draft Brief or a stored spec>"
+  }
+ },
+ "5": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "clip": [
+    "2",
+    0
+   ],
+   "text": ""
+  }
+ },
+ "6": {
+  "class_type": "ModelSamplingFlux",
+  "inputs": {
+   "model": [
+    "1",
+    0
+   ],
+   "max_shift": 2.77259,
+   "base_shift": 2.77259,
+   "width": 832,
+   "height": 1216
+  }
+ },
+ "7": {
+  "class_type": "ReferenceMultiLatent",
+  "inputs": {
+   "positive": [
+    "4",
+    0
+   ],
+   "negative": [
+    "5",
+    0
+   ],
+   "vae": [
+    "3",
+    0
+   ],
+   "resolution": "resize",
+   "resolution.megapixels": 1.0,
+   "images.image1": [
+    "21",
+    0
+   ],
+   "images.image2": [
+    "22",
+    0
+   ],
+   "images.image3": [
+    "23",
+    0
+   ]
+  }
+ },
+ "8": {
+  "class_type": "EmptyFlux2LatentImage",
+  "inputs": {
+   "width": 832,
+   "height": 1216,
+   "batch_size": 1
+  }
+ },
+ "9": {
+  "class_type": "KSampler",
+  "inputs": {
+   "model": [
+    "6",
+    0
+   ],
+   "positive": [
+    "7",
+    0
+   ],
+   "negative": [
+    "7",
+    1
+   ],
+   "latent_image": [
+    "8",
+    0
+   ],
+   "seed": 0,
+   "steps": 16,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "10": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "9",
+    0
+   ],
+   "vae": [
+    "3",
+    0
+   ]
+  }
+ },
+ "11": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "images": [
+    "10",
+    0
+   ],
+   "filename_prefix": "boson/plate"
+  }
+ },
+ "21": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "boson/<studio>/ref02.jpg"
+  }
+ },
+ "22": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "boson/<studio>/ref08.jpg"
+  }
+ },
+ "23": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "boson/<studio>/ref01.jpg"
+  }
+ }
+}

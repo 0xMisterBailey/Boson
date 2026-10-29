@@ -1,0 +1,12 @@
+instruments:
+  nano-banana:
+    does: image generation from a prompt plus reference images, one finished image per prompt (the studio's own
+      made thing, as the field shows its work: a photograph, a drawing, a print, a render)
+    model: Nano Banana (Google Gemini image), through the API key or, when it has no credit, the box's signed-in
+      Antigravity (about 1K output either way)
+    output: one image per prompt, at the studio's aspect, about 2K (1K through Antigravity)
+    inputs: a natural-language prompt; reference images in order (the piece a make varies, the house pictures, the
+      pins, a commission image such as a crop of the scene spot the piece is for)
+    limits: renders short lettering cleanly when every word is quoted in the prompt; long copy comes out misspelled;
+      left alone it adds gloss, glow and a generic stock-photo finish unless the object, the material, the light and
+      the ground are named; seeds are ignored, so no image can be remade exactly

@@ -1,0 +1,33 @@
+Here is how Boson works.
+
+A studio is a small art department for one kind of thing: cars, outfits, buildings. Each one has its own taste.
+
+A scene is one street photo. Some things in it can be replaced, like the car or the outfit. Each of those is a slot, and on the photo it has a box with a label.
+
+Why is Boson new? Because of the whole idea. First, studios instead of presets: each studio is a folder of plain files in git that holds a taste. Second, the curation loop: you dot red and green and write one sentence, and that verdict becomes a rule the next round must read, so taste builds up with a history. Third, the scene editor: a street where every piece is a slot any studio can fill, where a swap redraws and relights only what changed, and where even background things, like the taqueria, can become slots. Then the engineering underneath: ordinary ComfyUI graphs that pause for your judgment, replays that cost nothing, and any model behind one switch. And the models work for their strengths, local and cloud together, with your feedback choosing.
+
+Every edit is the same four steps.
+
+One. Pick a thing. Click its box on the photo.
+
+Two. Choose who makes it. Under From, pick a studio.
+
+Three. Pick one. Choose a piece from the grid. Or press Make four for this spot, and the studio makes four new pieces that fit that exact spot.
+
+Four. Press Swap. The whole photo is redrawn with the new piece, in the same light. Everything else stays.
+
+Each swap makes a new photo, called a take. Old takes are never thrown away. Drag the slider under the photo to compare before and after. Don't like it? Press Undo swap.
+
+Something that isn't a slot yet, like the taqueria, has a dashed box with a plus. Click it, say what it is, and press Make it a slot.
+
+Each piece has a badge. Green, ready, means it replays instantly, for free. Orange, live, means it was never made here, and making it costs money. Leave the live calls switch off. Then the app only replays what was made before, in the same order. That is why the demo has a fixed order.
+
+The demo: make the taqueria a slot and make four corners. Swap in the argyle outfit. Swap in the corner with the taco hatch. Make four cars from the exotic car studio, and swap in the yellow Ford GT.
+
+Some models are open weights: the model itself is published, and anyone can run it, on their own machine or a rented one. Here that is FLUX 3 Klein for pictures, Qwen3.8 for writing and for finding things in the photo, and BiRefNet for cutting out the person or the car. Others are closed, reached only through a company's service: Nano Banana, Claude, Gemini, and the video models. Boson's own code is open source either way.
+
+On your own machine, the open models take turns on one graphics card, so it is slower than the cloud, and nothing is sent out. Turning a take into a clip still needs a cloud video model. For pictures, one setting called backend picks local, or a cloud service like Nano Banana when you have a key. The studios don't change. The line under each take says which model drew it.
+
+The line at the bottom tells you what happened. Green, it worked. Orange, nothing was made, and why. Red, something broke.
+
+Pick a thing, choose a studio, pick a piece, swap.

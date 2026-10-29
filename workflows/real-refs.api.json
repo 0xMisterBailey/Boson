@@ -1,0 +1,13 @@
+{
+ "1": {"class_type": "BosonForgeStudio", "inputs": {"path": "fashion-real", "owner": "the operator (real references)",
+       "field": "", "sentence": "", "refs": "~/.cache/boson/forge-in/fashion-real/refs", "instrument": "", "commission": ""},
+       "_meta": {"title": "Forge Studio (refs: tools/loop.py NAME forge made and described them; on disk = loaded)", "pos": [40, 80], "size": [420, 420]}},
+ "2": {"class_type": "BosonMake", "inputs": {"studio": ["1", 0], "frame": "", "idea": "", "n": 6, "mode": "stored", "like": "", "backend": "api"},
+       "_meta": {"title": "Make (round 1: your idea; live = 1 writer call + n pictures)", "pos": [520, 80], "size": [420, 380]}},
+ "3": {"class_type": "PreviewImage", "inputs": {"images": ["2", 0]}, "_meta": {"title": "round 1", "pos": [1000, 80], "size": [640, 520]}},
+ "4": {"class_type": "BosonEditHouse", "inputs": {"studio": ["1", 0], "field": "pins", "op": "set", "value": ""},
+       "_meta": {"title": "Edit House: pins = the greens (one studio@sha:path per line)", "pos": [40, 660], "size": [420, 260]}},
+ "5": {"class_type": "BosonMake", "inputs": {"studio": ["4", 0], "frame": "", "idea": "", "n": 6, "mode": "stored", "like": "", "backend": "api"},
+       "_meta": {"title": "Make (next: your idea + the round verdict; pins reach the renderer)", "pos": [520, 660], "size": [420, 380]}},
+ "6": {"class_type": "PreviewImage", "inputs": {"images": ["5", 0]}, "_meta": {"title": "next round", "pos": [1000, 660], "size": [640, 520]}}
+}
