@@ -6,7 +6,14 @@
   "fashion-real": 18,
   "posters-real": 18,
   "streets": 5,
-  "exotic-cars-real": 8
+  "exotic-cars-real": 8,
+  "terrain-real": 14,
+  "rockets-real": 12,
+  "robots-real": 12,
+  "skybox-real": 12
  },
- "scene": "austin-stop"
+ "scenes": [
+  "austin-stop",
+  "airless-landing"
+ ]
 }

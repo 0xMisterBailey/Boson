@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Assemble the distribution a stranger clones to view Boson with zero keys (SPEC I4, rubric C2), outside ~/Boson.
 
-  ship.py build [--out /tmp/boson-dist] [--studio NAME ...] [--scene austin-stop] [--scrub-out DIR | --no-scrub]
-      the pack (boson/, workflows/, docs/, tools/ as committed at HEAD, less INTERNAL), every studio as
+  ship.py build [--out /tmp/boson-dist] [--studio NAME ...] [--scene NAME ...] [--scrub-out DIR | --no-scrub]
+      the pack (boson/, workflows/, docs/, tools/ as committed at HEAD or $BOSON_SHIP_REF, less INTERNAL), every studio as
       examples/NAME.bundle (all refs) with its stored plates beside it (examples/NAME-plates/, home paths in the logs
-      made repo-relative), the scene
+      made repo-relative), each scene
       as examples/NAME-scene.bundle plus every studio it pins (its base and its cast). The dist is then one git
       commit, so `git clone` of it is the stranger's first step. Ends with `scan`; a hit removes nothing, it fails.
   ship.py scrub DIR [--out DIR-scrubbed]
@@ -20,16 +20,20 @@
   ship.py sizes DIR
       what each shipping option costs: pack, bundles, plates, the clone's .git, a tar.gz of the plates.
 
-Defaults: the demo studios are the -real ones, the scene is austin-stop (the demo scene, 10-24).
+Defaults: the demo studios are the -real ones; the scenes are austin-stop (the demo scene, 10-24) and airless-landing
+(the sci-fi scene four agent-forged studios made, 10-29).
 """
 import argparse, hashlib, io, json, os, pathlib, re, shutil, socket, subprocess, sys, tarfile, tempfile
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+# BOSON_ROOT: the checkout whose examples/ ship (default: this file's repo). BOSON_SHIP_REF: the commit whose pack
+# ships (default HEAD), so a publish never depends on what another session has checked out.
+ROOT = pathlib.Path(os.environ.get("BOSON_ROOT") or pathlib.Path(__file__).resolve().parents[1]).resolve()
+REF = os.environ.get("BOSON_SHIP_REF", "HEAD")
 EXAMPLES = ROOT / "examples"
 PACK = ["boson", "workflows", "docs", "tools", "refs-licences"]   # refs-licences: the credit lines CC BY needs
 INTERNAL = ["docs/DEMO-SCRIPT.md"]   # tracked in ~/Boson, never shipped: the operator's recording notes
 DEMO = ["architecture-real", "cars-real", "cars-s4471-real", "fashion-real", "posters-real"]
-SCENE = "austin-stop"
+SCENES = ["austin-stop", "airless-landing"]
 OUT = pathlib.Path("/tmp/boson-dist")
 DENY_FILE = pathlib.Path("~/.config/boson/ship-deny.txt").expanduser()
 TEXT = (".json", ".jsonl", ".md", ".txt", ".yaml", ".yml", ".py", ".js", ".html", ".css", ".sh", ".gitignore", "")
@@ -109,7 +113,7 @@ def bundle(repo, out, drop=()):
     log(f"{repo.name}: dropped {', '.join(drop)} from the shipped history")
 
 
-def build(out=OUT, studios=DEMO, scene=SCENE, examples=EXAMPLES):
+def build(out=OUT, studios=DEMO, scenes=SCENES, examples=EXAMPLES):
     out = pathlib.Path(out).resolve()
     if out == ROOT or ROOT in out.parents:
         sys.exit(f"ship: refusing to build inside the repo ({out})")
@@ -117,15 +121,17 @@ def build(out=OUT, studios=DEMO, scene=SCENE, examples=EXAMPLES):
         shutil.rmtree(out)
     ex = out / "examples"
     ex.mkdir(parents=True)
-    # the pack as committed (HEAD), not the working tree: other sessions' half-done edits never ship
-    tar = git("archive", "HEAD", "--", *PACK, ".gitignore", "README.md", "LICENSE",
+    # the pack as committed (REF), not the working tree: other sessions' half-done edits never ship
+    tar = git("archive", REF, "--", *PACK, ".gitignore", "README.md", "LICENSE",
               *(f":(exclude){x}" for x in INTERNAL), cwd=ROOT, out=True)
     tarfile.open(fileobj=io.BytesIO(tar)).extractall(out, filter="data")
     names = list(studios)
-    if scene:
+    scenes = [scenes] if isinstance(scenes, str) else scenes
+    scenes = [x for x in scenes if x]
+    for scene in scenes:
         names += [n for n in scene_studios(examples / scene) if n not in names]
         bundle(examples / scene, ex / f"{scene}-scene.bundle", DROP.get(scene, ()))
-    report = {"studios": {}, "scene": scene}
+    report = {"studios": {}, "scenes": scenes}
     for n in names:
         repo = examples / n
         if not (repo / ".git").exists():
@@ -140,8 +146,8 @@ def build(out=OUT, studios=DEMO, scene=SCENE, examples=EXAMPLES):
     git("init", "-q", "-b", "main", cwd=out)
     git("add", "-A", cwd=out)
     git("add", "-f", "examples", cwd=out)
-    git(*WHO, "commit", "-q", "-m", "Boson distribution: pack, demo studios and scene as bundles, stored plates", cwd=out)
-    log(f"built {out}: {len(names)} studios ({', '.join(names)}), scene {scene}")
+    git(*WHO, "commit", "-q", "-m", "Boson distribution: pack, demo studios and scenes as bundles, stored plates", cwd=out)
+    log(f"built {out}: {len(names)} studios ({', '.join(names)}), scenes {', '.join(scenes) or 'none'}")
     return out
 
 
@@ -243,10 +249,10 @@ def _checkout(repo, ref, dst):
     return dst
 
 
-def rekey(name, old, new, scene, makes, tmp):
+def rekey(name, old, new, scenes, makes, tmp):
     """The make keys the app recomputes live at a studio's main ("made for this spot"): every make of this studio in
     the makes cache made at the old main. make_key hashes the studio's sha and pins and the crop bytes, so the key
-    moves with the scrub; the crop is reproduced the way server.ready() takes it (each take x slot of the old scene),
+    moves with the scrub; the crop is reproduced the way server.ready() takes it (each take x slot of every old scene),
     and a new key is trusted only when the old studio gives back the old key from that crop.
     -> {old key: new key}, {old key: why it stays} for the ones that could not be proven."""
     sys.path.insert(0, str(ROOT / "boson"))
@@ -258,8 +264,8 @@ def rekey(name, old, new, scene, makes, tmp):
     so = {"sha": main_old, "dir": str(_checkout(old, "main", tmp / f"{name}-old"))}
     sn = {"sha": main_new, "dir": str(_checkout(new, "main", tmp / f"{name}-new"))}
     crops = []
-    if scene:
-        d = _checkout(scene, "main", tmp / f"{name}-scene")
+    for scene in scenes:
+        d = _checkout(scene, "main", tmp / f"{name}-{scene.name}")
         spec = json.loads((d / "SCENE.json").read_text())
         for t in sorted((d / "takes").glob("*/boxes.json")):
             boxes = json.loads(t.read_text())
@@ -268,7 +274,7 @@ def rekey(name, old, new, scene, makes, tmp):
                 got, place = boxes["slots"].get(sl["id"]) or {}, sl["place"]
                 if got.get("visible") or place.get("box") or place.get("boxes"):
                     crop = sc.crop(pil, boxes, sl["id"], 0, 0.15, place)
-                    crops.append((f"take {t.parent.name} slot {sl['id']}", np.asarray(crop.convert("RGB")).tobytes()))
+                    crops.append((f"{scene.name} take {t.parent.name} slot {sl['id']}", np.asarray(crop.convert("RGB")).tobytes()))
     done, left = {}, {}
     for m in sorted(pathlib.Path(makes).glob("*/MAKE.json")):
         meta = json.loads(m.read_text())
@@ -313,18 +319,18 @@ def scrub(src, out=None, makes=None):
         every = {c for r in old.values() for c in _run(["rev-list", "--all"], r).decode().split()}
         if len({c[:8] for c in every}) != len(every):
             raise ValueError("two commit ids in the bundles share an 8-character prefix; refusing to rewrite short pins")
-        scene = next((old[b.stem] for b in bundles if b.stem.endswith("-scene")), None)
+        scenes = [old[b.stem] for b in bundles if b.stem.endswith("-scene")]
         for b in bundles:
             if b.stem.endswith("-scene"):
                 continue
             rewrite_repo(new[b.stem], ids)
-            k, why = rekey(b.stem, old[b.stem], new[b.stem], scene, makes, t / "co")
+            k, why = rekey(b.stem, old[b.stem], new[b.stem], scenes, makes, t / "co")
             keys.update(k)
             opaque.update(why)
-        sub = remapper(ids, keys)
         for b in bundles:
             if b.stem.endswith("-scene"):
                 rewrite_repo(new[b.stem], ids, keys)
+        sub = remapper(ids, keys)   # after the scenes: a plate log naming a take's commit (a swap's parent) follows it too
         if len({c[:8] for c in ids.values()} | {c[:8] for c in every}) != 2 * len(every):
             raise ValueError("a new commit id shares an 8-character prefix with another id; refusing")
         for b in bundles:
@@ -343,7 +349,7 @@ def scrub(src, out=None, makes=None):
     git("init", "-q", "-b", "main", cwd=out)
     git("add", "-A", cwd=out)
     git("add", "-f", "examples", cwd=out)
-    git(*WHO, "commit", "-q", "-m", "Boson distribution: pack, demo studios and scene as bundles, stored plates", cwd=out)
+    git(*WHO, "commit", "-q", "-m", "Boson distribution: pack, demo studios and scenes as bundles, stored plates", cwd=out)
     pathlib.Path(f"{out}.map.json").write_text(json.dumps({"ids": ids, "keys": keys, "opaque": opaque}, indent=1) + "\n")
     log(f"scrubbed {src} -> {out}: {len(ids)} commits as {_NAME}, {len(keys)} make keys re-keyed"
         + (f", {len(opaque)} left as opaque labels ({', '.join(opaque)})" if opaque else ""))
@@ -475,7 +481,8 @@ def main():
     b = sub.add_parser("build")
     b.add_argument("--out", default=str(OUT))
     b.add_argument("--studio", action="append", help=f"a studio to ship (repeatable; default {', '.join(DEMO)})")
-    b.add_argument("--scene", default=SCENE, help="the scene to ship with every studio it pins ('' for none)")
+    b.add_argument("--scene", action="append", help=f"a scene to ship with every studio it pins (repeatable; default "
+                   f"{', '.join(SCENES)}; '' for none)")
     b.add_argument("--scrub-out", help="where the scrubbed copy goes (default: OUT-scrubbed)")
     b.add_argument("--no-scrub", dest="scrub", action="store_false",
                    help="skip the identity scrub (the raw dist then fails scan: its bundles carry this box's identity)")
@@ -486,7 +493,7 @@ def main():
         sub.add_parser(name).add_argument("dist", nargs="?", default=str(OUT))
     a = ap.parse_args()
     if a.cmd == "build":
-        out = build(a.out, a.studio or DEMO, a.scene)
+        out = build(a.out, a.studio or DEMO, SCENES if a.scene is None else a.scene)
         a.dist = scrub(out, a.scrub_out)["out"] if a.scrub else out
     if a.cmd == "scrub":
         a.dist = scrub(a.dist, a.out)["out"]

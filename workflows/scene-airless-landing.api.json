@@ -1,0 +1,745 @@
+{
+ "1": {
+  "class_type": "BosonLoadScene",
+  "inputs": {
+   "repo": "airless-landing",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Scene (airless-landing)",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "2": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "scene": [
+    "1",
+    0
+   ],
+   "slot": "rocket",
+   "piece": "",
+   "desc": "",
+   "short": ""
+  },
+  "_meta": {
+   "title": "Cast (rocket)",
+   "pos": [
+    380,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "3": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "scene": [
+    "2",
+    0
+   ],
+   "slot": "rover",
+   "piece": "",
+   "desc": "",
+   "short": ""
+  },
+  "_meta": {
+   "title": "Cast (rover)",
+   "pos": [
+    380,
+    180
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "4": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "scene": [
+    "3",
+    0
+   ],
+   "slot": "walker",
+   "piece": "",
+   "desc": "",
+   "short": ""
+  },
+  "_meta": {
+   "title": "Cast (walker)",
+   "pos": [
+    380,
+    360
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "5": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "scene": [
+    "4",
+    0
+   ],
+   "slot": "planet",
+   "piece": "",
+   "desc": "",
+   "short": ""
+  },
+  "_meta": {
+   "title": "Cast (planet)",
+   "pos": [
+    380,
+    540
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "6": {
+  "class_type": "BosonCompileScene",
+  "inputs": {
+   "scene": [
+    "5",
+    0
+   ],
+   "mode": "swap",
+   "take": ""
+  },
+  "_meta": {
+   "title": "Compile Scene",
+   "pos": [
+    760,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "7": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "6",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "What Compile sends",
+   "pos": [
+    760,
+    300
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "8": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "terrain-real",
+   "ref": "204e7da5"
+  },
+  "_meta": {
+   "title": "Load Studio (base: terrain-real)",
+   "pos": [
+    760,
+    500
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "9": {
+  "class_type": "BosonNanoBanana",
+  "inputs": {
+   "studio": [
+    "8",
+    0
+   ],
+   "mode": "stored",
+   "draws": 1,
+   "backend": "comfy-api",
+   "shot": [
+    "6",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Nano Banana (the take)",
+   "pos": [
+    1140,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "10": {
+  "class_type": "BosonLocate",
+  "inputs": {
+   "image": [
+    "9",
+    0
+   ],
+   "scene": [
+    "5",
+    0
+   ],
+   "mode": "stored",
+   "model": "gemini-3.8-flash"
+  },
+  "_meta": {
+   "title": "Locate",
+   "pos": [
+    1520,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "11": {
+  "class_type": "BosonCommitTake",
+  "inputs": {
+   "scene": [
+    "5",
+    0
+   ],
+   "image": [
+    "9",
+    0
+   ],
+   "boxes": [
+    "10",
+    0
+   ],
+   "shot": [
+    "6",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Commit Take",
+   "pos": [
+    1900,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "12": {
+  "class_type": "BosonLoadTake",
+  "inputs": {
+   "scene": [
+    "1",
+    0
+   ],
+   "take": ""
+  },
+  "_meta": {
+   "title": "Load Take",
+   "pos": [
+    0,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "13": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "image": [
+    "12",
+    0
+   ],
+   "boxes": [
+    "12",
+    1
+   ],
+   "slot": "rocket",
+   "item": 0,
+   "pad": 0.15,
+   "scene": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Slot Crop (rocket)",
+   "pos": [
+    380,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "14": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "rockets-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (rockets-real)",
+   "pos": [
+    760,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "15": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "14",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "comfy-api",
+   "image_1": [
+    "13",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (rockets-real, commission new)",
+   "pos": [
+    1140,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "16": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "15",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New rocket",
+   "pos": [
+    1520,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "17": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "image": [
+    "12",
+    0
+   ],
+   "boxes": [
+    "12",
+    1
+   ],
+   "slot": "rover",
+   "item": 0,
+   "pad": 0.15,
+   "scene": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Slot Crop (rover)",
+   "pos": [
+    380,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "18": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "robots-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (robots-real)",
+   "pos": [
+    760,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "19": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "18",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "comfy-api",
+   "image_1": [
+    "17",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (robots-real, commission new)",
+   "pos": [
+    1140,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "20": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "19",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New rover",
+   "pos": [
+    1520,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "21": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "image": [
+    "12",
+    0
+   ],
+   "boxes": [
+    "12",
+    1
+   ],
+   "slot": "walker",
+   "item": 0,
+   "pad": 0.15,
+   "scene": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Slot Crop (walker)",
+   "pos": [
+    380,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "22": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "robots-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (robots-real)",
+   "pos": [
+    760,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "23": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "22",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "comfy-api",
+   "image_1": [
+    "21",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (robots-real, commission new)",
+   "pos": [
+    1140,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "24": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "23",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New walker",
+   "pos": [
+    1520,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "25": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "image": [
+    "12",
+    0
+   ],
+   "boxes": [
+    "12",
+    1
+   ],
+   "slot": "planet",
+   "item": 0,
+   "pad": 0.15,
+   "scene": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Slot Crop (planet)",
+   "pos": [
+    380,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "26": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "skybox-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (skybox-real)",
+   "pos": [
+    760,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "27": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "26",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "comfy-api",
+   "image_1": [
+    "25",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (skybox-real, commission new)",
+   "pos": [
+    1140,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "28": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "27",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New planet",
+   "pos": [
+    1520,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "29": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "terrain-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (keep)",
+   "pos": [
+    0,
+    1940
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "30": {
+  "class_type": "BosonKeepPiece",
+  "inputs": {
+   "studio": [
+    "29",
+    0
+   ],
+   "path": "",
+   "note": "",
+   "op": "keep"
+  },
+  "_meta": {
+   "title": "Keep Piece",
+   "pos": [
+    380,
+    1940
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "31": {
+  "class_type": "BosonAddSlot",
+  "inputs": {
+   "scene": [
+    "1",
+    0
+   ],
+   "anchor": "",
+   "slot": "",
+   "noun": "",
+   "studio": "",
+   "where": "",
+   "box": ""
+  },
+  "_meta": {
+   "title": "Add Slot (make a slot from the frame)",
+   "pos": [
+    760,
+    1940
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ }
+}

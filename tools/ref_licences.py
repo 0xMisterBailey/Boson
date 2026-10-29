@@ -16,7 +16,8 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 from fetch_refs import API, get  # noqa: E402  (same User-Agent and retry as the ref fetch)
 
-STUDIOS = ["architecture-real", "cars-real", "cars-s4471-real", "fashion-real", "posters-real"]
+STUDIOS = ["architecture-real", "cars-real", "cars-s4471-real", "fashion-real", "posters-real",
+           "rockets-real", "robots-real", "terrain-real", "skybox-real"]   # the last four: the sci-fi scene (10-29)
 FIELDS = ["LicenseShortName", "LicenseUrl", "License", "Artist", "Credit", "AttributionRequired", "UsageTerms"]
 # Commons' Artist field is sometimes a note, not a name; the credit then uses the name the note itself asks for.
 CREDIT_AS = {"File:Henderson Wave Bridge (I).jpg": "Supanut Arunoprayote"}  # "please mention me as the author"

@@ -55,6 +55,7 @@ def main():
     ap.add_argument("--exclude", default=r"crash|construction|interior|inside|map|diagram|logo|fireworks|aerial|"
                                          r"bike counter|depot|maintenance|barn|night|museum|model|test train|sign\b")
     ap.add_argument("--pause", type=float, default=6.0)
+    ap.add_argument("--allow-portrait", action="store_true", help="keep portrait files too (default landscape only)")
     a = ap.parse_args()
     out = pathlib.Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -77,7 +78,7 @@ def main():
             title = p["title"][5:]
             if (ii.get("descriptionurl") in seen or not OK_LIC.search(lic) or BAD_LIC.search(lic)
                     or ii.get("mime") != "image/jpeg" or ii.get("width", 0) < a.min_width
-                    or ii.get("width", 0) < ii.get("height", 1)  # landscape only: the base street is 16:9
+                    or (not a.allow_portrait and ii.get("width", 0) < ii.get("height", 1))  # landscape only: the base street is 16:9
                     or not yr or int(yr.group()) < a.min_year or re.search(a.exclude, title + " " + desc, re.I)):
                 continue
             slug = re.sub(r"[^a-z0-9]+", "-", title.rsplit(".", 1)[0].lower()).strip("-")[:60]

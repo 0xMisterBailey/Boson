@@ -8,8 +8,12 @@ Boson is a set of ComfyUI nodes for making images and clips with *your* taste, k
 It has no taste of its own. You dot what works (green, red), write one sentence, and that verdict becomes a rule
 every next round must read. The studio remembers, in files you can read, edit, branch and share.
 
-An entry to Comfy's Open Source Higgsfield challenge (2026), in the Most Innovative category. What is new is the
-idea as a whole, in five parts:
+![The loop in one picture: round 1 dotted green and red, the owner's one sentence, and round 2 obeying it](docs/img/loop.jpg)
+
+An entry to Comfy's Open Source Higgsfield challenge (2026), in the Most Innovative category. Built over 13 days
+(2026-10-17 to 10-29): more than 500 commits and 56 recorded decision rounds. This repo's own history is condensed to
+a few builds to keep the author's working files private; each studio and scene in `examples/*.bundle` keeps its full
+round-by-round history. What is new is the idea as a whole, in five parts:
 
 1. **Studios instead of presets.** A studio is a folder of plain files in git that holds one taste, for one field
    (architecture, cars, fashion, posters): `STUDIO.md` (its idea, idiom and refusals), `TASTE.json` (words, style
@@ -18,7 +22,7 @@ idea as a whole, in five parts:
 2. **The curation loop.** Make a round, dot it red and green, write one sentence. That verdict becomes a rule the next
    round must read: greens become pins, the sentence is appended word for word under "From your verdicts". All
    committed, so the taste builds up with a history.
-3. **The scene editor.** A street where every piece is a **slot** (a box on the picture that can be refilled: an
+3. **The scene editor.** A street, a moon landing, any picture, where every piece is a **slot** (a box on the picture that can be refilled: an
    outfit, a car, a poster, a building) any studio can fill. Click a slot and pick **any** studio: it makes its own
    versions for that exact spot (from a crop of the frame, so they already sit in its place and light), and a Swap
    redraws and relights only what changed. Even background things that came with the street, like the corner
@@ -47,6 +51,18 @@ It all runs as an app inside ComfyUI (`/boson/app`), here on a fresh clone with 
 
 ![The Boson app in ComfyUI: the studios rail, the Austin stop scene with its slots, and the car slot's panel](docs/img/app-scene.jpg)
 
+Streets are one case. The same studios and slots make any scene. This one had no human in any seat (2026-10-29):
+four agents each gathered real NASA and Wikimedia Commons photos, forged a studio from them (terrain, rockets, robots,
+the sky), and ran three rounds, dotting and judging their own pictures. Then one more agent built the scene and cast
+its slots. Every picture was drawn on one RTX 4090 by FLUX 3 Klein, and the boxes were found by Qwen3.8 on the same card:
+
+![Four agent-forged studios: terrain, rocket, robot and skybox, each with its sentence and its green pictures](docs/img/scifi-studios.jpg)
+
+![The airless landing scene as a layer on top of its four studios: the ground, the rocket, two robots and a ringed planet, each slot boxed and named by its studio](docs/img/scifi-layer.jpg)
+
+The agents' dots and verdicts are their own judgments, not the author's taste. The words behind it (each studio's
+text, the descriptions of the photos) came from cloud models: Claude and Gemini.
+
 ## See it in two minutes (no keys, no account)
 
 Everything in this repo was already rendered, so you can browse it without a single API call.
@@ -61,8 +77,8 @@ ln -s /path/to/Boson/boson boson          # a symlink, not a copy: the nodes fin
 cd .. && python main.py                   # add --cpu on a machine without a GPU
 ```
 
-Open **http://127.0.0.1:8188/boson/app**. The left rail lists the studios and the scene. The first open of a studio
-or the scene takes a few seconds: it is cloned from its bundle in `examples/`.
+Open **http://127.0.0.1:8188/boson/app**. The left rail lists the studios and the scenes. The first open of a studio
+or a scene takes a few seconds: it is cloned from its bundle in `examples/`.
 
 To replay a Swap (not only look at the takes), ComfyUI also needs BiRefNet, the subject-mask model, which a stock
 ComfyUI does not have (444 MB, the one download). The scene's graph names it, so without it browsing works but ComfyUI
@@ -87,6 +103,8 @@ no name and email set, Boson signs those commits "Boson". To sign them yourself:
 - Click **Austin stop**: the scene, its takes, which studio filled which slot, and its clips. Click a box on the
   picture: its studio, a picker for any other studio, their pieces. With "live calls" off, Make and Swap only replay
   what was made (no key); take 08 -> 12 is the outfit, the taqueria made a slot, and a car from a second car studio.
+- Click **Airless landing**: the sci-fi scene, its four slots (rocket, rover, walker, ringed planet) and the four
+  agent-forged studios that filled them (terrain, rockets, robots, skybox), each with its three dotted rounds.
 - **Graph** (top right) shows the real ComfyUI graph under every screen; every button sets widgets on real nodes.
 
 Workflows in `workflows/` open in ComfyUI directly (Workflow > Open). They start in `stored` mode: they replay what
@@ -140,6 +158,8 @@ Boson's own code is open source either way.
 
 How the shipped work was made: the studios (architecture, cars, exotic cars, fashion, posters) and the Austin scene
 were made with Nano Banana pictures, Claude-written words, the author's red and green dots, and Gemini boxes (Locate).
+The airless landing and its four studios (terrain, rockets, robots, skybox) were made with Klein pictures and Qwen3.8
+boxes on one RTX 4090, Claude-written words, Gemini descriptions of the reference photos, and agents' dots.
 The app names the model that drew each take it knows of. The local path (Klein, Qwen3.8, BiRefNet) exists and has
 run: one studio round and one scene's shoot and two swaps, on 2026-10-27 (above). The code's defaults are the cloud
 ones: `backend: api`, the Opus writer, Gemini Locate.
@@ -149,7 +169,7 @@ One side-by-side test (2026-10-28): the same Austin scene from the same prompts,
 ## What's in the repo
 
 - `boson/`: the node pack (studio, loop, scene nodes) and the app (`boson/web`), served at `/boson/app`.
-- `examples/*.bundle`: the studios and the Austin scene as git bundles (full history). `examples/*-plates/`: the
+- `examples/*.bundle`: the studios and the two scenes (Austin stop, airless landing) as git bundles (full history). `examples/*-plates/`: the
   pictures their rounds rendered, with manifests naming the prompt and studio commit behind each.
 - `workflows/`: ready graphs (studio, scene, motion, the in-context building rework).
 - `tools/`: command-line versions of the same steps (`loop.py`, `seed.py`, `motion_workflow.py`, `ship.py`).
