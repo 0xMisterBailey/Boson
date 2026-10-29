@@ -1,5 +1,7 @@
 # Boson
 
+![Boson: made from curation, not presets](docs/img/banner.jpg)
+
 **A style reference gives you a look. Boson gives it a history.**
 
 Boson is a set of ComfyUI nodes for making images and clips with *your* taste, kept as plain files in git.
@@ -25,6 +27,24 @@ idea as a whole, in five parts:
    and any model behind one switch.
 5. **Models for their strengths.** Local and cloud models work together, each on the task it does best, and your
    feedback chooses. Next on the roadmap: a fan-out test of each model on each task, with your dots picking the model.
+
+## In pictures
+
+Four studios, each forged from reference photos and one sentence, each with its own taste and its own history:
+
+![Four studios: architecture, cars, fashion, posters, each with its sentence and six of its pictures](docs/img/studios.jpg)
+
+The scene editor: a street where every piece is a slot that any studio can fill, made for that exact spot:
+
+![The Austin stop scene as a layer on top of the studios: each slot boxed and named by the studio that filled it](docs/img/layer.jpg)
+
+A swap redraws only the slot; the rest of the frame is kept:
+
+![Swap the car: before and after, only the car changes](docs/img/swap-car.jpg)
+
+It all runs as an app inside ComfyUI (`/boson/app`), here on a fresh clone with no network and no keys:
+
+![The Boson app in ComfyUI: the studios rail, the Austin stop scene with its slots, and the car slot's panel](docs/img/app-scene.jpg)
 
 ## See it in two minutes (no keys, no account)
 
