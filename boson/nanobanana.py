@@ -161,7 +161,8 @@ def renderer(backend, model):
 
 def render_round(studio, pdir, rid, specs, cfg, draws=1, commission=None, gen=None, backend="api"):
     """Render round `rid` of `studio` (its specs, its RENDER.json) into pdir/rNN, appending manifest lines.
-    commission: image paths that replace RENDER.json's commission_refs (the images wired into the node).
+    commission: image paths that replace RENDER.json's commission_refs (the images wired into the node), or a
+    function spec index -> those paths, when each piece gets its own refs (loop.py's local rounds).
     Plates already on disk are reused, so a re-queue costs nothing. -> manifest rows, in spec order."""
     if backend not in BACKENDS:
         raise ValueError(f"unknown backend {backend!r}: one of {BACKENDS}")
@@ -170,21 +171,23 @@ def render_round(studio, pdir, rid, specs, cfg, draws=1, commission=None, gen=No
     gen = gen or {"antigravity": generate_agy, "comfy-api": generate_comfy}.get(backend, generate)
     d = pathlib.Path(studio["dir"])
     refs = [d / "refs" / f"{r}.jpg" for r in cfg.get("refs", [])]
-    refs += list(commission) if commission is not None else [d / r for r in cfg.get("commission_refs", [])]
+    each = commission if callable(commission) else None
+    refs += [] if each else list(commission) if commission is not None else [d / r for r in cfg.get("commission_refs", [])]
     model = cfg.get("model", MODEL)
     out = pathlib.Path(pdir) / f"r{rid}"
-    jobs = [(sp, k, out / f"{sp['id']}__d{k}__{TAG}.png") for sp in specs for k in range(draws)]
+    jobs = [(i, sp, k, out / f"{sp['id']}__d{k}__{TAG}.png") for i, sp in enumerate(specs) for k in range(draws)]
 
     def run(j):
-        sp, k, p = j
+        i, sp, k, p = j
+        refs_ = refs + list(each(i)) if each else refs
         fresh = not p.exists()
         if fresh:
-            gen(cfg.get("lead", "") + sp["prompt"], p, refs, model, cfg.get("aspect"), cfg.get("size", "2K"))
+            gen(cfg.get("lead", "") + sp["prompt"], p, refs_, model, cfg.get("aspect"), cfg.get("size", "2K"))
         return fresh, {"round": rid, "id": sp["id"], "draw": k, "file": str(p.relative_to(pdir)),
                        "renderer": renderer(backend, model),
                        "mode": "live", "studio_sha": studio["sha"], "prompt": cfg.get("lead", "") + sp["prompt"],
                        "refs": [str(r.relative_to(d)) if str(r).startswith(str(d)) else pathlib.Path(r).name
-                                for r in refs]}
+                                for r in refs_]}
 
     with ThreadPoolExecutor({"antigravity": 3, "local": 2}.get(backend, 6)) as ex:
         futs = [ex.submit(run, j) for j in jobs]

@@ -27,6 +27,8 @@ SIZE = {"1:1": (1024, 1024), "3:2": (1248, 832), "2:3": (832, 1248), "4:5": (896
 IMAGE_USD = 0.06         # one Nano Banana 2.1 picture at 1K (round 1: 100 mockups, $6.00)
 DESCRIBE_USD = 0.01      # one Gemini vision description (estimate; the API bills tokens)
 MAX_REFS = 10            # as the Make node: images per make call
+LOCAL_PHOTOS = 2         # local rounds: the studio's real photos each piece is drawn from, in place of pins (local_refs)
+OPEN = ("public domain", "cc0", "cc by ")   # licences a photo may carry to be drawn from (no SA, NC, ND)
 VERDICT = "verdict"      # the deck card whose note is the round verdict
 
 
@@ -165,14 +167,18 @@ class Loop:
                         "s": round(time.time() - t)})
             house = st.taste(s)
             refs = [sc.piece(x) for x in house["pictures"] + house["pins"]]
+            fed = self.local_refs(round_no, len(specs)) if backend == "local" else None
             t = time.time()
             try:
-                got = nbn.render_round(s, pdir, rid, specs, st.render_cfg(s), 1, refs[:MAX_REFS] or None, backend=backend)
+                got = nbn.render_round(s, pdir, rid, specs, st.render_cfg(s), 1, fed or refs[:MAX_REFS] or None,
+                                       backend=backend)
             finally:
                 fresh = len(nbn.stored_round(pdir, rid))
-                self.spend({"step": f"make-render r{round_no}", "key": key, "images": fresh, "refs": len(refs[:MAX_REFS]),
+                self.spend({"step": f"make-render r{round_no}", "key": key, "images": fresh,
+                            "refs": len(fed(0)) if fed else len(refs[:MAX_REFS]),
                             "usd": 0 if backend in ("antigravity", "local") else round(fresh * IMAGE_USD, 2), "est": True,
-                            "s": round(time.time() - t)})
+                            "s": round(time.time() - t),
+                            **({"photos": sorted({x.name for i in range(n) for x in fed(i)})} if fed else {})})
         pieces = [f"{self.studio}@{r['studio_sha'][:8]}:{r['file']}" for r in got]
         row = {"round": round_no, "make": key, "studio_sha": s["sha"][:8], "frame": frame.strip(),
                "idea": " ".join(idea.split()) if base_idea is None else idea.strip(),
@@ -182,6 +188,26 @@ class Loop:
         self.graph(row)
         log(f"round {round_no}: {len(pieces)} pieces in {pdir}/r{rid}. Next: python3 tools/loop.py {self.name} dots")
         return row
+
+    def open_photos(self):
+        """The studio's own real photos (refs-private/<name>) whose credits.jsonl licence lets a picture be drawn from
+        them: public domain, CC0, CC BY. Share-alike, NC, ND and unlicensed photos never reach the renderer."""
+        p = self.refs / "credits.jsonl"
+        rows = [json.loads(l) for l in p.read_text().splitlines() if l.strip()] if p.exists() else []
+        return [self.refs / r["file"] for r in rows
+                if (r.get("license") or "").lower().startswith(OPEN) and (self.refs / r["file"]).is_file()]
+
+    def local_refs(self, round_no, n):
+        """Local Klein redraws the picture it is shown: rounds fed their pins came back as copies of the pins, whatever
+        the prompt said (sci-fi swarm, 10-29; a pin beside two photos, first or last, still won). So each local piece
+        gets LOCAL_PHOTOS of the studio's open photos instead, in turn across the round's n pieces and on from round
+        to round (all of them before any repeats), and the greens steer through the writer's words alone. No open photo -> None (the pins, as
+        before). Local backend only: the private photos stay on this machine. -> spec index -> refs, or None."""
+        photos = self.open_photos()
+        if not photos:
+            return None
+        k = min(LOCAL_PHOTOS, len(photos))
+        return lambda i: [photos[(((round_no - 1) * n + i) * k + m) % len(photos)] for m in range(k)]
 
     def graph(self, row):
         """The same make as a ComfyUI graph (Load Studio at the make's commit -> Make stored -> Preview): open it in

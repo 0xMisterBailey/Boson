@@ -20,8 +20,8 @@
   ship.py sizes DIR
       what each shipping option costs: pack, bundles, plates, the clone's .git, a tar.gz of the plates.
 
-Defaults: the demo studios are the -real ones; the scenes are austin-stop (the demo scene, 10-24) and airless-landing
-(the sci-fi scene four agent-forged studios made, 10-29).
+Defaults: the demo studios are the -real ones; the scenes are austin-stop (the demo scene, 10-24), airless-landing
+(the sci-fi scene four agent-forged studios made, 10-29) and mystic-forest (four more agent-forged studios, 10-29).
 """
 import argparse, hashlib, io, json, os, pathlib, re, shutil, socket, subprocess, sys, tarfile, tempfile
 
@@ -33,7 +33,7 @@ EXAMPLES = ROOT / "examples"
 PACK = ["boson", "workflows", "docs", "tools", "refs-licences"]   # refs-licences: the credit lines CC BY needs
 INTERNAL = ["docs/DEMO-SCRIPT.md"]   # tracked in ~/Boson, never shipped: the operator's recording notes
 DEMO = ["architecture-real", "cars-real", "cars-s4471-real", "fashion-real", "posters-real"]
-SCENES = ["austin-stop", "airless-landing"]
+SCENES = ["austin-stop", "airless-landing", "mystic-forest"]
 OUT = pathlib.Path("/tmp/boson-dist")
 DENY_FILE = pathlib.Path("~/.config/boson/ship-deny.txt").expanduser()
 TEXT = (".json", ".jsonl", ".md", ".txt", ".yaml", ".yml", ".py", ".js", ".html", ".css", ".sh", ".gitignore", "")

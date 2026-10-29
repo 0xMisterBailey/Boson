@@ -1,0 +1,1388 @@
+{
+ "last_node_id": 26,
+ "last_link_id": 34,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "BosonLoadScene",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "SCENE",
+     "type": "SCENE",
+     "links": [
+      1,
+      14,
+      17,
+      23,
+      29,
+      34
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLoadScene"
+   },
+   "widgets_values": [
+    "mystic-forest",
+    "main"
+   ],
+   "title": "Load Scene (mystic-forest)"
+  },
+  {
+   "id": 2,
+   "type": "BosonCast",
+   "pos": [
+    380,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "scene",
+     "type": "SCENE",
+     "link": 1
+    }
+   ],
+   "outputs": [
+    {
+     "name": "SCENE",
+     "type": "SCENE",
+     "links": [
+      2
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonCast"
+   },
+   "widgets_values": [
+    "tree",
+    "",
+    "",
+    ""
+   ],
+   "title": "Cast (tree)"
+  },
+  {
+   "id": 3,
+   "type": "BosonCast",
+   "pos": [
+    380,
+    180
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "scene",
+     "type": "SCENE",
+     "link": 2
+    }
+   ],
+   "outputs": [
+    {
+     "name": "SCENE",
+     "type": "SCENE",
+     "links": [
+      3
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonCast"
+   },
+   "widgets_values": [
+    "wizard",
+    "",
+    "",
+    ""
+   ],
+   "title": "Cast (wizard)"
+  },
+  {
+   "id": 4,
+   "type": "BosonCast",
+   "pos": [
+    380,
+    360
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "scene",
+     "type": "SCENE",
+     "link": 3
+    }
+   ],
+   "outputs": [
+    {
+     "name": "SCENE",
+     "type": "SCENE",
+     "links": [
+      4,
+      9,
+      10
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonCast"
+   },
+   "widgets_values": [
+    "temple",
+    "",
+    "",
+    ""
+   ],
+   "title": "Cast (temple)"
+  },
+  {
+   "id": 5,
+   "type": "BosonCompileScene",
+   "pos": [
+    760,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "scene",
+     "type": "SCENE",
+     "link": 4
+    }
+   ],
+   "outputs": [
+    {
+     "name": "shot",
+     "type": "BOSON_SHOT",
+     "links": [
+      7,
+      13
+     ]
+    },
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "links": [
+      5
+     ]
+    },
+    {
+     "name": "prompt",
+     "type": "STRING",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonCompileScene"
+   },
+   "widgets_values": [
+    "swap",
+    "",
+    "close crop"
+   ],
+   "title": "Compile Scene"
+  },
+  {
+   "id": 6,
+   "type": "PreviewImage",
+   "pos": [
+    760,
+    300
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 5
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   },
+   "widgets_values": [],
+   "title": "What Compile sends"
+  },
+  {
+   "id": 7,
+   "type": "BosonLoadStudio",
+   "pos": [
+    760,
+    500
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "STUDIO",
+     "type": "STUDIO",
+     "links": [
+      6
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLoadStudio"
+   },
+   "widgets_values": [
+    "forest-real",
+    "1bd07ec5"
+   ],
+   "title": "Load Studio (base: forest-real)"
+  },
+  {
+   "id": 8,
+   "type": "BosonNanoBanana",
+   "pos": [
+    1140,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "studio",
+     "type": "STUDIO",
+     "link": 6
+    },
+    {
+     "name": "shot",
+     "type": "BOSON_SHOT",
+     "link": 7
+    }
+   ],
+   "outputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "links": [
+      8,
+      11
+     ]
+    },
+    {
+     "name": "studio",
+     "type": "STUDIO",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonNanoBanana"
+   },
+   "widgets_values": [
+    "stored",
+    1,
+    "comfy-api"
+   ],
+   "title": "Nano Banana (the take)"
+  },
+  {
+   "id": 9,
+   "type": "BosonLocate",
+   "pos": [
+    1520,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "image",
+     "type": "IMAGE",
+     "link": 8
+    },
+    {
+     "name": "scene",
+     "type": "SCENE",
+     "link": 9
+    }
+   ],
+   "outputs": [
+    {
+     "name": "boxes",
+     "type": "BOSON_BOXES",
+     "links": [
+      12
+     ]
+    },
+    {
+     "name": "readout",
+     "type": "STRING",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLocate"
+   },
+   "widgets_values": [
+    "stored",
+    "gemini-3.8-flash"
+   ],
+   "title": "Locate"
+  },
+  {
+   "id": 10,
+   "type": "BosonCommitTake",
+   "pos": [
+    1900,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "scene",
+     "type": "SCENE",
+     "link": 10
+    },
+    {
+     "name": "image",
+     "type": "IMAGE",
+     "link": 11
+    },
+    {
+     "name": "boxes",
+     "type": "BOSON_BOXES",
+     "link": 12
+    },
+    {
+     "name": "shot",
+     "type": "BOSON_SHOT",
+     "link": 13
+    }
+   ],
+   "outputs": [
+    {
+     "name": "SCENE",
+     "type": "SCENE",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonCommitTake"
+   },
+   "widgets_values": [],
+   "title": "Commit Take"
+  },
+  {
+   "id": 11,
+   "type": "BosonLoadTake",
+   "pos": [
+    0,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "scene",
+     "type": "SCENE",
+     "link": 14
+    }
+   ],
+   "outputs": [
+    {
+     "name": "image",
+     "type": "IMAGE",
+     "links": [
+      15,
+      21,
+      27
+     ]
+    },
+    {
+     "name": "boxes",
+     "type": "BOSON_BOXES",
+     "links": [
+      16,
+      22,
+      28
+     ]
+    },
+    {
+     "name": "take",
+     "type": "STRING",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLoadTake"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "title": "Load Take"
+  },
+  {
+   "id": 12,
+   "type": "BosonSlotCrop",
+   "pos": [
+    380,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "image",
+     "type": "IMAGE",
+     "link": 15
+    },
+    {
+     "name": "boxes",
+     "type": "BOSON_BOXES",
+     "link": 16
+    },
+    {
+     "name": "scene",
+     "type": "SCENE",
+     "link": 17
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      19
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonSlotCrop"
+   },
+   "widgets_values": [
+    "tree",
+    0,
+    0.15
+   ],
+   "title": "Slot Crop (tree)"
+  },
+  {
+   "id": 13,
+   "type": "BosonLoadStudio",
+   "pos": [
+    760,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "STUDIO",
+     "type": "STUDIO",
+     "links": [
+      18
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLoadStudio"
+   },
+   "widgets_values": [
+    "tree-real",
+    "main"
+   ],
+   "title": "Load Studio (tree-real)"
+  },
+  {
+   "id": 14,
+   "type": "BosonMake",
+   "pos": [
+    1140,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "studio",
+     "type": "STUDIO",
+     "link": 18
+    },
+    {
+     "name": "image_1",
+     "type": "IMAGE",
+     "link": 19
+    }
+   ],
+   "outputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "links": [
+      20
+     ]
+    },
+    {
+     "name": "pieces",
+     "type": "STRING",
+     "links": []
+    },
+    {
+     "name": "studio",
+     "type": "STUDIO",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonMake"
+   },
+   "widgets_values": [
+    "",
+    "",
+    4,
+    "stored",
+    "",
+    "comfy-api"
+   ],
+   "title": "Make (tree-real, commission new)"
+  },
+  {
+   "id": 15,
+   "type": "PreviewImage",
+   "pos": [
+    1520,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 20
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   },
+   "widgets_values": [],
+   "title": "New tree"
+  },
+  {
+   "id": 16,
+   "type": "BosonSlotCrop",
+   "pos": [
+    380,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 15,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "image",
+     "type": "IMAGE",
+     "link": 21
+    },
+    {
+     "name": "boxes",
+     "type": "BOSON_BOXES",
+     "link": 22
+    },
+    {
+     "name": "scene",
+     "type": "SCENE",
+     "link": 23
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      25
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonSlotCrop"
+   },
+   "widgets_values": [
+    "wizard",
+    0,
+    0.15
+   ],
+   "title": "Slot Crop (wizard)"
+  },
+  {
+   "id": 17,
+   "type": "BosonLoadStudio",
+   "pos": [
+    760,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "STUDIO",
+     "type": "STUDIO",
+     "links": [
+      24
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLoadStudio"
+   },
+   "widgets_values": [
+    "wizard-real",
+    "main"
+   ],
+   "title": "Load Studio (wizard-real)"
+  },
+  {
+   "id": 18,
+   "type": "BosonMake",
+   "pos": [
+    1140,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "studio",
+     "type": "STUDIO",
+     "link": 24
+    },
+    {
+     "name": "image_1",
+     "type": "IMAGE",
+     "link": 25
+    }
+   ],
+   "outputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "links": [
+      26
+     ]
+    },
+    {
+     "name": "pieces",
+     "type": "STRING",
+     "links": []
+    },
+    {
+     "name": "studio",
+     "type": "STUDIO",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonMake"
+   },
+   "widgets_values": [
+    "",
+    "",
+    4,
+    "stored",
+    "",
+    "comfy-api"
+   ],
+   "title": "Make (wizard-real, commission new)"
+  },
+  {
+   "id": 19,
+   "type": "PreviewImage",
+   "pos": [
+    1520,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 18,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 26
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   },
+   "widgets_values": [],
+   "title": "New wizard"
+  },
+  {
+   "id": 20,
+   "type": "BosonSlotCrop",
+   "pos": [
+    380,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 19,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "image",
+     "type": "IMAGE",
+     "link": 27
+    },
+    {
+     "name": "boxes",
+     "type": "BOSON_BOXES",
+     "link": 28
+    },
+    {
+     "name": "scene",
+     "type": "SCENE",
+     "link": 29
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      31
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonSlotCrop"
+   },
+   "widgets_values": [
+    "temple",
+    0,
+    0.15
+   ],
+   "title": "Slot Crop (temple)"
+  },
+  {
+   "id": 21,
+   "type": "BosonLoadStudio",
+   "pos": [
+    760,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 20,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "STUDIO",
+     "type": "STUDIO",
+     "links": [
+      30
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLoadStudio"
+   },
+   "widgets_values": [
+    "temple-real",
+    "main"
+   ],
+   "title": "Load Studio (temple-real)"
+  },
+  {
+   "id": 22,
+   "type": "BosonMake",
+   "pos": [
+    1140,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 21,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "studio",
+     "type": "STUDIO",
+     "link": 30
+    },
+    {
+     "name": "image_1",
+     "type": "IMAGE",
+     "link": 31
+    }
+   ],
+   "outputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "links": [
+      32
+     ]
+    },
+    {
+     "name": "pieces",
+     "type": "STRING",
+     "links": []
+    },
+    {
+     "name": "studio",
+     "type": "STUDIO",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonMake"
+   },
+   "widgets_values": [
+    "",
+    "",
+    4,
+    "stored",
+    "",
+    "comfy-api"
+   ],
+   "title": "Make (temple-real, commission new)"
+  },
+  {
+   "id": 23,
+   "type": "PreviewImage",
+   "pos": [
+    1520,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 22,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 32
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   },
+   "widgets_values": [],
+   "title": "New temple"
+  },
+  {
+   "id": 24,
+   "type": "BosonLoadStudio",
+   "pos": [
+    0,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 23,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "STUDIO",
+     "type": "STUDIO",
+     "links": [
+      33
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonLoadStudio"
+   },
+   "widgets_values": [
+    "forest-real",
+    "main"
+   ],
+   "title": "Load Studio (keep)"
+  },
+  {
+   "id": 25,
+   "type": "BosonKeepPiece",
+   "pos": [
+    380,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 24,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "studio",
+     "type": "STUDIO",
+     "link": 33
+    }
+   ],
+   "outputs": [
+    {
+     "name": "studio",
+     "type": "STUDIO",
+     "links": []
+    },
+    {
+     "name": "piece",
+     "type": "STRING",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonKeepPiece"
+   },
+   "widgets_values": [
+    "",
+    "",
+    "keep"
+   ],
+   "title": "Keep Piece"
+  },
+  {
+   "id": 26,
+   "type": "BosonAddSlot",
+   "pos": [
+    760,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ],
+   "flags": {},
+   "order": 25,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "scene",
+     "type": "SCENE",
+     "link": 34
+    }
+   ],
+   "outputs": [
+    {
+     "name": "SCENE",
+     "type": "SCENE",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BosonAddSlot"
+   },
+   "widgets_values": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "title": "Add Slot (make a slot from the frame)"
+  }
+ ],
+ "links": [
+  [
+   1,
+   1,
+   0,
+   2,
+   0,
+   "SCENE"
+  ],
+  [
+   2,
+   2,
+   0,
+   3,
+   0,
+   "SCENE"
+  ],
+  [
+   3,
+   3,
+   0,
+   4,
+   0,
+   "SCENE"
+  ],
+  [
+   4,
+   4,
+   0,
+   5,
+   0,
+   "SCENE"
+  ],
+  [
+   5,
+   5,
+   1,
+   6,
+   0,
+   "IMAGE"
+  ],
+  [
+   6,
+   7,
+   0,
+   8,
+   0,
+   "STUDIO"
+  ],
+  [
+   7,
+   5,
+   0,
+   8,
+   1,
+   "BOSON_SHOT"
+  ],
+  [
+   8,
+   8,
+   0,
+   9,
+   0,
+   "IMAGE"
+  ],
+  [
+   9,
+   4,
+   0,
+   9,
+   1,
+   "SCENE"
+  ],
+  [
+   10,
+   4,
+   0,
+   10,
+   0,
+   "SCENE"
+  ],
+  [
+   11,
+   8,
+   0,
+   10,
+   1,
+   "IMAGE"
+  ],
+  [
+   12,
+   9,
+   0,
+   10,
+   2,
+   "BOSON_BOXES"
+  ],
+  [
+   13,
+   5,
+   0,
+   10,
+   3,
+   "BOSON_SHOT"
+  ],
+  [
+   14,
+   1,
+   0,
+   11,
+   0,
+   "SCENE"
+  ],
+  [
+   15,
+   11,
+   0,
+   12,
+   0,
+   "IMAGE"
+  ],
+  [
+   16,
+   11,
+   1,
+   12,
+   1,
+   "BOSON_BOXES"
+  ],
+  [
+   17,
+   1,
+   0,
+   12,
+   2,
+   "SCENE"
+  ],
+  [
+   18,
+   13,
+   0,
+   14,
+   0,
+   "STUDIO"
+  ],
+  [
+   19,
+   12,
+   0,
+   14,
+   1,
+   "IMAGE"
+  ],
+  [
+   20,
+   14,
+   0,
+   15,
+   0,
+   "IMAGE"
+  ],
+  [
+   21,
+   11,
+   0,
+   16,
+   0,
+   "IMAGE"
+  ],
+  [
+   22,
+   11,
+   1,
+   16,
+   1,
+   "BOSON_BOXES"
+  ],
+  [
+   23,
+   1,
+   0,
+   16,
+   2,
+   "SCENE"
+  ],
+  [
+   24,
+   17,
+   0,
+   18,
+   0,
+   "STUDIO"
+  ],
+  [
+   25,
+   16,
+   0,
+   18,
+   1,
+   "IMAGE"
+  ],
+  [
+   26,
+   18,
+   0,
+   19,
+   0,
+   "IMAGE"
+  ],
+  [
+   27,
+   11,
+   0,
+   20,
+   0,
+   "IMAGE"
+  ],
+  [
+   28,
+   11,
+   1,
+   20,
+   1,
+   "BOSON_BOXES"
+  ],
+  [
+   29,
+   1,
+   0,
+   20,
+   2,
+   "SCENE"
+  ],
+  [
+   30,
+   21,
+   0,
+   22,
+   0,
+   "STUDIO"
+  ],
+  [
+   31,
+   20,
+   0,
+   22,
+   1,
+   "IMAGE"
+  ],
+  [
+   32,
+   22,
+   0,
+   23,
+   0,
+   "IMAGE"
+  ],
+  [
+   33,
+   24,
+   0,
+   25,
+   0,
+   "STUDIO"
+  ],
+  [
+   34,
+   1,
+   0,
+   26,
+   0,
+   "SCENE"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {},
+ "version": 0.4
+}

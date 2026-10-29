@@ -1,0 +1,622 @@
+{
+ "1": {
+  "class_type": "BosonLoadScene",
+  "inputs": {
+   "repo": "mystic-forest",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Scene (mystic-forest)",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "2": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "scene": [
+    "1",
+    0
+   ],
+   "slot": "tree",
+   "piece": "",
+   "desc": "",
+   "short": ""
+  },
+  "_meta": {
+   "title": "Cast (tree)",
+   "pos": [
+    380,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "3": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "scene": [
+    "2",
+    0
+   ],
+   "slot": "wizard",
+   "piece": "",
+   "desc": "",
+   "short": ""
+  },
+  "_meta": {
+   "title": "Cast (wizard)",
+   "pos": [
+    380,
+    180
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "4": {
+  "class_type": "BosonCast",
+  "inputs": {
+   "scene": [
+    "3",
+    0
+   ],
+   "slot": "temple",
+   "piece": "",
+   "desc": "",
+   "short": ""
+  },
+  "_meta": {
+   "title": "Cast (temple)",
+   "pos": [
+    380,
+    360
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "5": {
+  "class_type": "BosonCompileScene",
+  "inputs": {
+   "scene": [
+    "4",
+    0
+   ],
+   "mode": "swap",
+   "take": ""
+  },
+  "_meta": {
+   "title": "Compile Scene",
+   "pos": [
+    760,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "6": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "5",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "What Compile sends",
+   "pos": [
+    760,
+    300
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "7": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "forest-real",
+   "ref": "1bd07ec5"
+  },
+  "_meta": {
+   "title": "Load Studio (base: forest-real)",
+   "pos": [
+    760,
+    500
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "8": {
+  "class_type": "BosonNanoBanana",
+  "inputs": {
+   "studio": [
+    "7",
+    0
+   ],
+   "mode": "stored",
+   "draws": 1,
+   "backend": "comfy-api",
+   "shot": [
+    "5",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Nano Banana (the take)",
+   "pos": [
+    1140,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "9": {
+  "class_type": "BosonLocate",
+  "inputs": {
+   "image": [
+    "8",
+    0
+   ],
+   "scene": [
+    "4",
+    0
+   ],
+   "mode": "stored",
+   "model": "gemini-3.8-flash"
+  },
+  "_meta": {
+   "title": "Locate",
+   "pos": [
+    1520,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "10": {
+  "class_type": "BosonCommitTake",
+  "inputs": {
+   "scene": [
+    "4",
+    0
+   ],
+   "image": [
+    "8",
+    0
+   ],
+   "boxes": [
+    "9",
+    0
+   ],
+   "shot": [
+    "5",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Commit Take",
+   "pos": [
+    1900,
+    0
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "11": {
+  "class_type": "BosonLoadTake",
+  "inputs": {
+   "scene": [
+    "1",
+    0
+   ],
+   "take": ""
+  },
+  "_meta": {
+   "title": "Load Take",
+   "pos": [
+    0,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "12": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "image": [
+    "11",
+    0
+   ],
+   "boxes": [
+    "11",
+    1
+   ],
+   "slot": "tree",
+   "item": 0,
+   "pad": 0.15,
+   "scene": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Slot Crop (tree)",
+   "pos": [
+    380,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "13": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "tree-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (tree-real)",
+   "pos": [
+    760,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "14": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "13",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "comfy-api",
+   "image_1": [
+    "12",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (tree-real, commission new)",
+   "pos": [
+    1140,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "15": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "14",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New tree",
+   "pos": [
+    1520,
+    900
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "16": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "image": [
+    "11",
+    0
+   ],
+   "boxes": [
+    "11",
+    1
+   ],
+   "slot": "wizard",
+   "item": 0,
+   "pad": 0.15,
+   "scene": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Slot Crop (wizard)",
+   "pos": [
+    380,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "17": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "wizard-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (wizard-real)",
+   "pos": [
+    760,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "18": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "17",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "comfy-api",
+   "image_1": [
+    "16",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (wizard-real, commission new)",
+   "pos": [
+    1140,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "19": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "18",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New wizard",
+   "pos": [
+    1520,
+    1160
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "20": {
+  "class_type": "BosonSlotCrop",
+  "inputs": {
+   "image": [
+    "11",
+    0
+   ],
+   "boxes": [
+    "11",
+    1
+   ],
+   "slot": "temple",
+   "item": 0,
+   "pad": 0.15,
+   "scene": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Slot Crop (temple)",
+   "pos": [
+    380,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "21": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "temple-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (temple-real)",
+   "pos": [
+    760,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "22": {
+  "class_type": "BosonMake",
+  "inputs": {
+   "studio": [
+    "21",
+    0
+   ],
+   "frame": "",
+   "idea": "",
+   "n": 4,
+   "mode": "stored",
+   "like": "",
+   "backend": "comfy-api",
+   "image_1": [
+    "20",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Make (temple-real, commission new)",
+   "pos": [
+    1140,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "23": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "22",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "New temple",
+   "pos": [
+    1520,
+    1420
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "24": {
+  "class_type": "BosonLoadStudio",
+  "inputs": {
+   "repo": "forest-real",
+   "ref": "main"
+  },
+  "_meta": {
+   "title": "Load Studio (keep)",
+   "pos": [
+    0,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "25": {
+  "class_type": "BosonKeepPiece",
+  "inputs": {
+   "studio": [
+    "24",
+    0
+   ],
+   "path": "",
+   "note": "",
+   "op": "keep"
+  },
+  "_meta": {
+   "title": "Keep Piece",
+   "pos": [
+    380,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ },
+ "26": {
+  "class_type": "BosonAddSlot",
+  "inputs": {
+   "scene": [
+    "1",
+    0
+   ],
+   "anchor": "",
+   "slot": "",
+   "noun": "",
+   "studio": "",
+   "where": "",
+   "box": ""
+  },
+  "_meta": {
+   "title": "Add Slot (make a slot from the frame)",
+   "pos": [
+    760,
+    1680
+   ],
+   "size": [
+    320,
+    140
+   ]
+  }
+ }
+}

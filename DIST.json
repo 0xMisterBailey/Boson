@@ -10,10 +10,15 @@
   "terrain-real": 14,
   "rockets-real": 12,
   "robots-real": 12,
-  "skybox-real": 12
+  "skybox-real": 12,
+  "forest-real": 14,
+  "tree-real": 12,
+  "wizard-real": 12,
+  "temple-real": 12
  },
  "scenes": [
   "austin-stop",
-  "airless-landing"
+  "airless-landing",
+  "mystic-forest"
  ]
 }

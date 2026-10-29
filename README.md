@@ -22,7 +22,7 @@ round-by-round history. What is new is the idea as a whole, in five parts:
 2. **The curation loop.** Make a round, dot it red and green, write one sentence. That verdict becomes a rule the next
    round must read: greens become pins, the sentence is appended word for word under "From your verdicts". All
    committed, so the taste builds up with a history.
-3. **The scene editor.** A street, a moon landing, any picture, where every piece is a **slot** (a box on the picture that can be refilled: an
+3. **The scene editor.** A street, a moon landing, a misty forest, any picture, where every piece is a **slot** (a box on the picture that can be refilled: an
    outfit, a car, a poster, a building) any studio can fill. Click a slot and pick **any** studio: it makes its own
    versions for that exact spot (from a crop of the frame, so they already sit in its place and light), and a Swap
    redraws and relights only what changed. Even background things that came with the street, like the corner
@@ -62,6 +62,17 @@ its slots. Every picture was drawn on one RTX 4090 by FLUX 3 Klein, and the boxe
 
 The agents' dots and verdicts are their own judgments, not the author's taste. The words behind it (each studio's
 text, the descriptions of the photos) came from cloud models: Claude and Gemini.
+
+The same afternoon, a second swarm made the opposite world: a mystic forest, all mist, haze and shafts of light, with
+a clear foreground, midground and background. Four more agents forged a forest, a temple, an ancient-tree and a wizard
+studio from Wikimedia Commons photos, and the scene agent placed the tree in front, the wizard on the path, the temple
+in the mist and the mountains behind. This time each studio picture was drawn from two of the studio's own
+open-licence photos (public domain, CC0 or CC BY; credited in `refs-licences/`) instead of from its green pins, which
+the local model had copied:
+
+![Four more agent-forged studios: forest, temple, ancient tree and wizard, each with its sentence and its green pictures](docs/img/forest-studios.jpg)
+
+![The mystic forest scene as a layer on top of its four studios: the ancient tree in front, the wizard on the path, the temple in the mist, each slot boxed and named by its studio](docs/img/forest-layer.jpg)
 
 ## See it in two minutes (no keys, no account)
 
@@ -105,6 +116,8 @@ no name and email set, Boson signs those commits "Boson". To sign them yourself:
   what was made (no key); take 08 -> 12 is the outfit, the taqueria made a slot, and a car from a second car studio.
 - Click **Airless landing**: the sci-fi scene, its four slots (rocket, rover, walker, ringed planet) and the four
   agent-forged studios that filled them (terrain, rockets, robots, skybox), each with its three dotted rounds.
+- Click **Mystic forest**: the forest scene, its three slots (ancient tree, wizard, temple), its four studios (forest,
+  temple, tree, wizard), and take 02, where only the wizard was swapped for one in a black robe.
 - **Graph** (top right) shows the real ComfyUI graph under every screen; every button sets widgets on real nodes.
 
 Workflows in `workflows/` open in ComfyUI directly (Workflow > Open). They start in `stored` mode: they replay what
@@ -160,6 +173,8 @@ How the shipped work was made: the studios (architecture, cars, exotic cars, fas
 were made with Nano Banana pictures, Claude-written words, the author's red and green dots, and Gemini boxes (Locate).
 The airless landing and its four studios (terrain, rockets, robots, skybox) were made with Klein pictures and Qwen3.8
 boxes on one RTX 4090, Claude-written words, Gemini descriptions of the reference photos, and agents' dots.
+The mystic forest and its four studios (forest, temple, tree, wizard) were made the same way, with each studio
+picture drawn by Klein from two open-licence reference photos.
 The app names the model that drew each take it knows of. The local path (Klein, Qwen3.8, BiRefNet) exists and has
 run: one studio round and one scene's shoot and two swaps, on 2026-10-27 (above). The code's defaults are the cloud
 ones: `backend: api`, the Opus writer, Gemini Locate.
@@ -169,7 +184,7 @@ One side-by-side test (2026-10-28): the same Austin scene from the same prompts,
 ## What's in the repo
 
 - `boson/`: the node pack (studio, loop, scene nodes) and the app (`boson/web`), served at `/boson/app`.
-- `examples/*.bundle`: the studios and the two scenes (Austin stop, airless landing) as git bundles (full history). `examples/*-plates/`: the
+- `examples/*.bundle`: the studios and the three scenes (Austin stop, airless landing, mystic forest) as git bundles (full history). `examples/*-plates/`: the
   pictures their rounds rendered, with manifests naming the prompt and studio commit behind each.
 - `workflows/`: ready graphs (studio, scene, motion, the in-context building rework).
 - `tools/`: command-line versions of the same steps (`loop.py`, `seed.py`, `motion_workflow.py`, `ship.py`).
