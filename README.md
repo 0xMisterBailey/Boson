@@ -25,8 +25,9 @@ idea as a whole, in five parts:
    taqueria, can become slots. Then set the frame in motion. Every take and clip is a commit.
 4. **The engineering underneath.** Ordinary ComfyUI graphs that pause for your judgment, replays that cost nothing,
    and any model behind one switch.
-5. **Models for their strengths.** Local and cloud models work together, each on the task it does best, and your
-   feedback chooses. Next on the roadmap: a fan-out test of each model on each task, with your dots picking the model.
+5. **Models for their strengths, open by design.** Every part sits behind one switch, so Boson runs fully local on
+   open weights, all cloud, or a hybrid, each model on the task it does best, and your feedback chooses. The demo's
+   studios and scene were made with the cloud models; only clips, an optional last step, still need one. Next on the roadmap: a fan-out test of each model on each task, with your dots picking the model.
 
 ## In pictures
 
