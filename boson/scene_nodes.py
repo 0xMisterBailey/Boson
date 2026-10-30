@@ -74,7 +74,7 @@ class LoadScene:
 
     @classmethod
     def INPUT_TYPES(cls):
-        return {"required": {"repo": ("STRING", {"default": "~/Boson/tests/fixtures/poc/street-scene.bundle"}),
+        return {"required": {"repo": ("STRING", {"default": "austin-stop"}),   # a shipped scene's name, or a path
                              "ref": ("STRING", {"default": "main"})}}
 
     @classmethod

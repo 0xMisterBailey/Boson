@@ -1,0 +1,17 @@
+[project]
+name = "boson"
+version = "0.1.0"
+description = "Studios instead of presets: your taste as plain files in git that every next ComfyUI round obeys"
+readme = "README.md"
+license = { file = "LICENSE" }
+# Nothing beyond ComfyUI's own requirements (numpy, Pillow, scipy, aiohttp, torch); git must be on PATH.
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/0xMisterBailey/Boson"
+Documentation = "https://github.com/0xMisterBailey/Boson#readme"
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "Boson"
+Icon = ""

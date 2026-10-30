@@ -22,7 +22,7 @@ class LoadStudio:
     @classmethod
     def INPUT_TYPES(cls):
         return {"required": {
-            "repo": ("STRING", {"default": "~/Boson/tests/fixtures/poc/ex-libris.bundle"}),
+            "repo": ("STRING", {"default": "architecture-real"}),   # a shipped studio's name, or a path to a repo or .bundle
             "ref": ("STRING", {"default": "main"}),
         }}
 
@@ -114,7 +114,7 @@ class ForgeStudio:
     @classmethod
     def INPUT_TYPES(cls):
         return {"required": {
-            "path": ("STRING", {"default": "~/Boson/examples/new-studio"}),
+            "path": ("STRING", {"default": "new-studio"}),   # a bare name lands in examples/ beside the shipped studios
             "owner": ("STRING", {"default": "", "placeholder": "who the studio is (one line)"}),
             "field": ("STRING", {"default": "", "placeholder": "the field, named plainly"}),
             "sentence": ("STRING", {"multiline": True, "default": "",
@@ -128,7 +128,7 @@ class ForgeStudio:
         }}
 
     def forge(self, path, owner, field, sentence, refs, instrument, commission="", **images):
-        repo = st.pathlib.Path(path).expanduser()
+        repo = st.forge_path(path)
         if (repo / ".git").exists():
             if not st.git(repo, "tag", "--list", "r00"):
                 raise RuntimeError(f"{repo} holds a forge that never finished (no r00 tag): move it aside first")

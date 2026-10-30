@@ -5,6 +5,7 @@ run by the owner from a terminal, no agent. Runbook: docs/REAL-REFS.md.
   python3 tools/loop.py NAME forge --field "Fashion photography" --sentence "..." [--aspect 4:5] [--agy]
   python3 tools/loop.py NAME make --idea "..." [--frame ""] [--n 6]
   python3 tools/loop.py NAME dots [--port 8772]          # the grid; dot, write the verdict, Ctrl-C when done
+  python3 tools/loop.py NAME dot --green 1,3 --red 2 --verdict "..."   # the same, headless (a script or an agent)
   python3 tools/loop.py NAME next [--n 6]                # greens -> pins, verdict -> the next make
   python3 tools/loop.py NAME status | check
 
@@ -21,7 +22,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 import studio as st, nanobanana as nbn, grid as gr, scene as sc  # noqa: E402
 import forge_refs  # noqa: E402
 
-ENGINE = pathlib.Path(os.environ.get("BOSON_ENGINE", "~/feedback-engine/engine.py")).expanduser()
+ENGINE = pathlib.Path(os.environ.get("BOSON_ENGINE") or ROOT / "tools" / "feedback_engine" / "engine.py").expanduser()
 TEMPLATE = ROOT / "tools" / "forge-template"
 SIZE = {"1:1": (1024, 1024), "3:2": (1248, 832), "2:3": (832, 1248), "4:5": (896, 1120), "16:9": (1376, 768)}
 IMAGE_USD = 0.06         # one Nano Banana 2.1 picture at 1K (round 1: 100 mockups, $6.00)
@@ -291,6 +292,31 @@ class Loop:
         reds = [p for p in r["pieces"] if got.get(p, {}).get("label") == 0]
         return greens, reds, {k: v for k, v in notes.items() if k != VERDICT}, " ".join(notes.get(VERDICT, "").split())
 
+    def dot(self, greens, reds, verdict=""):
+        """Dots and the verdict without the grid: the same lines the grid appends to the round's labels file, so
+        `next` reads them alike. For a script or an agent in the judge's seat; ids as `status` lists them."""
+        rs = self.rounds()
+        if not rs or "verdict" in rs[-1]:
+            sys.exit(f"no open round to dot: python3 tools/loop.py {self.name} " + ("next" if rs else 'make --idea "..."'))
+        r = rs[-1]
+        unknown = [p for p in greens + reds if p not in r["pieces"]]
+        if unknown or set(greens) & set(reds):
+            sys.exit(f"round {r['round']}: " + (f"no piece {', '.join(unknown)}" if unknown else "a piece is both green "
+                     f"and red") + f"; its pieces: {', '.join(r['pieces'])}")
+        if not (greens or reds):
+            sys.exit("dot at least one piece: --green ID,ID and/or --red ID,ID")
+        labels = self.home / f"r{r['round']}" / "DECK.labels.jsonl"
+        labels.parent.mkdir(parents=True, exist_ok=True)
+        ts = time.time()
+        rows = [{"id": p, "label": 1, "ts": ts} for p in greens] + [{"id": p, "label": 0, "ts": ts} for p in reds]
+        if verdict.strip():
+            rows.append({"op": "note", "id": VERDICT, "note": " ".join(verdict.split()), "ts": ts})
+        with labels.open("a") as f:
+            f.writelines(json.dumps(x, ensure_ascii=False) + "\n" for x in rows)
+        log(f"round {r['round']}: {len(greens)} green, {len(reds)} red" + (", verdict written" if verdict.strip() else
+            "") + f" -> {labels}\nnext: python3 tools/loop.py {self.name} next" + ("" if verdict.strip() else ' --verdict "..."'))
+        return labels
+
     # ---- next ----------------------------------------------------------------------------------------------
     def next(self, n=None, verdict="", backend="api"):
         rs = self.rounds()
@@ -330,6 +356,10 @@ class Loop:
             log(f"round {r['round']}: make {r['make']}, {len(r['pieces'])} pieces, " +
                 (f"{len(r['greens'])} green / {len(r['reds'])} red, verdict: {r['verdict']}" if "verdict" in r
                  else "waiting for dots + verdict"))
+            if "verdict" not in r:   # what to judge: the ids `dot` takes, and each picture's file
+                pdir = gr.plates_dir(self.repo)
+                for ref in r["pieces"]:
+                    log(f"  {ref}\n    {pdir / ref.split(':', 1)[1]}")
         log(f"spend so far: ${self.spent():.2f} ({self.home / 'spend.jsonl'})")
 
     @staticmethod
@@ -413,10 +443,10 @@ def writer_ready():
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("name", help="the folder in refs-private/ (fashion, posters, ...)")
-    ap.add_argument("step", choices=["forge", "make", "dots", "next", "status", "check"])
+    ap.add_argument("step", choices=["forge", "make", "dots", "dot", "next", "status", "check"])
     ap.add_argument("--studio", help="studio name (default NAME-real)")
-    ap.add_argument("--root", help="where the studio repo lives (default ~/Boson/examples)")
-    ap.add_argument("--refs", help="the pictures (default ~/Boson/refs-private/NAME)")
+    ap.add_argument("--root", help="where the studio repo lives (default examples/ in this repo)")
+    ap.add_argument("--refs", help="the pictures (default refs-private/NAME in this repo, gitignored)")
     ap.add_argument("--field", default="", help="forge: the genre, named plainly (\"Fashion photography\")")
     ap.add_argument("--sentence", default="", help="forge: one sentence, what this studio's work must be")
     ap.add_argument("--owner", default=f"the operator (real references, {time.strftime('%Y-%m-%d')})")
@@ -430,7 +460,9 @@ def main():
                     help="make/next: who draws (api = Gemini key, comfy-api = Comfy credits, local = FLUX 3 Klein on "
                          "$BOSON_LOCAL_COMFY, open weights; writer local too with $BOSON_WRITER_BASE_URL)")
     ap.add_argument("--n", type=int, help="pieces per make (default 6; next keeps the last round's)")
-    ap.add_argument("--verdict", default="", help="next: the round verdict, if not written on the grid")
+    ap.add_argument("--verdict", default="", help="dot/next: the round verdict, if not written on the grid")
+    ap.add_argument("--green", default="", help="dot: piece ids to keep (comma-separated)")
+    ap.add_argument("--red", default="", help="dot: piece ids to reject (comma-separated)")
     ap.add_argument("--host", default="127.0.0.1", help="dots: 127.0.0.1 for the remote desktop's browser")
     ap.add_argument("--port", type=int, default=8772)
     ap.add_argument("--no-serve", action="store_true", help="dots: write the deck only")
@@ -444,6 +476,9 @@ def main():
         lp.make(a.frame, a.idea, a.n or 6, backend=a.backend)
     elif a.step == "dots":
         lp.dots(a.host, a.port, not a.no_serve)
+    elif a.step == "dot":
+        ids = lambda s: [x.strip() for x in s.split(",") if x.strip()]
+        lp.dot(ids(a.green), ids(a.red), a.verdict)
     elif a.step == "next":
         lp.next(a.n, a.verdict, backend=a.backend)
     elif a.step == "status":

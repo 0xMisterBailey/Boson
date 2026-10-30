@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>feedback-engine · matrix</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Martian+Mono:wght@400;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1b1714; --ink2:#2a2420; --paper:#f4ecdc; --mute:#8d8171;
+  --green:#3be36b; --red:#ff4d3a; --gold:#ffc53d;
+  --display:'Bungee',Impact,sans-serif; --mono:'Martian Mono',ui-monospace,monospace; --read:'Newsreader',Georgia,serif;
+  --cell:260px;
+}
+*{box-sizing:border-box;margin:0}
+html,body{background:var(--ink);color:var(--paper);font-family:var(--read)}
+header{position:sticky;top:0;z-index:5;display:flex;gap:18px;align-items:center;flex-wrap:wrap;
+  padding:10px 18px;background:rgba(27,23,20,.94);backdrop-filter:blur(6px);border-bottom:1px solid #3a322b}
+h1{font-family:var(--display);font-size:16px;letter-spacing:.04em}
+.stats{display:flex;gap:14px;font-family:var(--mono);font-size:12px}
+.stats b{font-size:15px} .g b{color:var(--green)} .r b{color:var(--red)} .u b{color:var(--paper)}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav a{font-family:var(--mono);font-size:11px;color:var(--paper);text-decoration:none;padding:4px 8px;border:1px solid #4a4037;border-radius:6px}
+nav a:hover{border-color:var(--gold)}
+nav a .n{color:var(--mute)}
+.help{font-family:var(--mono);font-size:11px;color:var(--mute);margin-left:auto}
+.zoom{font-family:var(--mono);font-size:11px;color:var(--mute);display:flex;gap:6px;align-items:center}
+main{padding:8px 18px 60px}
+section{margin-top:26px}
+section h2{font-family:var(--display);font-size:14px;letter-spacing:.04em;margin-bottom:10px;scroll-margin-top:70px}
+section h2 .n{font-family:var(--mono);font-size:11px;color:var(--mute);margin-left:10px;letter-spacing:0}
+.grid{display:grid;gap:10px;align-items:start}
+.ch,.rh{font-family:var(--mono);font-size:11px;color:#cdbfa8}
+.ch{padding:0 2px 2px;text-transform:uppercase;letter-spacing:.06em}
+.rh{align-self:center;padding-right:6px;font-size:12px;color:var(--paper)}
+.cell{position:relative;width:var(--cell);cursor:pointer;user-select:none;border-radius:8px;
+  outline:3px solid transparent;outline-offset:2px;transition:outline-color .12s}
+.cell img{display:block;width:100%;height:calc(var(--cell) * .62);object-fit:contain;background:#000;border-radius:8px}
+.cell .cap{font-family:var(--mono);font-size:10px;color:#cdbfa8;padding:4px 2px 0;line-height:1.35}
+.cell .nt{display:block;width:100%;margin-top:5px;resize:vertical;min-height:30px;background:var(--ink2);color:var(--paper);
+  border:1px solid #4a4037;border-radius:6px;padding:5px 7px;font-family:var(--read);font-size:13px;line-height:1.3;cursor:text}
+.cell .nt:focus{outline:none;border-color:var(--gold)}
+.cell.has-note .nt{border-color:#8a6d2a}
+.cell .dot{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.7);
+  background:rgba(0,0,0,.35);box-shadow:0 1px 4px rgba(0,0,0,.6)}
+.cell.y{outline-color:var(--green)} .cell.y .dot{background:var(--green);border-color:#fff}
+.cell.n{outline-color:var(--red)} .cell.n .dot{background:var(--red);border-color:#fff}
+.cell .note{position:absolute;top:8px;left:8px;font-family:var(--mono);font-size:10px;background:var(--gold);color:var(--ink);
+  padding:2px 5px;border-radius:4px;display:none}
+.cell.has-note .note{display:block}
+.cell:hover img{filter:brightness(1.08)}
+/* lightbox */
+#lb{position:fixed;inset:0;z-index:10;background:rgba(10,8,7,.94);display:none;grid-template-columns:1fr 360px;gap:18px;padding:18px}
+#lb.on{display:grid}
+#lb .pic{display:grid;place-items:center;min-height:0}
+#lb .pic img{max-width:100%;max-height:calc(100vh - 36px);object-fit:contain;border-radius:8px;outline:4px solid transparent;outline-offset:3px}
+#lb.y .pic img{outline-color:var(--green)} #lb.n .pic img{outline-color:var(--red)}
+#lb aside{display:flex;flex-direction:column;gap:12px;overflow:auto}
+#lb .k{font-family:var(--mono);font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:.12em}
+#lb .t{font-size:18px;line-height:1.3}
+#lb .d{font-size:14px;line-height:1.45;color:#d9cdb8;white-space:pre-wrap}
+#lb .btns{display:flex;gap:8px}
+#lb button{font-family:var(--display);font-size:13px;padding:10px 12px;border-radius:8px;border:0;cursor:pointer;flex:1}
+#lb .bg{background:var(--green);color:var(--ink)} #lb .br{background:var(--red);color:var(--ink)} #lb .bc{background:#4a4037;color:var(--paper)}
+#lb .tags{display:flex;flex-wrap:wrap;gap:6px}
+#lb .tags span{font-family:var(--mono);font-size:11px;padding:4px 8px;border-radius:99px;border:1px solid #5a4e43;cursor:pointer}
+#lb .tags span.on{background:var(--red);color:var(--ink);border-color:var(--red)}
+#lb textarea{width:100%;min-height:90px;background:var(--ink2);color:var(--paper);border:1px solid #4a4037;border-radius:8px;
+  padding:8px;font-family:var(--read);font-size:14px}
+#lb .keys{font-family:var(--mono);font-size:10px;color:var(--mute);line-height:1.6}
+#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--red);color:var(--ink);
+  font-family:var(--mono);font-size:12px;padding:8px 12px;border-radius:8px;display:none;z-index:20}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">MATRIX</h1>
+  <div class="stats"><span class="g"><b id="ng">0</b> green</span><span class="r"><b id="nr">0</b> red</span><span class="u"><b id="nu">0</b> open</span></div>
+  <nav id="nav"></nav>
+  <label class="zoom">size <input id="size" type="range" min="160" max="520" step="20" value="260"></label>
+  <span class="help">left-click green · right-click red · same click again clears · double-click enlarges · type a note under any picture</span>
+</header>
+<main id="main"></main>
+
+<div id="lb">
+  <div class="pic"><img id="lbimg" alt=""></div>
+  <aside>
+    <div><div class="k" id="lbboard"></div><div class="t" id="lbcap"></div></div>
+    <div class="btns"><button class="bg" id="bG">GREEN (G)</button><button class="br" id="bR">RED (R)</button><button class="bc" id="bX">CLEAR (X)</button></div>
+    <div id="tagbox"><div class="k">why red (optional)</div><div class="tags" id="tags"></div></div>
+    <div><div class="k">note (saved when you leave the box)</div><textarea id="note" placeholder="a sentence on this picture"></textarea></div>
+    <div><div class="k" id="lbdk">what varies</div><div class="d" id="lbdetail"></div></div>
+    <div class="keys">← → previous / next picture · Esc closes</div>
+  </aside>
+</div>
+<div id="toast"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+let cfg = {}, cards = [], done = {}, notes = {}, cellOf = {}, open = null;
+
+async function post(path, body) {
+  const r = await fetch(path, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)}).catch(() => null);
+  if (!r || !r.ok) { const t = $("#toast"); t.textContent = "save failed: check the server"; t.style.display = "block"; setTimeout(() => t.style.display = "none", 2600); }
+}
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const F = k => cfg.fields?.[k] || k;
+const media = p => "/media/" + encodeURI(p);
+
+function stateOf(id) { const l = done[id]?.label; return l === 1 ? "y" : l === 0 ? "n" : ""; }
+
+async function setDot(id, val, toggle = true) {   // val 1 green, 0 red, null clear
+  const cur = done[id]?.label;
+  if (val === null || (toggle && cur === val)) {   // on the grid the same click again clears
+    if (cur === undefined) return;
+    delete done[id]; await post("/api/undo", {id});
+  } else if (cur === val) { return;
+  } else {
+    done[id] = {id, label: val}; await post("/api/label", {id, label: val, ms: 0, view: "matrix"});
+  }
+  paint(id);
+}
+
+async function putNote(id, text) {            // one store for the grid's box and the lightbox's
+  const v = text.trim();
+  if (v === (notes[id] || "")) return;
+  if (v) notes[id] = v; else delete notes[id];
+  await post("/api/note", {id, note: v}); paint(id);
+}
+
+function paint(id) {
+  const c = cellOf[id];
+  if (c) {
+    c.classList.remove("y", "n"); const s = stateOf(id); if (s) c.classList.add(s); c.classList.toggle("has-note", !!notes[id]);
+    const nt = c.querySelector(".nt"); if (nt && document.activeElement !== nt) nt.value = notes[id] || "";
+  }
+  if (open && cards[open.i].id === id) lbPaint();
+  const ls = cards.map(x => stateOf(x.id));
+  $("#ng").textContent = ls.filter(s => s === "y").length;
+  $("#nr").textContent = ls.filter(s => s === "n").length;
+  $("#nu").textContent = ls.filter(s => !s).length;
+}
+
+function build() {
+  const boards = [];                         // board -> rows -> cards, in deck order
+  cards.forEach((c, i) => {
+    const b = c.board || c[F("meta")] || "cards";
+    let B = boards.find(x => x.name === b); if (!B) boards.push(B = {name: b, rows: []});
+    const r = c.row ?? ""; let R = B.rows.find(x => x.name === r); if (!R) B.rows.push(R = {name: r, cells: []});
+    R.cells.push(i);
+  });
+  $("#nav").innerHTML = boards.map((B, k) => `<a href="#b${k}">${esc(B.name)} <span class="n">${B.rows.reduce((n, R) => n + R.cells.length, 0)}</span></a>`).join("");
+  const main = $("#main"); main.innerHTML = "";
+  boards.forEach((B, k) => {
+    const cols = Math.max(...B.rows.map(R => R.cells.length));
+    const seq = R => R.cells.map(i => cards[i].col ?? "").join("\u0001");
+    const shared = B.rows.every(R => seq(R) === seq(B.rows[0]));   // same columns in every row: one header row
+    const hasRows = B.rows.some(R => R.name);
+    const sec = document.createElement("section");
+    sec.innerHTML = `<h2 id="b${k}">${esc(B.name)}<span class="n">${B.rows.length} × ${cols}</span></h2>`;
+    const g = document.createElement("div"); g.className = "grid";
+    g.style.gridTemplateColumns = (hasRows ? "minmax(90px,150px) " : "") + `repeat(${cols}, var(--cell))`;
+    if (shared && B.rows[0].cells.some(i => cards[i].col)) {
+      if (hasRows) g.append(document.createElement("div"));
+      B.rows[0].cells.forEach(i => { const h = document.createElement("div"); h.className = "ch"; h.textContent = cards[i].col; g.append(h); });
+    }
+    B.rows.forEach(R => {
+      if (hasRows) { const h = document.createElement("div"); h.className = "rh"; h.textContent = R.name; g.append(h); }
+      R.cells.forEach(i => g.append(cell(i, !shared)));
+      for (let n = R.cells.length; n < cols; n++) g.append(document.createElement("div"));
+    });
+    sec.append(g); main.append(sec);
+  });
+  cards.forEach(c => paint(c.id));
+}
+
+function cell(i, showCol) {
+  const c = cards[i], el = document.createElement("div");
+  el.className = "cell"; cellOf[c.id] = el;
+  const cap = showCol ? (c.col || c[F("top")] || c.id) : "";
+  el.innerHTML = `<img loading="lazy" src="${media(c[F("image")])}" alt=""><span class="dot"></span><span class="note">note</span>` +
+                 (cap ? `<div class="cap">${esc(cap)}</div>` : "") +
+                 `<textarea class="nt" rows="1" placeholder="note on this picture (Enter saves)"></textarea>`;
+  el.title = c[F("top")] || c.id;
+  const nt = el.querySelector(".nt");        // the note box is its own target: typing never sets a dot
+  nt.value = notes[c.id] || "";
+  for (const ev of ["click", "dblclick", "contextmenu", "mousedown"]) nt.addEventListener(ev, e => e.stopPropagation());
+  nt.addEventListener("keydown", e => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); nt.blur(); }
+    else if (e.key === "Escape") { nt.value = notes[c.id] || ""; nt.blur(); }
+  });
+  nt.addEventListener("blur", () => putNote(c.id, nt.value));
+  let t = null;                              // single click waits a beat so a double-click can open instead
+  el.addEventListener("click", () => { clearTimeout(t); t = setTimeout(() => setDot(c.id, 1), 230); });
+  el.addEventListener("dblclick", () => { clearTimeout(t); lbOpen(i); });
+  el.addEventListener("contextmenu", e => { e.preventDefault(); clearTimeout(t); setDot(c.id, 0); });
+  return el;
+}
+
+function lbOpen(i) { open = {i}; $("#lb").classList.add("on"); lbPaint(); }
+function lbClose() { saveNote(); open = null; $("#lb").classList.remove("on"); }
+function lbPaint() {
+  const c = cards[open.i], s = stateOf(c.id);
+  $("#lb").classList.remove("y", "n"); if (s) $("#lb").classList.add(s);
+  $("#lbimg").src = media(c[F("image")]);
+  $("#lbboard").textContent = [c.board, c.row, c.col].filter(Boolean).join(" · ");
+  $("#lbcap").textContent = c[F("top")] || c.id;
+  $("#lbdk").textContent = cfg.field_labels?.body || "detail";
+  $("#lbdetail").textContent = c[F("body")] || "";
+  if (document.activeElement !== $("#note")) $("#note").value = notes[c.id] || "";
+  const tags = cfg.tags || [], cur = done[c.id]?.tag;
+  $("#tagbox").style.display = s === "n" && tags.length ? "" : "none";
+  $("#tags").innerHTML = tags.map(t => `<span class="${t === cur ? "on" : ""}">${esc(t)}</span>`).join("");
+}
+async function saveNote() {
+  if (open) await putNote(cards[open.i].id, $("#note").value);
+}
+function step(d) { saveNote(); open.i = (open.i + d + cards.length) % cards.length; $("#note").value = notes[cards[open.i].id] || ""; lbPaint(); }
+
+$("#tags").addEventListener("click", async e => {
+  if (e.target.tagName !== "SPAN" || !open) return;
+  const id = cards[open.i].id, tag = e.target.textContent;
+  done[id].tag = done[id].tag === tag ? null : tag;
+  await post("/api/tag", {id, tag: done[id].tag}); lbPaint();
+});
+$("#bG").onclick = () => setDot(cards[open.i].id, 1, false);
+$("#bR").onclick = () => setDot(cards[open.i].id, 0, false);
+$("#bX").onclick = () => setDot(cards[open.i].id, null);
+$("#note").addEventListener("blur", saveNote);
+$("#lb").addEventListener("click", e => { if (e.target.id === "lb" || e.target.classList.contains("pic")) lbClose(); });
+document.addEventListener("keydown", e => {
+  if (!open) return;
+  if (document.activeElement === $("#note")) { if (e.key === "Escape") $("#note").blur(); return; }
+  const id = cards[open.i].id, k = e.key.toLowerCase();
+  if (k === "escape") lbClose(); else if (k === "arrowright") step(1); else if (k === "arrowleft") step(-1);
+  else if (k === "g") setDot(id, 1, false); else if (k === "r") setDot(id, 0, false); else if (k === "x") setDot(id, null);
+});
+$("#size").addEventListener("input", e => { document.documentElement.style.setProperty("--cell", e.target.value + "px"); localStorage.mxSize = e.target.value; });
+if (localStorage.mxSize) { $("#size").value = localStorage.mxSize; document.documentElement.style.setProperty("--cell", localStorage.mxSize + "px"); }
+
+(async () => {
+  const st = await (await fetch("/api/state")).json();
+  cfg = st.config; cards = st.queue; done = st.done || {}; notes = st.notes || {};
+  for (const id in done) if (done[id].label === "unsure") delete done[id];
+  $("#title").textContent = cfg.title || "MATRIX"; document.title = cfg.title || "matrix";
+  build();
+})();
+</script>
+</body>
+</html>

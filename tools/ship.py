@@ -31,7 +31,10 @@ ROOT = pathlib.Path(os.environ.get("BOSON_ROOT") or pathlib.Path(__file__).resol
 REF = os.environ.get("BOSON_SHIP_REF", "HEAD")
 EXAMPLES = ROOT / "examples"
 PACK = ["boson", "workflows", "docs", "tools", "refs-licences"]   # refs-licences: the credit lines CC BY needs
-INTERNAL = ["docs/DEMO-SCRIPT.md"]   # tracked in ~/Boson, never shipped: the operator's recording notes
+ROOT_FILES = ["__init__.py", "pyproject.toml"]   # the repo cloned whole into custom_nodes/ loads as the pack
+INTERNAL = ["docs/DEMO-SCRIPT.md",   # tracked in ~/Boson, never shipped: the operator's recording notes
+            "workflows/grid-live.api.json", "workflows/zoom-street.json", "workflows/forge-sign.json",   # dev graphs on box files,
+            "workflows/scene-tram-stop.json", "workflows/scene-tram-stop.api.json"]   # and on studios that do not ship
 DEMO = ["architecture-real", "cars-real", "cars-s4471-real", "fashion-real", "posters-real"]
 SCENES = ["austin-stop", "airless-landing", "mystic-forest"]
 OUT = pathlib.Path("/tmp/boson-dist")
@@ -122,7 +125,7 @@ def build(out=OUT, studios=DEMO, scenes=SCENES, examples=EXAMPLES):
     ex = out / "examples"
     ex.mkdir(parents=True)
     # the pack as committed (REF), not the working tree: other sessions' half-done edits never ship
-    tar = git("archive", REF, "--", *PACK, ".gitignore", "README.md", "LICENSE",
+    tar = git("archive", REF, "--", *PACK, *ROOT_FILES, ".gitignore", "README.md", "LICENSE",
               *(f":(exclude){x}" for x in INTERNAL), cwd=ROOT, out=True)
     tarfile.open(fileobj=io.BytesIO(tar)).extractall(out, filter="data")
     names = list(studios)

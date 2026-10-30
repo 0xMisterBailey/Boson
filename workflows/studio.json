@@ -35,7 +35,7 @@
     "Node name for S&R": "BosonLoadStudio"
    },
    "widgets_values": [
-    "~/Boson/tests/fixtures/poc/ex-libris.bundle",
+    "architecture-real",
     "main"
    ],
    "title": "Load Studio"

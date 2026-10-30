@@ -103,7 +103,8 @@ def generate_agy(prompt, out, refs=(), model=MODEL, aspect=None, size="2K"):
     """The same render through Google Antigravity's generate_image (the box's signed-in Gemini plan, `agy -p`):
     for when the API key has no credit. About 1K output whatever `size` asks; logged as such. The Prompt the
     agent passed is checked against ours, so a paraphrase never gets recorded as this piece."""
-    agy = os.environ.get("BOSON_AGY", str(pathlib.Path("~/dotfiles/launchpad/agy-cloud").expanduser()))
+    box = pathlib.Path("~/dotfiles/launchpad/agy-cloud").expanduser()   # the author's wrapper; elsewhere `agy` on PATH
+    agy = os.environ.get("BOSON_AGY") or (str(box) if box.exists() else "agy")
     out = pathlib.Path(out)
     out.parent.mkdir(parents=True, exist_ok=True)
     work = pathlib.Path(tempfile.mkdtemp(prefix="boson-agy-"))

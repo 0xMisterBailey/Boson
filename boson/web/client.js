@@ -296,7 +296,8 @@ export function bosonClient({ base = "", app = () => globalThis.app } = {}) {
     async forgeStudio({ refs, sentence, field, owner = "", name, path, instrument = "", commission = "" }) {
       if (!nodes("BosonForgeStudio").length) await studioGraph("", "BosonForgeStudio");
       const f = one("BosonForgeStudio");
-      set(f, "path", path ?? `~/Boson/examples/${name}`); set(f, "owner", owner); set(f, "field", field);
+      // a bare name: Forge Studio puts the studio in examples/ (st.forge_path)
+      set(f, "path", path ?? name); set(f, "owner", owner); set(f, "field", field);
       set(f, "sentence", sentence); set(f, "refs", refs); set(f, "instrument", instrument); set(f, "commission", commission);
       return queue([f]);
     },

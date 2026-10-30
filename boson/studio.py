@@ -55,6 +55,13 @@ def named(repo):
     return registry().get(s, s) if s and "/" not in s and not s.endswith(".bundle") else repo
 
 
+def forge_path(path):
+    """Where Forge Studio makes a studio: a bare name goes in examples/ beside the shipped ones (so the app lists it,
+    wherever the repo was cloned); anything with a slash or a ~ is a path, as given."""
+    s = str(path).strip()
+    return ROOTS[0] / s if s and "/" not in s and not s.startswith("~") else pathlib.Path(s).expanduser()
+
+
 def open_repo(repo):
     """A path to a studio repo, or to a .bundle (a shipped fixture), which is cloned once to a working repo; or a
     registry name (shipped workflows name their studios, so they load in any clone)."""

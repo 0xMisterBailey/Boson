@@ -152,7 +152,7 @@ Studio side (studio graph):
 | `dots(studio, round, greens, reds, text)` | Dots `round`, `greens` and `reds` (one piece per line), `verdict`. Refuses an empty verdict or no dots | Dots | free (greens -> pins, the verdict row: commits, no call) |
 | `digest(studio)` | the round's Nano Banana `mode`=stored | Digest | one writer call |
 | `approve(studio, round, picks)` | Approve Rules `picks` = "NN: 1,3" | Approve Rules | free (a commit) |
-| `forgeStudio({refs, sentence, field, owner, name, path, instrument, commission})` | Forge Studio widgets (`path` default `~/Boson/examples/<name>`, `instrument` "" = `tools/forge-template`) | Forge Studio | one writer call (minutes); docs/FORGE.md |
+| `forgeStudio({refs, sentence, field, owner, name, path, instrument, commission})` | Forge Studio widgets (`path` default `<name>`: a bare name lands in `examples/`, `instrument` "" = `tools/forge-template`) | Forge Studio | one writer call (minutes); docs/FORGE.md |
 | `newScene({name, fromPiece, spec, path})` | New Scene widgets (`spec` an object or SCENE.json text) | New Scene | free (a commit) |
 
 Which buttons a UI shows is the UI's call: the engine supports both verbs. The v4 design proposes **Swap** (pending
@@ -254,7 +254,7 @@ each, idempotent per piece. `/boson/shelf` merges every studio's at `main`. Drag
 
 ## The room: the taste loop in the graph (round 44)
 
-The owner's dots used to happen outside ComfyUI (`tools/loop.py dots` served `~/feedback-engine`). Now the studio
+The owner's dots used to happen outside ComfyUI (`tools/loop.py dots` serves the grid in `tools/feedback_engine/`, and still does). Now the studio
 view (`boson/web/app/room.js`) dots the open loop round and a node commits it, so every verdict binds the next round
 from inside the graph.
 

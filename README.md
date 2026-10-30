@@ -2,166 +2,218 @@
 
 ![Boson: made from curation, not presets](docs/img/banner.jpg)
 
-**A style reference gives you a look. Boson gives it a history.**
+> **Studios instead of presets: your taste as plain files in git that every next ComfyUI round obeys.**
 
-Boson is a set of ComfyUI nodes for making images and clips with *your* taste, kept as plain files in git.
-It has no taste of its own. You dot what works (green, red), write one sentence, and that verdict becomes a rule
-every next round must read. The studio remembers, in files you can read, edit, branch and share.
+Boson is a ComfyUI node pack, and an app served by the same ComfyUI, built around one feedback loop: make a round,
+judge it (green and red dots, one sentence), and the judgment becomes state the next round must read. That state is
+a git repo, a **studio**: plain files you can read, diff, branch and share. Boson has no taste of its own. Whoever sits
+in the judge's seat supplies it: you in the app, or a script or an AI agent from the command line.
 
 ![The loop in one picture: round 1 dotted green and red, the owner's one sentence, and round 2 obeying it](docs/img/loop.jpg)
+
+- **28 nodes and an app** (`/boson/app`) on plain ComfyUI. No Python packages beyond ComfyUI's own; `git` on `PATH`.
+- **Every past step replays for free.** Nodes run `stored` (replay what was made: no key, no network) or `live`.
+- **One switch per capability.** Fully local on open weights, all cloud, or a hybrid; a studio never names a model.
+- **Ships with 15 studios and 3 scenes**, each a git bundle with its full round-by-round history. Two of the scenes,
+  and the eight studios behind them, were made end to end by agents, with no human in any seat.
 
 An entry to Comfy's Open Source Higgsfield challenge (2026), in the Most Innovative category. Built over 13 days
 (2026-10-17 to 10-29): more than 500 commits and 56 recorded decision rounds. This repo's own history is condensed to
 a few builds to keep the author's working files private; each studio and scene in `examples/*.bundle` keeps its full
-round-by-round history. What is new is the idea as a whole, in five parts:
+history.
 
-1. **Studios instead of presets.** A studio is a folder of plain files in git that holds one taste, for one field
-   (architecture, cars, fashion, posters): `STUDIO.md` (its idea, idiom and refusals), `TASTE.json` (words, style
-   lines, pinned pictures), `LOOP.jsonl` (every round and your verdict on it). Forged from your reference pictures
-   and one sentence.
-2. **The curation loop.** Make a round, dot it red and green, write one sentence. That verdict becomes a rule the next
-   round must read: greens become pins, the sentence is appended word for word under "From your verdicts". All
-   committed, so the taste builds up with a history.
-3. **The scene editor.** A street, a moon landing, a misty forest, any picture, where every piece is a **slot** (a box on the picture that can be refilled: an
-   outfit, a car, a poster, a building) any studio can fill. Click a slot and pick **any** studio: it makes its own
-   versions for that exact spot (from a crop of the frame, so they already sit in its place and light), and a Swap
-   redraws and relights only what changed. Even background things that came with the street, like the corner
-   taqueria, can become slots. Then set the frame in motion. Every take and clip is a commit.
-4. **The engineering underneath.** Ordinary ComfyUI graphs that pause for your judgment, replays that cost nothing,
-   and any model behind one switch.
-5. **Models for their strengths, open by design.** Every part sits behind one switch, so Boson runs fully local on
-   open weights, all cloud, or a hybrid, each model on the task it does best, and your feedback chooses. The demo's
-   studios and scene were made with the cloud models; only clips, an optional last step, still need one. Next on the roadmap: a fan-out test of each model on each task, with your dots picking the model.
+**Contents:** [Install](#install) · [The feedback loop](#the-feedback-loop) · [What is new](#what-is-new) ·
+[How it works](#how-it-works) · [Three ways to run it](#three-ways-to-run-it) ·
+[Models: one switch](#models-one-switch-per-capability) · [What ships](#what-ships) ·
+[Repository layout](#repository-layout) · [Honest limits](#honest-limits)
 
-## In pictures
+## Install
 
-Four studios, each forged from reference photos and one sentence, each with its own taste and its own history:
+Viewing everything that ships needs no GPU, no key and no network after the clone.
 
-![Four studios: architecture, cars, fashion, posters, each with its sentence and six of its pictures](docs/img/studios.jpg)
-
-The scene editor: a street where every piece is a slot that any studio can fill, made for that exact spot:
-
-![The Austin stop scene as a layer on top of the studios: each slot boxed and named by the studio that filled it](docs/img/layer.jpg)
-
-A swap redraws only the slot; the rest of the frame is kept:
-
-![Swap the car: before and after, only the car changes](docs/img/swap-car.jpg)
-
-It all runs as an app inside ComfyUI (`/boson/app`), here on a fresh clone with no network and no keys:
-
-![The Boson app in ComfyUI: the studios rail, the Austin stop scene with its slots, and the car slot's panel](docs/img/app-scene.jpg)
-
-Streets are one case. The same studios and slots make any scene. This one had no human in any seat (2026-10-29):
-four agents each gathered real NASA and Wikimedia Commons photos, forged a studio from them (terrain, rockets, robots,
-the sky), and ran three rounds, dotting and judging their own pictures. Then one more agent built the scene and cast
-its slots. Every picture was drawn on one RTX 4090 by FLUX 3 Klein, and the boxes were found by Qwen3.8 on the same card:
-
-![Four agent-forged studios: terrain, rocket, robot and skybox, each with its sentence and its green pictures](docs/img/scifi-studios.jpg)
-
-![The airless landing scene as a layer on top of its four studios: the ground, the rocket, two robots and a ringed planet, each slot boxed and named by its studio](docs/img/scifi-layer.jpg)
-
-The agents' dots and verdicts are their own judgments, not the author's taste. The words behind it (each studio's
-text, the descriptions of the photos) came from cloud models: Claude and Gemini.
-
-The same afternoon, a second swarm made the opposite world: a mystic forest, all mist, haze and shafts of light, with
-a clear foreground, midground and background. Four more agents forged a forest, a temple, an ancient-tree and a wizard
-studio from Wikimedia Commons photos, and the scene agent placed the tree in front, the wizard on the path, the temple
-in the mist and the mountains behind. This time each studio picture was drawn from two of the studio's own
-open-licence photos (public domain, CC0 or CC BY; credited in `refs-licences/`) instead of from its green pins, which
-the local model had copied:
-
-![Four more agent-forged studios: forest, temple, ancient tree and wizard, each with its sentence and its green pictures](docs/img/forest-studios.jpg)
-
-![The mystic forest scene as a layer on top of its four studios: the ancient tree in front, the wizard on the path, the temple in the mist, each slot boxed and named by its studio](docs/img/forest-layer.jpg)
-
-## See it in two minutes (no keys, no account)
-
-Everything in this repo was already rendered, so you can browse it without a single API call.
-
-You need: [ComfyUI](https://github.com/comfyanonymous/ComfyUI) installed (a recent release; tested on 0.42 with
-frontend 1.57), and `git` on your PATH. No GPU, no network and no key needed for viewing.
+**Requirements:** [ComfyUI](https://github.com/comfyanonymous/ComfyUI) (tested on 0.42 with frontend 1.57, on Linux;
+macOS and Windows are untested) and `git` on your `PATH`. The clone is about 325 MB to download (the studios'
+pictures and histories).
 
 ```bash
-git clone https://github.com/0xMisterBailey/Boson
 cd /path/to/ComfyUI/custom_nodes
-ln -s /path/to/Boson/boson boson          # a symlink, not a copy: the nodes find examples/ beside it
+git clone https://github.com/0xMisterBailey/Boson
 cd .. && python main.py                   # add --cpu on a machine without a GPU
 ```
 
-Open **http://127.0.0.1:8188/boson/app**. The left rail lists the studios and the scenes. The first open of a studio
-or a scene takes a few seconds: it is cloned from its bundle in `examples/`.
+Open **http://127.0.0.1:8188/boson/app**. The left rail lists the studios and the scenes; the first open of each
+takes a few seconds (it is cloned from its bundle in `examples/`). Any folder name works, and so does a clone kept
+elsewhere with a link to it in `custom_nodes/`.
 
-To replay a Swap (not only look at the takes), ComfyUI also needs BiRefNet, the subject-mask model, which a stock
-ComfyUI does not have (444 MB, the one download). The scene's graph names it, so without it browsing works but ComfyUI
-refuses a Swap before it starts ("press Graph to see which node it names").
+**Optional, to replay a Swap** (not only look at the takes): ComfyUI also needs BiRefNet, the subject-mask model (444
+MB). Without it browsing works, and ComfyUI refuses a Swap before it starts, naming the missing node.
 
 ```bash
 cd /path/to/ComfyUI/models && mkdir -p background_removal && cd background_removal
 curl -LO https://huggingface.co/Comfy-Org/BiRefNet/resolve/main/background_removal/birefnet.safetensors
 ```
 
-Restart ComfyUI after adding it. On a machine without a GPU (`--cpu`), car, poster and building swaps replay; the
-outfit swap's replay runs (about 40 s) but makes no take yet: BiRefNet's masks on a CPU differ by a hair from the
-ones the outfit was made with, so its stored boxes don't match (2026-10-27).
+On a CPU-only machine, car, poster and building swaps replay; the outfit swap's replay runs (about 40 s) but makes no
+take, because BiRefNet's masks on a CPU differ by a hair from the ones the outfit was made with.
 
-Your name on saves (optional): every click that changes a studio or the scene (Undo, Cast, Swap, a dot) is saved as a
-git commit in a working copy under `~/.cache/boson` (`$BOSON_HOME` moves it); nothing leaves your machine. If git has
-no name and email set, Boson signs those commits "Boson". To sign them yourself:
-`git config --global user.name "Your Name"` and `git config --global user.email "you@example.com"`.
+**Where your work goes:** every click that changes a studio or a scene (a dot, Undo, Cast, Swap) is a git commit in a
+working copy under `~/.cache/boson` (`BOSON_HOME` moves it). Nothing leaves your machine unless you switch a node to
+`live`. If git has no name and email set, Boson signs those commits "Boson".
 
-- Click **Architecture** (or Cars, Fashion, Posters): the studio's house, its rounds, each verdict beside what it
-  changed and what the next round made.
-- Click **Austin stop**: the scene, its takes, which studio filled which slot, and its clips. Click a box on the
-  picture: its studio, a picker for any other studio, their pieces. With "live calls" off, Make and Swap only replay
-  what was made (no key); take 08 -> 12 is the outfit, the taqueria made a slot, and a car from a second car studio.
-- Click **Airless landing**: the sci-fi scene, its four slots (rocket, rover, walker, ringed planet) and the four
-  agent-forged studios that filled them (terrain, rockets, robots, skybox), each with its three dotted rounds.
-- Click **Mystic forest**: the forest scene, its three slots (ancient tree, wizard, temple), its four studios (forest,
-  temple, tree, wizard), and take 02, where only the wizard was swapped for one in a black robe.
-- **Graph** (top right) shows the real ComfyUI graph under every screen; every button sets widgets on real nodes.
+To make new pictures, see [Models](#models-one-switch-per-capability) and [docs/CONFIG.md](docs/CONFIG.md).
 
-Workflows in `workflows/` open in ComfyUI directly (Workflow > Open). They start in `stored` mode: they replay what
-was made, with no key and no call.
+## The feedback loop
 
-## Make new things (your machine or the cloud, one switch)
+```mermaid
+flowchart LR
+    S["Studio (a git repo)<br/>STUDIO.md · TASTE.json · LOOP.jsonl"] -->|"the writer reads the whole studio"| M["Make<br/>n render specs"]
+    M -->|"an image model draws them"| R["Round N<br/>n pictures"]
+    R --> J{"Judge's seat<br/>you · a script · an agent"}
+    J -->|"greens: pins<br/>reds: refusals<br/>one sentence: a rule"| C["commit"]
+    C --> S
+```
 
-Switch a node from `stored` to `live`. Every part runs either on your own machine, with open-weights models, or on a
-cloud model with a key, through the same switch. A studio never names a model, so you can change the backend without
-touching it. "Open weights" means the model itself is published and runs anywhere, your machine or a rented one.
+1. **Make.** The writer (an LLM) reads the whole studio, its practice, its pins and every verdict so far, and writes
+   *n* render specs for your idea. The image model draws them with the studio's references.
+2. **Judge.** Dot each picture green (more like this) or red (not this), and write one sentence on the round as a
+   whole. A verdict alone, or dots alone, never go on: the graph waits.
+3. **Commit.** Greens join the studio's pins in `TASTE.json`; reds leave them. The sentence is appended verbatim to
+   `STUDIO.md` under "From your verdicts", where it binds every later make. The round, its dots and its verdict are a
+   row in `LOOP.jsonl`. One commit, and the same verdict again commits nothing.
+4. **Next.** The next make reads all of it: the verdict in quotes, the greens as pinned pictures (on the local
+   backend, two of the studio's own reference photos instead), the reds named as "not like these".
 
-**On your own machine (open weights, no keys):**
+A judged round cannot be judged again on the same branch. To change your mind, branch the studio from an earlier
+round, as you would branch code.
 
-- **Pictures:** `backend: local` draws with FLUX 3 Klein on a ComfyUI you name in `BOSON_LOCAL_COMFY` (default
-  `http://127.0.0.1:8188`). That has to be a second ComfyUI (another port), or a run from the command line
-  (`tools/loop.py --backend local`, `tools/scene_local.py`): a Make inside the ComfyUI it would queue onto is refused,
-  because it would wait on itself.
-- **Writing studios and briefs:** the same `claude -p`, pointed at an open model (we use Qwen3.8 27B) behind an
-  Anthropic-compatible gateway: `BOSON_WRITER_BASE_URL` (the gateway's URL, not a raw llama-server port) and
-  `BOSON_WRITER` (the model name it serves). A local writer gets no login and no background traffic.
-- **Finding things in a frame** (Locate): a vision model on a llama-server with its projector, at
-  `BOSON_LOCATE_BASE_URL` (default `http://127.0.0.1:8192`). Set the Locate node's `model` to `local:NAME`.
-- **Subject masks:** BiRefNet, as shipped with ComfyUI. `BOSON_SEG_DEVICE=cpu` keeps it off a full card.
-- **One 24 GB card:** the writer, Klein and the vision model do not fit at once. They take turns on the card.
-- **Motion:** no local video model yet. Clips still need a cloud model (below).
+## What is new
 
-Measured on one RTX 4090 (2026-10-27): a studio round written by Qwen3.8 and drawn by Klein took ~17 min (the cloud
-path: ~2.5 min); a scene's shoot, car swap and outfit swap took ~7 min. Both cost $0, and a trace showed only
-connections to the machine itself. The studio and the street they started from had been made earlier in the cloud.
+The idea as a whole, in five parts:
 
-**The same switch, in the cloud (keys):**
+1. **Studios instead of presets.** A studio is a folder of plain files in git that holds one taste, for one field
+   (architecture, cars, fashion, posters): `STUDIO.md` (its idea, idiom and refusals), `TASTE.json` (pinned
+   pictures), `LOOP.jsonl` (every round and the verdict on it). Forged from reference pictures and one sentence.
+2. **The curation loop.** Above: a verdict becomes a rule the next round must read, committed, so the taste builds up
+   with a history you can read, branch and share.
+3. **The scene editor.** A street, a moon landing, a misty forest, any picture, where every piece is a **slot** (a
+   box on the picture that can be refilled: an outfit, a car, a poster, a building) any studio can fill. A studio
+   makes its own versions for that exact spot, from a crop of the frame, so they already sit in its place and light;
+   a Swap redraws and relights only what changed. Background things, like the corner taqueria, can become slots.
+   Every take and clip is a commit.
+4. **The engineering underneath.** Ordinary ComfyUI graphs that pause for your judgment, replays that cost nothing,
+   and any model behind one switch.
+5. **Models for their strengths, open by design.** Every part sits behind one switch, so Boson runs fully local on
+   open weights, all cloud, or a hybrid, each model on the task it does best. The demo's studios and the Austin scene
+   were made with the cloud models; only clips, an optional last step, still need one. Next on the roadmap: a
+   fan-out test of each model on each task, with your dots picking the model.
 
-- **Pictures:** Nano Banana 2.1, on your Comfy credits (`backend: comfy-api`; a Comfy API key from platform.comfy.org
-  in `COMFY_API_KEY`), a Gemini API key (`backend: api`; `GEMINI_API_KEY`), or a signed-in Antigravity plan
-  (`backend: antigravity`, ~1K). The widget's default is `api`.
-- **Writing:** Claude, through `claude -p` (signed in). `BOSON_WRITER` picks the model; the default is
-  `claude-opus-5-5`.
-- **Locate:** Gemini vision (`gemini-3.8-flash`, the node's default), `GEMINI_API_KEY`.
-- **Motion:** Comfy's partner video nodes (LTX 2.5 Pro, Gemini Omni Flash 1.1) on Comfy credits (ComfyUI's sign-in).
+## How it works
 
-Measured cloud costs (2026-10): a make of 4 pictures is about $0.30 of images plus $0.75-1.25 of writing; a scene
-swap about $0.06; a 6 s 1080p clip $1.31 (Omni Flash) to $1.46 (LTX 2.5 Pro).
+### A studio is a git repo
 
-## Models used
+```text
+architecture-real/
+├── STUDIO.md            the practice: idea, idiom, refusals; "From your verdicts" holds every verdict, verbatim
+├── TASTE.json           the house: its pins (studio@sha:path), and any words, style lines or pictures the owner set
+├── LOOP.jsonl           one row per round (idea, pieces, studio commit) and one per verdict (greens, reds, sentence)
+├── JURY.md              checks a picture must pass, each answerable by looking (kill / flag)
+├── RENDER.json          how its pictures are drawn: aspect, size, references, the instrument's prompt rules
+├── instruments.yaml     what each picture model can and cannot do, for the writer
+├── FORGE-INPUT.md       what it was forged from: the owner, the field, the one sentence
+├── history/             rounds.jsonl, RULES.md (rules the owner approved), LESSONS.md
+└── refs/refs.jsonl      each reference: its source url and its description (the pictures stay private)
+```
+
+The forge is tagged `r00`; every round records the studio commit it was made from, and pieces are addressed as
+`studio@sha:path`. Every node that changes a studio commits, so any round can be loaded at its commit, diffed or
+branched. Pictures live beside the repo (`NAME-plates/`), with manifests and logs naming each one's prompt, model and
+studio commit.
+
+### A scene is a git repo
+
+```text
+mystic-forest/
+├── SCENE.json           the base view, the slots (what each is, which studio fills it), the take it stands on
+└── takes/NN/            image.jpg, cast.json (which piece in which slot), boxes.json (where each slot is), take.json
+```
+
+A swap runs as one ComfyUI graph: **Compile Scene** (the shot: the take, the cast pieces, a deterministic prompt) →
+the image model → **Uncrop** (a close-crop edit goes back in through its subject mask only, so the crop's own
+background never shows) → **Locate** (a vision model boxes every slot in the new take) → **Commit Take**. Flat pieces
+(posters, signs) are perspective-warped onto the quads Locate found (**Paste Flat**). A slot's Make is commissioned
+from **Slot Crop**, a crop of the current take, which is why its pieces arrive in place and in light.
+
+### Stored and live
+
+Make, Nano Banana and Locate have a `mode`: `live` calls the model once and stores the result under a key made from
+its inputs; `stored` replays that result and never calls anything. Shipped workflows open in `stored` mode, which is
+why the whole repo replays with no key. Re-queuing a node that already ran commits nothing.
+
+### The app is the graph
+
+`/boson/app` is a page served by the pack (`boson/server.py`, read-only routes plus two one-commit writes). Every
+button sets widgets on real Boson nodes in the loaded ComfyUI graph and queues it; **Graph** (top right) shows that
+graph. The contract between the page and the nodes is [docs/APP-API.md](docs/APP-API.md).
+
+## Three ways to run it
+
+1. **The app**, `/boson/app`: studios, rounds, dots, scenes, slots, swaps and clips, for a person with a mouse. A
+   walkthrough of everything that ships: [docs/TOUR.md](docs/TOUR.md).
+2. **ComfyUI graphs.** The workflows in `workflows/` open directly (Workflow > Open) and start in `stored` mode;
+   every node is documented in [docs/NODES.md](docs/NODES.md) (generated from the code).
+
+   | Workflow | What it is |
+   |---|---|
+   | `studio.json` | One studio: Make → Dots (the loop); Draft Brief → Verdict → Digest → Approve Rules (rules you approve); Forge Studio, Edit House, Keep Piece |
+   | `scene-austin-stop.json`, `scene-airless-landing.json`, `scene-mystic-forest.json` | Each shipped scene, a Cast node per slot |
+   | `real-refs.json` | Forge a studio from real references, then make from it |
+   | `building-in-context-austin.api.json` | The Austin corner building reworked in its own frame |
+   | `klein-mi2i.api.json` | The FLUX 3 Klein graph the `local` backend runs (stock nodes) |
+   | `scene-street.json` | The app's template for scenes that have no graph of their own |
+
+3. **Headless**, `tools/loop.py`: every step of the loop from a terminal, with the judgment as arguments, so a
+   script or an agent can sit in the judge's seat.
+
+   ```bash
+   python3 tools/loop.py NAME forge --field "Lunar surface photography" --sentence "..."
+   python3 tools/loop.py NAME make --idea "the landing site at low sun" --n 4 --backend local
+   python3 tools/loop.py NAME status                # the open round's piece ids and files
+   python3 tools/loop.py NAME dot --green ID1,ID3 --red ID2 --verdict "Keep the hard shadows; stop the haze."
+   python3 tools/loop.py NAME next --backend local  # greens: pins, verdict: a rule, the next round made
+   ```
+
+   This is how the airless landing and the mystic forest were made, with no human in any seat. For each scene, four
+   agents gathered open-licence photos, forged one studio each and ran three rounds judging their own pictures (each
+   verdict marked `AGENT verdict`); one more agent built the scene. All their pictures were drawn by FLUX 3 Klein on
+   one RTX 4090.
+   Recipe and guards: [docs/HEADLESS.md](docs/HEADLESS.md).
+
+   ![The mystic forest scene as a layer on top of its four agent-forged studios: the ancient tree in front, the wizard on the path, the temple in the mist](docs/img/forest-layer.jpg)
+
+## Models: one switch per capability
+
+A studio never names a model, so you can change the backend without touching it. "Open weights" means the model
+itself is published and runs anywhere, your machine or a rented one.
+
+| Capability | On your machine (open weights, no keys) | In the cloud (keys) |
+|---|---|---|
+| Pictures | FLUX 3 Klein on a ComfyUI you name (`backend: local`) | Nano Banana 2.1 on a Gemini key (`api`, the default), on Comfy credits (`comfy-api`), or an Antigravity plan (`antigravity`) |
+| Writing studios and briefs | Qwen3.8 27B behind an Anthropic-compatible gateway (`BOSON_WRITER_BASE_URL`) | Claude Opus 5.5 through `claude -p` (signed in) |
+| Locate (boxes in a frame) | Qwen3.8 with its vision projector on a llama-server (`model: local:NAME`) | Gemini 3.8 Flash (`GEMINI_API_KEY`, the default) |
+| Subject masks | BiRefNet, through ComfyUI's core Remove Background node | |
+| Clips | none yet | LTX 2.5 Pro or Gemini Omni Flash 1.1, Comfy's partner video nodes |
+
+Every variable, default and model file: [docs/CONFIG.md](docs/CONFIG.md). On one 24 GB card the writer, Klein and the
+vision model do not fit at once; they take turns. The local picture backend draws on a *second* ComfyUI (another
+port), or from the command line (`tools/loop.py --backend local`, `tools/scene_local.py`): a Make inside the ComfyUI
+it would queue onto is refused, because it would wait on itself.
+
+**Measured** on one RTX 4090 (2026-10-27): a studio round written by Qwen3.8 and drawn by Klein took ~17 min (the
+cloud path: ~2.5 min); a scene's shoot, car swap and outfit swap took ~7 min. Both cost $0, and a trace showed only
+connections to the machine itself. Cloud costs (2026-10): a make of 4 pictures is about $0.30 of images plus
+$0.75-1.25 of writing; a scene swap about $0.06; a 6 s 1080p clip $1.31 (Omni Flash) to $1.46 (LTX 2.5 Pro).
+
+### Models used
 
 Open weights (published, run anywhere): **FLUX 3 Klein** (pictures), **Qwen3.8 27B** (writer and Locate, with its
 vision projector), **BiRefNet** (subject masks). Closed (reached only through a service): **Nano Banana 2.1**
@@ -169,37 +221,51 @@ vision projector), **BiRefNet** (subject masks). Closed (reached only through a 
 **Gemini 3.8 Flash** (Locate), **LTX 2.5 Pro** and **Gemini Omni Flash 1.1** (clips, via Comfy's partner nodes).
 Boson's own code is open source either way.
 
-How the shipped work was made: the studios (architecture, cars, exotic cars, fashion, posters) and the Austin scene
-were made with Nano Banana pictures, Claude-written words, the author's red and green dots, and Gemini boxes (Locate).
-The airless landing and its four studios (terrain, rockets, robots, skybox) were made with Klein pictures and Qwen3.8
-boxes on one RTX 4090, Claude-written words, Gemini descriptions of the reference photos, and agents' dots.
-The mystic forest and its four studios (forest, temple, tree, wizard) were made the same way, with each studio
-picture drawn by Klein from two open-licence reference photos.
-The app names the model that drew each take it knows of. The local path (Klein, Qwen3.8, BiRefNet) exists and has
-run: one studio round and one scene's shoot and two swaps, on 2026-10-27 (above). The code's defaults are the cloud
-ones: `backend: api`, the Opus writer, Gemini Locate.
+How the shipped work was made: the studios (streets, architecture, cars, exotic cars, fashion, posters) and the
+Austin scene were made with Nano Banana pictures, Claude-written words, the author's red and green dots, and Gemini
+boxes. The airless landing and the mystic forest, and their eight studios, were made with Klein pictures and Qwen3.8 boxes on one
+RTX 4090, Claude-written words, Gemini descriptions of the reference photos, and agents' dots. The app names the
+model that drew each take it knows of. The code's defaults are the cloud ones: `backend: api`, the Opus writer,
+Gemini Locate. A side-by-side test of cloud against local on the same scene: [docs/TOUR.md](docs/TOUR.md#cloud-and-local-side-by-side).
 
-One side-by-side test (2026-10-28): the same Austin scene from the same prompts, drawn three ways: A all cloud (Nano Banana), B all on this machine (FLUX 3 Klein), C the cloud street with Klein drawing the takes. The author judged A and C equal on 11 of 12 takes (A better on the other, where C changed the wrong building) and B worse, for its framing, not its detail. On the 39 pieces: A 18, tie 19, B 2. The shipped scene is A.
+## What ships
 
-## What's in the repo
+| | Studios | Made with |
+|---|---|---|
+| **Austin stop** (a streetcar stop: outfit, car, poster, building, corner taqueria) | streets (the base view), fashion, exotic cars, posters, architecture | cloud pictures, the author's dots |
+| **Airless landing** (rocket, rover, walker, ringed planet) | terrain, rockets, robots, skybox | local pictures, agents' dots |
+| **Mystic forest** (ancient tree, wizard, temple) | forest, temple, tree, wizard | local pictures, agents' dots |
 
-- `boson/`: the node pack (studio, loop, scene nodes) and the app (`boson/web`), served at `/boson/app`.
-- `examples/*.bundle`: the studios and the three scenes (Austin stop, airless landing, mystic forest) as git bundles (full history). `examples/*-plates/`: the
-  pictures their rounds rendered, with manifests naming the prompt and studio commit behind each.
-- `workflows/`: ready graphs (studio, scene, motion, the in-context building rework).
-- `tools/`: command-line versions of the same steps (`loop.py`, `seed.py`, `motion_workflow.py`, `ship.py`).
-- `docs/`: the app's contract (`APP-API.md`), how to forge a studio from real references (`REAL-REFS.md`,
-  `FORGE.md`), and the two-page paper (`docs/whitepapers/higgsfield-ported.pdf`).
+Two more car studios (`cars-real`, `cars-s4471-real`) ship on their own. Each is a git bundle in `examples/`, with
+every round's pictures beside it in `examples/*-plates/` and a manifest naming the prompt and studio commit behind
+each. Every picture in `examples/` is AI-generated; the real reference
+photos are not in this repo (each studio lists their sources in `refs/refs.jsonl`). CC BY credit lines for the
+open-licence photos the agent studios drew from are in `refs-licences/`.
+
+## Repository layout
+
+```text
+__init__.py          lets ComfyUI load the repo root as the pack
+boson/               the node pack: studio, loop, scene and house nodes, the server routes, the app (boson/web)
+examples/            studios and scenes as git bundles (full history) and their pictures (*-plates/)
+workflows/           ready graphs (above)
+tools/               the command line: loop.py (the loop), scene_local.py (scenes on open weights),
+                     gather_commons.py (open-licence references), node_docs.py, ship.py (builds this repo)
+docs/                NODES.md, CONFIG.md, HEADLESS.md, TOUR.md, APP-API.md (the app's contract),
+                     FORGE.md and REAL-REFS.md (forging from real references), GUIDE.md (plain-words guide),
+                     whitepapers/higgsfield-ported.pdf (the two-page paper)
+refs-licences/       credit lines for open-licence reference photos
+```
 
 ## Honest limits
 
 - Boson keeps taste; it does not have any. A round you only praise gives the next round nothing to bind.
 - A loop that binds every verdict can narrow toward your own average. The way out is a branch: fork the studio from
   an earlier round, or start a sibling from fresh references.
-- Real reference photos are not in this repo. The real-reference studios list each one's source in
-  `refs/refs.jsonl`; their files stayed on the author's machine. Every picture in `examples/` is AI-generated.
 - Making new rounds needs either a GPU for the local path (one 24 GB card; slower than the cloud) or paid model
   access. Clips need a cloud model either way.
+- Live writing runs through the Claude Code CLI (`claude -p`), also when it is pointed at a local model.
+- Tested on Linux only. The clone is large because the history of every studio ships with it.
 
 ## Licence
 

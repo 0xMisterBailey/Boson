@@ -24,7 +24,7 @@ graph's own Boson nodes and queues the graph.
   GET /boson/piece?ref=studio@sha:path       a piece's image
   GET /boson/shelf                     every studio's kept pieces
   GET /boson/workflow?name=...         a shipped workflow (workflows/NAME.json)
-  GET /boson/app                       the app shell (web/app/index.html)
+  GET /boson/app                       the app shell (web/app/index.html, its links aimed at this pack's extension folder)
 """
 import asyncio, importlib.util, json, os, pathlib, re, sys, urllib.parse
 
@@ -469,6 +469,19 @@ def workflow_path(name):
     return WORKFLOWS / f"{name}.json"
 
 
+def extension_name(dirs=None):
+    """The name ComfyUI serves web/ under (/extensions/NAME/): the custom_nodes folder's name, so 'boson' for a linked
+    boson/ and the clone's own name ('Boson') for the repo cloned whole. Read from ComfyUI's table, never imported."""
+    dirs = getattr(sys.modules.get("nodes"), "EXTENSION_WEB_DIRS", {}) if dirs is None else dirs
+    return next((k for k, v in dirs.items() if pathlib.Path(v).resolve() == WEB.resolve()), "boson")
+
+
+def app_page(dirs=None):
+    """web/app/index.html, its asset links aimed at the folder this ComfyUI serves the pack's web/ from."""
+    name = urllib.parse.quote(extension_name(dirs))
+    return (WEB / "app" / "index.html").read_text().replace("/extensions/boson/", f"/extensions/{name}/")
+
+
 def register(routes, web):
     def json_route(path, fn, *keys, **defaults):
         @routes.get(path)
@@ -518,7 +531,7 @@ def register(routes, web):
 
     @routes.get("/boson/app")
     async def _app(request):
-        return web.FileResponse(WEB / "app" / "index.html")
+        return web.Response(text=app_page(), content_type="text/html")
 
     @routes.get("/boson/studio")
     async def _studio(request):
