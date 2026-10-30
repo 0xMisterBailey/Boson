@@ -22,7 +22,8 @@ An entry to Comfy's Open Source Higgsfield challenge (2026), in the Most Innovat
 a few builds to keep the author's working files private; each studio and scene in `examples/*.bundle` keeps its full
 history.
 
-**Contents:** [Install](#install) · [The feedback loop](#the-feedback-loop) · [What is new](#what-is-new) ·
+**Contents:** [Install](#install) · [The feedback loop](#the-feedback-loop) ·
+[A studio, from nothing to running](#a-studio-from-nothing-to-running) · [Scenes](#scenes) · [What is new](#what-is-new) ·
 [How it works](#how-it-works) · [Three ways to run it](#three-ways-to-run-it) ·
 [Models: one switch](#models-one-switch-per-capability) · [What ships](#what-ships) ·
 [Repository layout](#repository-layout) · [Honest limits](#honest-limits)
@@ -85,6 +86,75 @@ flowchart TD
 
 A judged round cannot be judged again on the same branch. To change your mind, branch the studio from an earlier
 round, as you would branch code.
+
+## A studio, from nothing to running
+
+Every picture below is real Boson output, with the dots and sentences that were really given (except the app grid
+in step 4, dotted for the screenshot and never submitted). Steps 3 to 5 are studios that ship in `examples/`; the
+ignition rounds in steps 1 and 2 were a separate architecture run and do not ship.
+
+### 1. Ignition: no references yet (optional)
+
+`tools/ignite.py FIELD run` makes one blind round on a plain brief. Some cards are the image model's own default for
+the field, some are the writer's attempt to dodge that default, and the rest each draw a handful of photos from two
+"lanes" of an inspiration pool (photos gathered for the field, by you or by agents). The cards are shuffled and
+unlabelled, so a lane's name cannot sway a dot. `dots` opens the grid, and `read` reveals which card was which.
+
+![Ignition, round 1: the inspiration pool split into lanes, then ten blind cards with the owner's green and red dots](docs/img/ignition.jpg)
+
+### 2. Fan-out: grow from the greens
+
+`ignite.py FIELD fan` grows the next blind round from the last one's greens: fresh draws on the lanes that won,
+untried lane pairs for the rest, and the model's default kept as a control. Every verdict so far rides word for word
+on every prompt. Fan until you like what you see, then forge from those greens.
+
+![Fan-out, round 2: round 1's greens on the left, fresh draws on the same lanes on the right, dotted again](docs/img/fanout.jpg)
+
+### 3. Forge: pictures and one sentence become a studio
+
+`tools/loop.py NAME forge --field "..." --sentence "..."` describes each reference photo (one vision call each), then
+the writer reads those descriptions and writes the studio: its moves, what it refuses by name, and a jury of checks a
+picture must pass by looking. The photos stay private; the studio keeps each one's link and description. That first
+commit is tagged `r00`, and round 1 is drawn from it.
+
+![A forge: the field, the owner's sentence and 43 private reference photos in; STUDIO.md's moves and refusals and a 25-check JURY.md out; round 1 drawn from it](docs/img/forge.jpg)
+
+### 4. Running it: you in the judge's seat
+
+In the app, the open round is a grid: click once for green, again for red, then write one sentence. Submit queues
+the Dots node, which makes one commit and no model call.
+
+![The cars studio in the app: round 3 open, three pictures dotted for the screenshot (two green, one red)](docs/img/app-dots.jpg)
+
+Below the grid, the studio shows its own history. Each verdict sits beside what it changed (the pins added and
+removed in `TASTE.json`, any rule in `STUDIO.md`) and the round it produced.
+
+![How each verdict bound the next round: round 1's sentence, the pins it changed, and round 2's pictures; then round 2's sentence and round 3](docs/img/app-history.jpg)
+
+### 5. Or an agent in the judge's seat
+
+The same loop from the command line, `loop.py NAME dot --green ... --red ... --verdict "..."`, lets a script or an
+AI agent judge the round. The wizard studio below was gathered, forged and judged by an agent. Its verdict is
+stored word for word and marked `AGENT verdict`, so a studio's history always says who judged it.
+
+![The wizard studio: round 1 dotted by an agent, its one sentence, and round 2 obeying it (a long dark robe, a pointed hood, the figure small in frame)](docs/img/loop-agent.jpg)
+
+## Scenes
+
+A scene is a picture whose pieces are **slots**, and each slot is filled by a studio. The studios keep the taste; the
+scene keeps the composition. Swapping a piece redraws and relights only that slot, and every take is a commit.
+
+![The Austin stop scene as a layer on top of the studios: each slot boxed and named by the studio that filled it](docs/img/layer.jpg)
+
+![Swap the car: before and after, only the car changes](docs/img/swap-car.jpg)
+
+![The Boson app in ComfyUI: the studios rail, the Austin stop scene with its slots, and the car slot's panel](docs/img/app-scene.jpg)
+
+The same pattern built two scenes with no human in any seat, from eight agent-forged studios drawn on one RTX 4090:
+
+![The airless landing scene as a layer on top of its four studios: the ground, the rocket, two robots and a ringed planet, each slot boxed and named by its studio](docs/img/scifi-layer.jpg)
+
+![The mystic forest scene as a layer on top of its four agent-forged studios: the ancient tree in front, the wizard on the path, the temple in the mist](docs/img/forest-layer.jpg)
 
 ## What is new
 
@@ -188,8 +258,6 @@ graph. The contract between the page and the nodes is [docs/APP-API.md](docs/APP
    one RTX 4090.
    Recipe and guards: [docs/HEADLESS.md](docs/HEADLESS.md).
 
-   ![The mystic forest scene as a layer on top of its four agent-forged studios: the ancient tree in front, the wizard on the path, the temple in the mist](docs/img/forest-layer.jpg)
-
 ## Models: one switch per capability
 
 A studio never names a model, so you can change the backend without touching it. "Open weights" means the model
@@ -229,6 +297,8 @@ model that drew each take it knows of. The code's defaults are the cloud ones: `
 Gemini Locate. A side-by-side test of cloud against local on the same scene: [docs/TOUR.md](docs/TOUR.md#cloud-and-local-side-by-side).
 
 ## What ships
+
+![Four studios that ship: architecture, cars, fashion, posters, each with its sentence and six of its pictures](docs/img/studios.jpg)
 
 | | Studios | Made with |
 |---|---|---|
