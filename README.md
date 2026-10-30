@@ -65,12 +65,12 @@ To make new pictures, see [Models](#models-one-switch-per-capability) and [docs/
 ## The feedback loop
 
 ```mermaid
-flowchart LR
-    S["Studio (a git repo)<br/>STUDIO.md · TASTE.json · LOOP.jsonl"] -->|"the writer reads the whole studio"| M["Make<br/>n render specs"]
-    M -->|"an image model draws them"| R["Round N<br/>n pictures"]
-    R --> J{"Judge's seat<br/>you · a script · an agent"}
-    J -->|"greens: pins<br/>reds: refusals<br/>one sentence: a rule"| C["commit"]
-    C --> S
+flowchart TD
+    S["Studio: a git repo<br/>STUDIO.md · TASTE.json<br/>LOOP.jsonl"]
+    M["Make round N<br/>the writer reads the studio<br/>an image model draws it"]
+    J{"Judge's seat<br/>you · a script · an agent"}
+    S --> M --> J
+    J -->|"one commit<br/>greens → pins<br/>reds → refusals<br/>sentence → a rule"| S
 ```
 
 1. **Make.** The writer (an LLM) reads the whole studio, its practice, its pins and every verdict so far, and writes
