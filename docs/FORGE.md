@@ -1,29 +1,25 @@
 # Forging from scratch: a new studio from pictures + a sentence, then a new scene on it
 
-Real references the owner found (round 39): `tools/loop.py` runs steps 1-5 and the dot rounds as one CLI, pictures
-kept out of git; runbook `docs/REAL-REFS.md`.
+The short way, from real reference pictures: `tools/loop.py` runs steps 1-5 and the dot rounds as one command line,
+pictures kept out of git; see [REAL-REFS.md](REAL-REFS.md). This page is the long way, step by step, for a studio
+forged from pictures you made yourself and a scene built on it.
 
-No proof-of-concept studio is needed (tests/test_house.py does all of it in tmp). Run from `~/Boson` with
-`COMFY=http://127.0.0.1:8188` (the GPU ComfyUI; it lists the Boson nodes since 2026-10-21). Forged studios land in
-`~/Boson/examples/<name>` (operator 2026-10-21: they ship with the entry; gitignored as repos, bundled to
-`examples/<name>.bundle` at milestones), scenes in `~/.cache/boson/scenes/<name>-scene`: both registries find them by name.
+Run from the repo root, with a ComfyUI that has Boson loaded at `COMFY=http://127.0.0.1:8188`. Forged studios land in
+`examples/<name>` (bundle one with `git bundle create examples/<name>.bundle --all` to share it), scenes in
+`~/.cache/boson/scenes/<name>-scene`: both registries find them by name.
 
-## A studio (per green-dot set; field named plainly, memory feedback--seed-sentence-names-genre-plainly)
+## A studio (name its field plainly: "Car photography", not a mood)
 
 1. **Refs from the pictures** (free): `python3 tools/forge_refs.py ~/.cache/boson/forge-in/<name>/refs
-   design/reforge/<the green dots>/*.png --why "what the owner loves in them"`. License per line: "owner's own (made
+   <your pictures>/*.png --why "what the owner loves in them"`. License per line: "owner's own (made
    for this studio)"; refuses a folder that already has refs.jsonl.
-2. **Describe them** (one Gemini vision call per picture, a few cents each; `--agy` = the box's Antigravity, no
+2. **Describe them** (one Gemini vision call per picture, a few cents each; `--agy` = an Antigravity plan, no
    key spend): `python3 tools/describe_refs.py ~/.cache/boson/forge-in/<name>/refs --field "<the field>"`.
    Resume-safe. The writer reads only these descriptions.
 3. **Forge** (one writer call, Opus via `claude -p`, minutes; a re-queue loads, never forges twice). Either the app,
-   `boson.forgeStudio({name, field, sentence, owner, refs})`, or the graph:
-   ```
-   python3 -c "import sys; sys.path.insert(0,'tests'); from comfy_smoke import run; print(run({'1': {'class_type':
-   'BosonForgeStudio', 'inputs': {'path': '~/Boson/examples/<name>', 'owner': '<who, one line>',
-   'field': '<the field>', 'sentence': '<the owner sentence>', 'refs': '~/.cache/boson/forge-in/<name>/refs',
-   'instrument': '', 'commission': ''}}})['outputs']['1']['text'])"
-   ```
+   `boson.forgeStudio({name, field, sentence, owner, refs})`, or a **Forge Studio** node on the canvas
+   (`workflows/real-refs.json` has one): `path` = `<name>` (a bare name lands in `examples/`), `owner` (who, one line), `field`, `sentence`
+   (the owner sentence), `refs` = `~/.cache/boson/forge-in/<name>/refs`, `instrument` and `commission` empty.
    `instrument` "" = `tools/forge-template/` (Nano Banana, 1:1, 2K). For another aspect or a field-specific
    instrument, copy that folder, edit `render.json` (`aspect`, `width`, `height`, `instrument` text) and pass its path.
 4. **Check**: `curl -s 127.0.0.1:8188/boson/studios` lists `<name>` with no `error`; `STUDIO.md` has the sections
@@ -50,5 +46,3 @@ No proof-of-concept studio is needed (tests/test_house.py does all of it in tmp)
 ## Spend summary
 Free: steps 1, 4, 7 (git), 8. Paid: describe (vision, per picture), forge and every make (writer, minutes), each
 make's n images, each shoot/swap (one image) + Locate (one vision call per take).
-
-Round 1 of the reforge ran steps 1-5 for six studios in one script: `design/reforge/forge/run.py`.

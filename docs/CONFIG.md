@@ -2,8 +2,8 @@
 
 Boson reads environment variables only; there is no config file. Set them in the shell that starts ComfyUI (for the
 nodes and the app) or the one that runs `tools/loop.py`. Nothing here is needed to view the shipped studios and scenes:
-stored mode replays them with no key and no network. A test (`tests/test_install.py`) fails when the code reads a
-variable this page does not list.
+stored mode replays them with no key and no network. A test in the development repo fails when the code reads
+a variable this page does not list.
 
 ## Where things live
 

@@ -39,7 +39,7 @@ Each Boson word, once.
   box with a label. The boxes blink a few times the first time you open a scene, so you can see them all.
 - **Part of the base**: something in the photo that is not a slot yet (the taqueria). Its box is dashed, its label
   ends in "+", and hovering it says "make it a slot". The bus shelter has no such box: it already holds two slots, the outfit and the poster.
-- **Take**: one version of the whole photo. The demo starts at take 08 and makes 09, 10 and 11.
+- **Take**: one version of the whole photo. The Austin stop scene ships with 13 of them.
 - **The take the scene stands on**: the take the next Swap will change. Under the photo it says so.
 - **Shelf**: the grid of small pictures in the side panel when you open a slot. It is what you can pick from.
 - **Make 4 for this spot**: the studio looks at that exact spot in the photo and makes 4 new pieces that fit there.
@@ -206,28 +206,13 @@ Red: something broke, or the app refused.
 
 Buttons that are greyed out say why next to them (for example, "off on this page: a Shoot re-renders the whole set").
 
-## Practising
+## Trying it
 
-The practice copy is free and can't spend money. It has no keys at all.
-
-- Start it: `bash ~/Boson/notes/rehearse2/practice.sh` (opens the page on your desktop).
-- Start over: `bash ~/Boson/notes/rehearse2/practice.sh reset` (back to take 08, before the demo takes).
-- After code changes: `bash ~/Boson/notes/rehearse2/practice.sh rebuild`.
-- Stop it: `bash ~/Boson/notes/rehearse2/practice.sh stop`.
-- Page: http://127.0.0.1:8198/boson/app#scene/austin-stop
+Everything below replays what was made: no key, no spend. Install as in the README, open
+http://127.0.0.1:8188/boson/app, and click **Austin stop** under Scenes.
 
 Good things to try: swap the poster and press Undo swap; tick live calls and read the red message; click a live
-piece and read what it says; make the streetcar a slot, then press Remove this slot.
+piece and read what it says; make the streetcar a slot, then press Remove this slot. Every one of these is a commit
+in your working copy under `~/.cache/boson`, so nothing you try touches the shipped bundles.
 
-## The demo, in order (beats 3 to 6)
-
-Do these in this order, with these exact words, on a fresh start (practice.sh reset). Live calls stay off.
-
-1. Click the taqueria. Type "the corner building" and "on the left corner of the street". Filled by:
-   architecture-real. Press **Make it a slot**. Then press **Make 4 for this spot**: four corners, made for this spot.
-2. Click the woman. Pick the green-and-orange argyle outfit (bread before work; it says ready). **Swap**. Take 09.
-3. Click the corner building. Pick the one with the taco hatch (the hatch still serves). **Swap**. Take 10.
-4. Click the car. From: **exotic-cars-real**. **Make 4 for this spot**. Pick the yellow Ford GT. **Swap**. Take 11.
-
-Don't swap anything else in between (not even the poster). If you did, press Undo swap to get back to the take you left; a reset is the sure way.
-Full script with timings and voice lines: docs/DEMO-SCRIPT.md.
+A walkthrough of everything that ships, scene by scene: [TOUR.md](TOUR.md).

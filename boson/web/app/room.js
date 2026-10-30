@@ -20,10 +20,13 @@ export const shortRenderer = (r) => rendererName(r) || "maker not recorded";
 export const DOTS_HEADING = "Curate your preferences";
 export const DOTS_GLOSS = "Green = more like this next round, red = less. The studio's taste builds up round by round.";
 /** none -> green -> red -> none. */
+/** architecture-real -> Architecture (the rail's plain name, shell.js). */
+export const plainName = (name) => { const s = name.replace(/-real$/, "").replace(/[-_]+/g, " "); return s[0].toUpperCase() + s.slice(1); };
 export const nextDot = (d) => (d == null ? "green" : d === "green" ? "red" : null);
 
 export async function renderStudio(view, boson, entry) {
-  const [d, L] = await Promise.all([boson.studio(entry.repo), boson.loop(entry.repo).catch(() => null)]);
+  const [d, L, scenes] = await Promise.all([boson.studio(entry.repo), boson.loop(entry.repo).catch(() => null),
+    boson.scenes().catch(() => [])]);
   view.replaceChildren();
   view.dataset.studio = entry.name;
   el("style", ROOM_CSS, view);
@@ -107,6 +110,15 @@ export async function renderStudio(view, boson, entry) {
   pics("House pictures", "pictures", taste.pictures, "remove");
   el("p", `${rounds.length} loop rounds · ${d.rules.length} rules · ${d.shelf.length} on the shelf. ` +
     "Every edit is saved in the studio's history, free.", house, { className: "b-meta", title: `studio @${d.sha}` });
+  // ---- the scenes it fills (SCENE.json base / slot studio): a studio with no loop rounds still has work to show ----
+  const fills = scenes.filter((s) => !s.error).map((s) => [s, [...(s.base === entry.name ? ["base view"] : []),
+    ...(s.slots ?? []).filter((x) => x.studio === entry.name).map((x) => x.id)]]).filter(([, w]) => w.length);
+  if (fills.length) {
+    const p = el("p", "Fills: ", house, { className: "b-meta b-fills" });
+    for (const [s, w] of fills)
+      el("button", `${plainName(s.name)} (${w.join(", ")})`, p, { type: "button", className: "b-btn b-quiet",
+        title: `open the scene ${s.name}`, onclick: () => { location.hash = `scene/${s.name}`; } });
+  }
 
   // ---- the open round: dot it, say it, submit ----
   const open = rounds.find((r) => r.round === L?.open);
@@ -242,7 +254,7 @@ export async function renderStudio(view, boson, entry) {
       }
     }
   }
-  if (!rounds.length && !d.makes.length) say(`${entry.label}: nothing made yet`);
+  if (!rounds.length && !d.makes.length && !fills.length) say(`${entry.label}: nothing made yet`);
 }
 
 // Room styles: theme variables only (theme.css), no new colours; green dot = the accent, red dot = --b-danger.

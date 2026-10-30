@@ -29,14 +29,13 @@
 import { bosonClient } from "../client.js";
 import { el, say, graphReady, canvasApp, canvasForward, frameGraph, loadPrivateRefs, hideChrome } from "./ui.js";
 import { tell, refusal, words } from "./messages.js";
-import { renderStudio } from "./room.js";
+import { renderStudio, plainName as plain } from "./room.js";
 import { renderScene } from "./set.js";
 
 const root = document.getElementById("boson-app");
 if (root) main();
 
 /** architecture-real -> Architecture, cars-s4471-real -> Cars s4471, tram-stop -> Tram stop. */
-const plain = (name) => { const s = name.replace(/-real$/, "").replace(/[-_]+/g, " "); return s[0].toUpperCase() + s.slice(1); };
 
 function main() {
   const view = document.getElementById("boson-view");
